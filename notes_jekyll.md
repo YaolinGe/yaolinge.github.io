@@ -23,6 +23,41 @@ Most of those markdown files need to be in the root folder to make sure the site
 `jekyll new PATH` create a new site with default `Gemfile`.
 
 
+---
+
+## Posts
+
+##### To get the post listed on the page.
+```
+<ul>
+  {% for post in site.posts %}
+    <li>
+      <a href="{{ post.url }}">{{ post.title }}</a>
+    </li>
+  {% endfor %}
+</ul>
+```
+
+`excerpt` can be used to get a snippet of a post.
+`excerpt_separator: <!--more-->` to define the `<!--more-->` to be the end of the excerpt, next just put `<!--more-->` at the end of the text that I wish to have to include in.
+
+## Front Matter
+`layout: null` will remove all the layout.
+`published: false` to hide some content.
+`jekyll serve --unpublished --draft` to see contents that are hidden and in draft folder.
+`{{page.customized}}` to show customized variables on the same page.
 
 
-I stopped at `Posts: Tags and Categories`
+## Collections
+- #TODO: do not understand, please double check
+read more on the colelctions part.
+
+
+## Permalinks
+
+
+
+
+
+
+I stopped at `Collections`, need to understand that. 
