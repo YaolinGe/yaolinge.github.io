@@ -55,9 +55,31 @@ read more on the colelctions part.
 
 ## Permalinks
 
+## Custom sorting
+
+- Automatically ordering
+```
+collections:
+  tutorials:
+    sort_by: lesson
+```
+- manually ordering
+```
+collections:
+  tutorials:
+    order:
+      - hello-world.md
+      - introduction.md
+      - basic-concepts.md
+      - advanced-concepts.md
+      - concepts/basics.md
+      - concepts/advanced.md
+```
+
+
+## Assets
 
 
 
 
-
-I stopped at `Collections`, need to understand that. 
+I stopped at `Collections`, need to understand that.

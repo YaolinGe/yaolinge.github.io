@@ -23,3 +23,5 @@ plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
   
+url: yaolinge.github.io
+baseurl: /Page
