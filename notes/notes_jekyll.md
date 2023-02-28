@@ -1,5 +1,42 @@
-
 # Notes for learning Jekyll
+!!! Every time after I have modified `_config.yml` file, then I need to restart
+the server.
+!!! `baseurl=/Blog` does not have `/` in the end
+!!! `link: /Blog/` then needs to have it in the end in `navigation.yml`.
+
+# To launch it the very first time
+- `bundle exec jekyll serve --livereload --draft` to launch it with draft included.
+
+# To change theme
+- go to `rubygems.org` and search `jekyll-theme` and then find suitable themes.
+- go to `Gemfile` add `gem "jekyll-theme-hacker"`.
+- go to terminal, run `bundle install`.
+- update `_config.yml` with new updated theme.
+- can go to the github repo and checkout what `layout` this theme has, and then use that layout.
+
+# To add new layout
+- create `_layouts`
+- create `_layouts/post.html`
+- layout can take advantage of other wrapper layout as the basis, and the build on top of that, one can have more flexible choices on the specific layout in each case.
+
+# To use conditionals
+- use `{% if page.url == post.url %} color:red; {% endif %}` to change the color of the style.
+
+# To add space gap
+- `<br>` is a line break.
+
+# To add front matter in static files
+- go to `_config.yml` and change it over there.
+
+# To push it on github pages
+- remember to build the site locally first before pushing them online.
+- `git checkout -b gh-pages` to create a separate branch for `Github Pages`.
+- `git push origin gh-pages` to push all files to the remote branch `gh-pages`.
+
+
+
+
+
 
 `jekyll new myblog` will create a bundle in the folder `myblog` including essential components for building a static website.
 `cd myblog`

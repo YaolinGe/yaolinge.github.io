@@ -1,11 +1,16 @@
-title: Webpage
+title: My Personal Webpage
 email: geyaolin@gmail.com
+description: 
+  This website is only used for personal training and practices. 
+baseurl: /Page
+url: https://yaolinge.github.io
+github_username: yaolinge
 
 collections:
   authors:
     output: true
 
-exclude: [notes]
+exclude: [notes, practice]
 
 defaults:
   - scope:
@@ -23,8 +28,7 @@ defaults:
     values:
       layout: "default"
 
-url: yaolinge.github.io
-baseurl: /Page
+
 
 theme: minima
 plugins:
