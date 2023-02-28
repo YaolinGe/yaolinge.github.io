@@ -5,6 +5,8 @@ collections:
   authors:
     output: true
 
+exclude: [notes]
+
 defaults:
   - scope:
       path: ""

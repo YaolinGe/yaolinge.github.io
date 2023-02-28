@@ -1,3 +1,4 @@
+
 # Notes for learning Jekyll
 
 `jekyll new myblog` will create a bundle in the folder `myblog` including essential components for building a static website.
