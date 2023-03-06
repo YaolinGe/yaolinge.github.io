@@ -99,7 +99,7 @@ youtube_id: # your youtube channel id (youtube.com/@<youtube_id>)
 discord_id: # your discord id (18-digit unique numerical identifier)
 
 contact_note: >
-  Feel free to reach out to me via email.
+  Feel free to reach out to me.
 
 # -----------------------------------------------------------------------------
 # Analytics and search engine verification
@@ -116,7 +116,7 @@ bing_site_verification:  # out your bing-site-verification ID (Bing Webmaster)
 # -----------------------------------------------------------------------------
 
 blog_name: Yaolin's blog # blog_name will be displayed in your blog page
-blog_nav_title: blog # your blog must have a title for it to be displayed in the nav bar
+blog_nav_title: Blog # your blog must have a title for it to be displayed in the nav bar
 blog_description: > # the ">" symbol means to ignore newlines until "blog_description:"
   This is my blog. I write about my research and other things happening in my life.
 permalink: /blog/:year/:title/

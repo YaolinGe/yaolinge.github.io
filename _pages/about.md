@@ -1,6 +1,6 @@
 ---
 layout: about
-title: about
+title: About
 permalink: /
 subtitle: <a href='https://www.ntnu.edu/employees/yaolin.ge'>Ph.D. candidate at NTNU</a>. "Embrace the unknown, explore the uncharted, and discover the extraordinary"
 

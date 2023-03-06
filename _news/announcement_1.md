@@ -1,7 +1,7 @@
 ---
 layout: post
-date: 2015-10-22 15:59:00-0400
+date: 2022-09-11 00:00:00
 inline: true
 ---
 
-A simple inline announcement.
+MASCOT successfully launched its [MAFIA](https://mascot-ntnu.github.io/MAFIA) mission! :rocket: :rocket: :rocket:
