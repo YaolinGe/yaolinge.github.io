@@ -11,6 +11,6 @@ git add .
 git commit -m "$commit_message"
 
 # Push the changes to the remote repository
-git push
+git push --all
 
 echo "Changes have been pushed to the remote repository."
