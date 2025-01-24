@@ -127,10 +127,107 @@
   </header>
 
   <article class="post-content">
-    <h1 id="notes">Notes:</h1>
+    <h1 id="support-vectors">Support vectors</h1>
+<ul>
+  <li>SVs are the data points taht would change the position of the decision boundary if they were removed.</li>
+  <li>SVs are the critical data points that help define the decision boundary.</li>
+  <li>
+</li>
+</ul>
+
+<h1 id="notes">Notes:</h1>
 <ul>
   <li>Neural Networks are similar in nature to Support Vector Machines, but they are more like a black box. SVMs are more interpretable and can be used to understand the data better.</li>
+  <li>SVMs can find the optimal hyperplane that separates the data into two classes, but NNs cannot.</li>
 </ul>
+
+<h1 id="hinge-loss">Hinge Loss</h1>
+<ul>
+  <li>Hingeloss: The loss function used for training classifiers. It is used for maximum-margin classification, most notably for SVMs. Mathematically, it is defined as:
+    <ul>
+      <li>$\ell (y)=\max(0,1-t\cdot y)$</li>
+      <li>where y is the output of the classifier, t is the target value.</li>
+      <li>Hinge loss penalizes predictions y &lt; 1, corresponding to the notion of a margin in a support vector machine.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="gradient-of-hinge-loss">Gradient of Hinge Loss</h2>
+<p>The gradient of the hinge loss with respect to the weights ($\mathbf{w}$) and bias ($b$) depends on whether the sample is correctly classified with a margin or not.</p>
+
+<p>If ($y_i (\mathbf{w} \cdot x_i + b) \geq 1$):</p>
+
+<p>The hinge loss is zero, and the gradient is: 
+\(\frac{\partial L}{\partial \mathbf{w}} = 2 \lambda \mathbf{w}\) 
+\(\frac{\partial L}{\partial b} = 0\)</p>
+
+<p>If ($y_i (\mathbf{w} \cdot x_i + b) &lt; 1$):</p>
+
+<p>The hinge loss is positive, and the gradient is: 
+\(\frac{\partial L}{\partial \mathbf{w}} = 2 \lambda \mathbf{w} - y_i x_i\) 
+\(\frac{\partial L}{\partial b} = -y_i\)</p>
+
+<p>Derivation of Gradient Descent for SVM
+Let’s derive the gradient descent updates for the SVM with hinge loss and L2 regularization.</p>
+
+<h2 id="objective-function">Objective Function</h2>
+<p>The objective function for a linear SVM with hinge loss and L2 regularization is: 
+\(J(\mathbf{w}, b) = \frac{1}{n} \sum_{i=1}^{n} \max(0, 1 - y_i (\mathbf{w} \cdot x_i + b)) + \lambda |\mathbf{w}|^2\) 
+where:</p>
+
+<ul>
+  <li>$ \mathbf{w} $ is the weight vector</li>
+  <li>$b$ is the bias</li>
+  <li>$y_i$ is the true label for the $i$-th sample</li>
+  <li>$x_i$ is the feature vector for the $i$-th sample</li>
+  <li>$\lambda$ is the regularization parameter</li>
+</ul>
+
+<h2 id="hinge-loss-gradient">Hinge Loss Gradient</h2>
+<p>The hinge loss for a single sample is: 
+\(L(y_i, f(x_i)) = \max(0, 1 - y_i (\mathbf{w} \cdot x_i + b))\)</p>
+
+<p>The gradient of the hinge loss with respect to $ \mathbf{w} $ and $ b $ depends on whether the sample is correctly classified with a margin or not.</p>
+
+<p>If $ y_i (\mathbf{w} \cdot x_i + b) \geq 1 $:</p>
+
+<p>The hinge loss is zero, and the gradient is: 
+\(\frac{\partial L}{\partial \mathbf{w}} = 0\) 
+\(\frac{\partial L}{\partial b} = 0\)</p>
+
+<p>If $ y_i (\mathbf{w} \cdot x_i + b) &lt; 1 $:</p>
+
+<p>The hinge loss is positive, and the gradient is: 
+\(\frac{\partial L}{\partial \mathbf{w}} = -y_i x_i\) 
+\(\frac{\partial L}{\partial b} = -y_i\)</p>
+
+<h2 id="l2-regularization-gradient">L2 Regularization Gradient</h2>
+<p>The L2 regularization term is: 
+\(\lambda |\mathbf{w}|^2 = \lambda \sum_{j=1}^{d} w_j^2\)</p>
+
+<p>The gradient of the L2 regularization term with respect to $ \mathbf{w} $ is: 
+\(\frac{\partial}{\partial \mathbf{w}} (\lambda |\mathbf{w}|^2) = 2 \lambda \mathbf{w}\)</p>
+
+<h2 id="combined-gradient">Combined Gradient</h2>
+<p>Combining the gradients of the hinge loss and the L2 regularization, we get the total gradient for the objective function.</p>
+
+<p>If $ y_i (\mathbf{w} \cdot x_i + b) \geq 1 $:</p>
+
+<p>The total gradient is: 
+\(\frac{\partial J}{\partial \mathbf{w}} = 2 \lambda \mathbf{w}\) 
+\(\frac{\partial J}{\partial b} = 0\)</p>
+
+<p>If $ y_i (\mathbf{w} \cdot x_i + b) &lt; 1 $:</p>
+
+<p>The total gradient is: 
+\(\frac{\partial J}{\partial \mathbf{w}} = 2 \lambda \mathbf{w} - y_i x_i\) 
+\(\frac{\partial J}{\partial b} = -y_i\)</p>
+
+<h2 id="gradient-descent-update">Gradient Descent Update</h2>
+<p>Using gradient descent, the weights and bias are updated as follows: 
+\(\mathbf{w} \leftarrow \mathbf{w} - \eta \frac{\partial J}{\partial \mathbf{w}}\) 
+\(b \leftarrow b - \eta \frac{\partial J}{\partial b}\) 
+where $ \eta $ is the learning rate.</p>
 
   </article>
 

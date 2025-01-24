@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://yaolinge.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://yaolinge.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2025-01-24T12:45:58+08:00</updated><id>https://yaolinge.github.io/feed.xml</id><title type="html">Yao’s Profile</title><subtitle>Yao&apos;s personal webpage. Based on [*folio](https://github.com/bogoli/-folio) design.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://yaolinge.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://yaolinge.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2025-01-24T16:21:35+08:00</updated><id>https://yaolinge.github.io/feed.xml</id><title type="html">Yao’s Profile</title><subtitle>Yao&apos;s personal webpage. Based on [*folio](https://github.com/bogoli/-folio) design.
 </subtitle><entry><title type="html">Entropy</title><link href="https://yaolinge.github.io/blog/2025/entropy/" rel="alternate" type="text/html" title="Entropy" /><published>2025-01-24T00:00:00+08:00</published><updated>2025-01-24T00:00:00+08:00</updated><id>https://yaolinge.github.io/blog/2025/entropy</id><content type="html" xml:base="https://yaolinge.github.io/blog/2025/entropy/"><![CDATA[<h1 id="understanding-entropy">Understanding Entropy</h1>
 
 <p>Entropy is a measure of the uncertainty or randomness in a system. In the context of information theory, it quantifies the amount of information contained in a message or the average amount of information produced by a stochastic source of data.</p>
@@ -83,10 +83,109 @@
 
 <h2 id="conclusion">Conclusion</h2>
 
-<p>Entropy is a fundamental concept in information theory that quantifies the uncertainty or randomness in a system. It has wide-ranging applications in data compression, cryptography, and machine learning. Understanding and calculating entropy can provide valuable insights into the information content and predictability of data.</p>]]></content><author><name></name></author><summary type="html"><![CDATA[Notes for Entropy]]></summary></entry><entry><title type="html">Support Vector Machine</title><link href="https://yaolinge.github.io/blog/2024/SVM/" rel="alternate" type="text/html" title="Support Vector Machine" /><published>2024-12-17T00:00:00+08:00</published><updated>2024-12-17T00:00:00+08:00</updated><id>https://yaolinge.github.io/blog/2024/SVM</id><content type="html" xml:base="https://yaolinge.github.io/blog/2024/SVM/"><![CDATA[<h1 id="notes">Notes:</h1>
+<p>Entropy is a fundamental concept in information theory that quantifies the uncertainty or randomness in a system. It has wide-ranging applications in data compression, cryptography, and machine learning. Understanding and calculating entropy can provide valuable insights into the information content and predictability of data.</p>
+
+<h2 id="connection-with-information-gain">Connection with information gain</h2>
+<p><a href="https://yaolinge.github.io/assets/pdf/InfoGain.pdf" width="100%">InformationGain</a></p>]]></content><author><name></name></author><summary type="html"><![CDATA[Notes for Entropy]]></summary></entry><entry><title type="html">Support Vector Machine</title><link href="https://yaolinge.github.io/blog/2024/SVM/" rel="alternate" type="text/html" title="Support Vector Machine" /><published>2024-12-17T00:00:00+08:00</published><updated>2024-12-17T00:00:00+08:00</updated><id>https://yaolinge.github.io/blog/2024/SVM</id><content type="html" xml:base="https://yaolinge.github.io/blog/2024/SVM/"><![CDATA[<h1 id="support-vectors">Support vectors</h1>
+<ul>
+  <li>SVs are the data points taht would change the position of the decision boundary if they were removed.</li>
+  <li>SVs are the critical data points that help define the decision boundary.</li>
+  <li></li>
+</ul>
+
+<h1 id="notes">Notes:</h1>
 <ul>
   <li>Neural Networks are similar in nature to Support Vector Machines, but they are more like a black box. SVMs are more interpretable and can be used to understand the data better.</li>
-</ul>]]></content><author><name></name></author><summary type="html"><![CDATA[Notes for Support Vector Machine]]></summary></entry><entry><title type="html">To Read List</title><link href="https://yaolinge.github.io/blog/2024/TOREAD/" rel="alternate" type="text/html" title="To Read List" /><published>2024-12-16T00:00:00+08:00</published><updated>2024-12-16T00:00:00+08:00</updated><id>https://yaolinge.github.io/blog/2024/TOREAD</id><content type="html" xml:base="https://yaolinge.github.io/blog/2024/TOREAD/"><![CDATA[<h1 id="books">Books</h1>
+  <li>SVMs can find the optimal hyperplane that separates the data into two classes, but NNs cannot.</li>
+</ul>
+
+<h1 id="hinge-loss">Hinge Loss</h1>
+<ul>
+  <li>Hingeloss: The loss function used for training classifiers. It is used for maximum-margin classification, most notably for SVMs. Mathematically, it is defined as:
+    <ul>
+      <li>$\ell (y)=\max(0,1-t\cdot y)$</li>
+      <li>where y is the output of the classifier, t is the target value.</li>
+      <li>Hinge loss penalizes predictions y &lt; 1, corresponding to the notion of a margin in a support vector machine.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="gradient-of-hinge-loss">Gradient of Hinge Loss</h2>
+<p>The gradient of the hinge loss with respect to the weights ($\mathbf{w}$) and bias ($b$) depends on whether the sample is correctly classified with a margin or not.</p>
+
+<p>If ($y_i (\mathbf{w} \cdot x_i + b) \geq 1$):</p>
+
+<p>The hinge loss is zero, and the gradient is: 
+\(\frac{\partial L}{\partial \mathbf{w}} = 2 \lambda \mathbf{w}\) 
+\(\frac{\partial L}{\partial b} = 0\)</p>
+
+<p>If ($y_i (\mathbf{w} \cdot x_i + b) &lt; 1$):</p>
+
+<p>The hinge loss is positive, and the gradient is: 
+\(\frac{\partial L}{\partial \mathbf{w}} = 2 \lambda \mathbf{w} - y_i x_i\) 
+\(\frac{\partial L}{\partial b} = -y_i\)</p>
+
+<p>Derivation of Gradient Descent for SVM
+Let’s derive the gradient descent updates for the SVM with hinge loss and L2 regularization.</p>
+
+<h2 id="objective-function">Objective Function</h2>
+<p>The objective function for a linear SVM with hinge loss and L2 regularization is: 
+\(J(\mathbf{w}, b) = \frac{1}{n} \sum_{i=1}^{n} \max(0, 1 - y_i (\mathbf{w} \cdot x_i + b)) + \lambda |\mathbf{w}|^2\) 
+where:</p>
+
+<ul>
+  <li>$ \mathbf{w} $ is the weight vector</li>
+  <li>$b$ is the bias</li>
+  <li>$y_i$ is the true label for the $i$-th sample</li>
+  <li>$x_i$ is the feature vector for the $i$-th sample</li>
+  <li>$\lambda$ is the regularization parameter</li>
+</ul>
+
+<h2 id="hinge-loss-gradient">Hinge Loss Gradient</h2>
+<p>The hinge loss for a single sample is: 
+\(L(y_i, f(x_i)) = \max(0, 1 - y_i (\mathbf{w} \cdot x_i + b))\)</p>
+
+<p>The gradient of the hinge loss with respect to $ \mathbf{w} $ and $ b $ depends on whether the sample is correctly classified with a margin or not.</p>
+
+<p>If $ y_i (\mathbf{w} \cdot x_i + b) \geq 1 $:</p>
+
+<p>The hinge loss is zero, and the gradient is: 
+\(\frac{\partial L}{\partial \mathbf{w}} = 0\) 
+\(\frac{\partial L}{\partial b} = 0\)</p>
+
+<p>If $ y_i (\mathbf{w} \cdot x_i + b) &lt; 1 $:</p>
+
+<p>The hinge loss is positive, and the gradient is: 
+\(\frac{\partial L}{\partial \mathbf{w}} = -y_i x_i\) 
+\(\frac{\partial L}{\partial b} = -y_i\)</p>
+
+<h2 id="l2-regularization-gradient">L2 Regularization Gradient</h2>
+<p>The L2 regularization term is: 
+\(\lambda |\mathbf{w}|^2 = \lambda \sum_{j=1}^{d} w_j^2\)</p>
+
+<p>The gradient of the L2 regularization term with respect to $ \mathbf{w} $ is: 
+\(\frac{\partial}{\partial \mathbf{w}} (\lambda |\mathbf{w}|^2) = 2 \lambda \mathbf{w}\)</p>
+
+<h2 id="combined-gradient">Combined Gradient</h2>
+<p>Combining the gradients of the hinge loss and the L2 regularization, we get the total gradient for the objective function.</p>
+
+<p>If $ y_i (\mathbf{w} \cdot x_i + b) \geq 1 $:</p>
+
+<p>The total gradient is: 
+\(\frac{\partial J}{\partial \mathbf{w}} = 2 \lambda \mathbf{w}\) 
+\(\frac{\partial J}{\partial b} = 0\)</p>
+
+<p>If $ y_i (\mathbf{w} \cdot x_i + b) &lt; 1 $:</p>
+
+<p>The total gradient is: 
+\(\frac{\partial J}{\partial \mathbf{w}} = 2 \lambda \mathbf{w} - y_i x_i\) 
+\(\frac{\partial J}{\partial b} = -y_i\)</p>
+
+<h2 id="gradient-descent-update">Gradient Descent Update</h2>
+<p>Using gradient descent, the weights and bias are updated as follows: 
+\(\mathbf{w} \leftarrow \mathbf{w} - \eta \frac{\partial J}{\partial \mathbf{w}}\) 
+\(b \leftarrow b - \eta \frac{\partial J}{\partial b}\) 
+where $ \eta $ is the learning rate.</p>]]></content><author><name></name></author><summary type="html"><![CDATA[Notes for Support Vector Machine]]></summary></entry><entry><title type="html">To Read List</title><link href="https://yaolinge.github.io/blog/2024/TOREAD/" rel="alternate" type="text/html" title="To Read List" /><published>2024-12-16T00:00:00+08:00</published><updated>2024-12-16T00:00:00+08:00</updated><id>https://yaolinge.github.io/blog/2024/TOREAD</id><content type="html" xml:base="https://yaolinge.github.io/blog/2024/TOREAD/"><![CDATA[<h1 id="books">Books</h1>
 <ul class="task-list">
   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><a href="https://www.amazon.com/Art-Statistics-Learning-From-Data/dp/1541618513">The Art of Statistics: Learning from Data</a></li>
   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><a href="https://www.amazon.com/Signal-Noise-Many-Predictions-Fail--/dp/0143125087">The Signal and the Noise: Why So Many Predictions Fail–but Some Don’t</a></li>
