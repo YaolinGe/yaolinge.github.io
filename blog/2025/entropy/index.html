@@ -10,10 +10,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Northern Lights Chaser | Yao's Profile</title>
+    <title>Entropy | Yao's Profile</title>
     <meta name="author" content="Yao  G">
-    <meta name="description" content="Yao's personal webpage. Based on [*folio](https://github.com/bogoli/-folio) design.
-">
+    <meta name="description" content="Notes for Entropy">
     <meta name="keywords" content="Yaolin, Yaolin Ge, 葛耀林, 耀林, AI, robotics, oceanography">
 
 
@@ -34,7 +33,7 @@
     <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;">
     
     <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="canonical" href="https://yaolinge.github.io/projects/NordlysChaser/">
+    <link rel="canonical" href="https://yaolinge.github.io/blog/2025/entropy/">
     
     <!-- Dark Mode -->
     
@@ -73,8 +72,8 @@
               </li>
               
               <!-- Blog -->
-              <li class="nav-item ">
-                <a class="nav-link" href="/blog/">Blog</a>
+              <li class="nav-item active">
+                <a class="nav-link" href="/blog/">Blog<span class="sr-only">(current)</span></a>
               </li>
 
               <!-- Other pages -->
@@ -114,39 +113,153 @@
 
     <!-- Content -->
     <div class="container mt-5">
-      <!-- page.html -->
-        <div class="post">
+      <!-- _layouts/post.html -->
 
-          <header class="post-header">
-            <h1 class="post-title">Northern Lights Chaser</h1>
-            <p class="post-description"></p>
-          </header>
+<div class="post">
 
-          <article>
-            <p>I like to chase the northern light in my camping career. Whenever it is nice weather and high probability to see the northern light, I would not hestitate to camp outdoor to view the northern light. I have been to many places to chase the northern light, including Tromsø, Trondheim, Lofoten.</p>
+  <header class="post-header">
+    <h1 class="post-title">Entropy</h1>
+    <p class="post-meta">January 24, 2025</p>
+    <p class="post-tags">
+      <a href="//blog/2025"> <i class="fas fa-calendar fa-sm"></i> 2025 </a>
 
-<p>Feel free to reach me out if you wanna join the fabulous trip once in a while.</p>
+    </p>
+  </header>
 
-<figure>
+  <article class="post-content">
+    <h1 id="understanding-entropy">Understanding Entropy</h1>
 
-  <picture>
+<p>Entropy is a measure of the uncertainty or randomness in a system. In the context of information theory, it quantifies the amount of information contained in a message or the average amount of information produced by a stochastic source of data.</p>
+
+<p><span style="color:yellow; font-size:large;">Entropy emphasizes the uncertainty: when events have the same chance of happening, they have the largest uncertainty. Conversely, when events occur very deterministically, they have the lowest uncertainty.</span></p>
+
+<h2 id="mathematical-definition">Mathematical Definition</h2>
+
+<p>The entropy ( H(X) ) of a discrete random variable ( X ) with possible values ( {x_1, x_2, \ldots, x_n} ) and probability mass function ( P(X) ) is defined as:</p>
+
+\[H(X) = - \sum_{i=1}^{n} P(x_i) \log_b P(x_i)\]
+
+<p>where:</p>
+<ul>
+  <li>( P(x_i) ) is the probability of ( x_i )</li>
+  <li>( b ) is the base of the logarithm (commonly 2, e, or 10)</li>
+</ul>
+
+<h2 id="calculation-of-entropy">Calculation of Entropy</h2>
+
+<p>Let’s calculate the entropy of a simple example. Consider a fair coin toss with two possible outcomes: Heads (H) and Tails (T), each with a probability of 0.5.</p>
+
+\[H(X) = - (P(H) \log_2 P(H) + P(T) \log_2 P(T))\]
+
+<p>Substituting the probabilities:</p>
+
+\[H(X) = - (0.5 \log_2 0.5 + 0.5 \log_2 0.5)\]
+
+<p>Since ( \log_2 0.5 = -1 ):</p>
+
+\[H(X) = - (0.5 \times -1 + 0.5 \times -1) = 1\]
+
+<p>So, the entropy of a fair coin toss is 1 bit.</p>
+
+<h2 id="why-entropy-is-useful">Why Entropy is Useful</h2>
+
+<p>Entropy has several important applications:</p>
+<ul>
+  <li>
+<strong>Data Compression</strong>: Entropy provides a theoretical limit on the best possible lossless compression of any communication.</li>
+  <li>
+<strong>Cryptography</strong>: High entropy indicates high unpredictability, which is desirable in cryptographic keys.</li>
+  <li>
+<strong>Machine Learning</strong>: Entropy is used in decision trees to measure the impurity or disorder of a dataset.</li>
+</ul>
+
+<h2 id="example-calculation-in-python">Example Calculation in Python</h2>
+
+<p>Let’s calculate the entropy of a given probability distribution using Python.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">np</span>
+
+<span class="k">def</span> <span class="nf">calculate_entropy</span><span class="p">(</span><span class="n">probabilities</span><span class="p">):</span>
+    <span class="k">return</span> <span class="o">-</span><span class="n">np</span><span class="p">.</span><span class="nf">sum</span><span class="p">(</span><span class="n">probabilities</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="nf">log2</span><span class="p">(</span><span class="n">probabilities</span><span class="p">))</span>
+
+<span class="c1"># Example: Fair coin toss
+</span><span class="n">probabilities</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
+<span class="n">entropy</span> <span class="o">=</span> <span class="nf">calculate_entropy</span><span class="p">(</span><span class="n">probabilities</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="s">'Entropy: </span><span class="si">{</span><span class="n">entropy</span><span class="si">}</span><span class="s"> bits'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Entropy: 1.0 bits
+</code></pre></div></div>
+
+<h1 id="example-of-rolling-a-fair-six-sided-die">Example of rolling a fair six-sided die</h1>
+
+<p>When the die is fair, the probability of each face is ( \frac{1}{6} ), then the uncertainty is very high, as you don’t know which side will be up. Whereas when the die is loaded, the probability of each face is different, then the uncertainty is lower, as you can predict which side will be up.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">([</span><span class="mi">1</span><span class="o">/</span><span class="mi">6</span><span class="p">]</span><span class="o">*</span><span class="mi">6</span><span class="p">)</span>
+<span class="n">entropy</span> <span class="o">=</span> <span class="nf">calculate_entropy</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="s">'Entropy: </span><span class="si">{</span><span class="n">entropy</span><span class="si">}</span><span class="s"> bits for event with 6 equiprobable outcomes'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Entropy: 2.584962500721156 bits for event with 6 equiprobable outcomes
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">([</span><span class="mi">1</span><span class="o">/</span><span class="mi">10000</span><span class="p">]</span><span class="o">*</span><span class="mi">6</span><span class="p">)</span>
+<span class="n">p</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="p">.</span><span class="nf">sum</span><span class="p">(</span><span class="n">p</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">entropy</span> <span class="o">=</span> <span class="nf">calculate_entropy</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="s">'Entropy: </span><span class="si">{</span><span class="n">entropy</span><span class="si">}</span><span class="s"> bits for event with 6 outcomes, one with much higher probability'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Entropy: 0.007365023343275353 bits for event with 6 outcomes, one with much higher probability
+</code></pre></div></div>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Entropy is a fundamental concept in information theory that quantifies the uncertainty or randomness in a system. It has wide-ranging applications in data compression, cryptography, and machine learning. Understanding and calculating entropy can provide valuable insights into the information content and predictability of data.</p>
+
+  </article>
+
+
+  
     
-    <source class="responsive-img-srcset" media="(max-width: 480px)" srcset="/assets/img/nordlys-480.webp"></source>
-    <source class="responsive-img-srcset" media="(max-width: 800px)" srcset="/assets/img/nordlys-800.webp"></source>
-    <source class="responsive-img-srcset" media="(max-width: 1400px)" srcset="/assets/img/nordlys-1400.webp"></source>
-    
+    <br>
+    <hr>
+    <br>
+    <ul class="list-disc pl-8"></ul>
 
-    <!-- Fallback to the original file -->
-    <img src="/assets/img/nordlys.jpg" class="img-fluid rounded z-depth-1" width="auto" height="auto" title="Northern light at Ranheim" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+    <!-- Adds related posts to the end of an article -->
+    <h2 class="text-3xl font-semibold mb-4 mt-12">Enjoy Reading This Article?</h2>
+    <p class="mb-2">Here are some more articles you might like to read next:</p>
+  
 
-  </picture>
+  <li class="my-2">
+    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="//blog/2024/SVM/">Support Vector Machine</a>
+  </li>
 
-</figure>
+  
 
+  <li class="my-2">
+    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="//blog/2024/TOREAD/">To Read List</a>
+  </li>
 
-          </article>
+  
 
-        </div>
+  <li class="my-2">
+    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="//blog/2024/PCA/">Principal Component Analysis</a>
+  </li>
+
+  
+
+  <li class="my-2">
+    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="//blog/2024/rejection-from-meta/">Dancing, Julebord, and Meta Dreams</a>
+  </li>
+
+  
+
+  <li class="my-2">
+    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="//blog/2023/topptur/">Topptur in Norway</a>
+  </li>
+
+</div>
 
     </div>
 

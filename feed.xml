@@ -1,8 +1,92 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://yaolinge.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://yaolinge.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2024-12-17T21:03:31+01:00</updated><id>https://yaolinge.github.io/feed.xml</id><title type="html">Yaolin’s Profile</title><subtitle>Yaolin&apos;s personal webpage. Based on [*folio](https://github.com/bogoli/-folio) design.
-</subtitle><entry><title type="html">Support Vector Machine</title><link href="https://yaolinge.github.io/blog/2024/SVM/" rel="alternate" type="text/html" title="Support Vector Machine" /><published>2024-12-17T00:00:00+01:00</published><updated>2024-12-17T00:00:00+01:00</updated><id>https://yaolinge.github.io/blog/2024/SVM</id><content type="html" xml:base="https://yaolinge.github.io/blog/2024/SVM/"><![CDATA[<h1 id="notes">Notes:</h1>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://yaolinge.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://yaolinge.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2025-01-24T12:45:58+08:00</updated><id>https://yaolinge.github.io/feed.xml</id><title type="html">Yao’s Profile</title><subtitle>Yao&apos;s personal webpage. Based on [*folio](https://github.com/bogoli/-folio) design.
+</subtitle><entry><title type="html">Entropy</title><link href="https://yaolinge.github.io/blog/2025/entropy/" rel="alternate" type="text/html" title="Entropy" /><published>2025-01-24T00:00:00+08:00</published><updated>2025-01-24T00:00:00+08:00</updated><id>https://yaolinge.github.io/blog/2025/entropy</id><content type="html" xml:base="https://yaolinge.github.io/blog/2025/entropy/"><![CDATA[<h1 id="understanding-entropy">Understanding Entropy</h1>
+
+<p>Entropy is a measure of the uncertainty or randomness in a system. In the context of information theory, it quantifies the amount of information contained in a message or the average amount of information produced by a stochastic source of data.</p>
+
+<p><span style="color:yellow; font-size:large;">Entropy emphasizes the uncertainty: when events have the same chance of happening, they have the largest uncertainty. Conversely, when events occur very deterministically, they have the lowest uncertainty.</span></p>
+
+<h2 id="mathematical-definition">Mathematical Definition</h2>
+
+<p>The entropy ( H(X) ) of a discrete random variable ( X ) with possible values ( {x_1, x_2, \ldots, x_n} ) and probability mass function ( P(X) ) is defined as:</p>
+
+\[H(X) = - \sum_{i=1}^{n} P(x_i) \log_b P(x_i)\]
+
+<p>where:</p>
+<ul>
+  <li>( P(x_i) ) is the probability of ( x_i )</li>
+  <li>( b ) is the base of the logarithm (commonly 2, e, or 10)</li>
+</ul>
+
+<h2 id="calculation-of-entropy">Calculation of Entropy</h2>
+
+<p>Let’s calculate the entropy of a simple example. Consider a fair coin toss with two possible outcomes: Heads (H) and Tails (T), each with a probability of 0.5.</p>
+
+\[H(X) = - (P(H) \log_2 P(H) + P(T) \log_2 P(T))\]
+
+<p>Substituting the probabilities:</p>
+
+\[H(X) = - (0.5 \log_2 0.5 + 0.5 \log_2 0.5)\]
+
+<p>Since ( \log_2 0.5 = -1 ):</p>
+
+\[H(X) = - (0.5 \times -1 + 0.5 \times -1) = 1\]
+
+<p>So, the entropy of a fair coin toss is 1 bit.</p>
+
+<h2 id="why-entropy-is-useful">Why Entropy is Useful</h2>
+
+<p>Entropy has several important applications:</p>
+<ul>
+  <li><strong>Data Compression</strong>: Entropy provides a theoretical limit on the best possible lossless compression of any communication.</li>
+  <li><strong>Cryptography</strong>: High entropy indicates high unpredictability, which is desirable in cryptographic keys.</li>
+  <li><strong>Machine Learning</strong>: Entropy is used in decision trees to measure the impurity or disorder of a dataset.</li>
+</ul>
+
+<h2 id="example-calculation-in-python">Example Calculation in Python</h2>
+
+<p>Let’s calculate the entropy of a given probability distribution using Python.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">np</span>
+
+<span class="k">def</span> <span class="nf">calculate_entropy</span><span class="p">(</span><span class="n">probabilities</span><span class="p">):</span>
+    <span class="k">return</span> <span class="o">-</span><span class="n">np</span><span class="p">.</span><span class="nf">sum</span><span class="p">(</span><span class="n">probabilities</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="nf">log2</span><span class="p">(</span><span class="n">probabilities</span><span class="p">))</span>
+
+<span class="c1"># Example: Fair coin toss
+</span><span class="n">probabilities</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
+<span class="n">entropy</span> <span class="o">=</span> <span class="nf">calculate_entropy</span><span class="p">(</span><span class="n">probabilities</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="s">'Entropy: </span><span class="si">{</span><span class="n">entropy</span><span class="si">}</span><span class="s"> bits'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Entropy: 1.0 bits
+</code></pre></div></div>
+
+<h1 id="example-of-rolling-a-fair-six-sided-die">Example of rolling a fair six-sided die</h1>
+
+<p>When the die is fair, the probability of each face is ( \frac{1}{6} ), then the uncertainty is very high, as you don’t know which side will be up. Whereas when the die is loaded, the probability of each face is different, then the uncertainty is lower, as you can predict which side will be up.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">([</span><span class="mi">1</span><span class="o">/</span><span class="mi">6</span><span class="p">]</span><span class="o">*</span><span class="mi">6</span><span class="p">)</span>
+<span class="n">entropy</span> <span class="o">=</span> <span class="nf">calculate_entropy</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="s">'Entropy: </span><span class="si">{</span><span class="n">entropy</span><span class="si">}</span><span class="s"> bits for event with 6 equiprobable outcomes'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Entropy: 2.584962500721156 bits for event with 6 equiprobable outcomes
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">([</span><span class="mi">1</span><span class="o">/</span><span class="mi">10000</span><span class="p">]</span><span class="o">*</span><span class="mi">6</span><span class="p">)</span>
+<span class="n">p</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="p">.</span><span class="nf">sum</span><span class="p">(</span><span class="n">p</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">entropy</span> <span class="o">=</span> <span class="nf">calculate_entropy</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="s">'Entropy: </span><span class="si">{</span><span class="n">entropy</span><span class="si">}</span><span class="s"> bits for event with 6 outcomes, one with much higher probability'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Entropy: 0.007365023343275353 bits for event with 6 outcomes, one with much higher probability
+</code></pre></div></div>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Entropy is a fundamental concept in information theory that quantifies the uncertainty or randomness in a system. It has wide-ranging applications in data compression, cryptography, and machine learning. Understanding and calculating entropy can provide valuable insights into the information content and predictability of data.</p>]]></content><author><name></name></author><summary type="html"><![CDATA[Notes for Entropy]]></summary></entry><entry><title type="html">Support Vector Machine</title><link href="https://yaolinge.github.io/blog/2024/SVM/" rel="alternate" type="text/html" title="Support Vector Machine" /><published>2024-12-17T00:00:00+08:00</published><updated>2024-12-17T00:00:00+08:00</updated><id>https://yaolinge.github.io/blog/2024/SVM</id><content type="html" xml:base="https://yaolinge.github.io/blog/2024/SVM/"><![CDATA[<h1 id="notes">Notes:</h1>
 <ul>
   <li>Neural Networks are similar in nature to Support Vector Machines, but they are more like a black box. SVMs are more interpretable and can be used to understand the data better.</li>
-</ul>]]></content><author><name></name></author><summary type="html"><![CDATA[Notes for Support Vector Machine]]></summary></entry><entry><title type="html">To Read List</title><link href="https://yaolinge.github.io/blog/2024/TOREAD/" rel="alternate" type="text/html" title="To Read List" /><published>2024-12-16T00:00:00+01:00</published><updated>2024-12-16T00:00:00+01:00</updated><id>https://yaolinge.github.io/blog/2024/TOREAD</id><content type="html" xml:base="https://yaolinge.github.io/blog/2024/TOREAD/"><![CDATA[<h1 id="books">Books</h1>
+</ul>]]></content><author><name></name></author><summary type="html"><![CDATA[Notes for Support Vector Machine]]></summary></entry><entry><title type="html">To Read List</title><link href="https://yaolinge.github.io/blog/2024/TOREAD/" rel="alternate" type="text/html" title="To Read List" /><published>2024-12-16T00:00:00+08:00</published><updated>2024-12-16T00:00:00+08:00</updated><id>https://yaolinge.github.io/blog/2024/TOREAD</id><content type="html" xml:base="https://yaolinge.github.io/blog/2024/TOREAD/"><![CDATA[<h1 id="books">Books</h1>
 <ul class="task-list">
   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><a href="https://www.amazon.com/Art-Statistics-Learning-From-Data/dp/1541618513">The Art of Statistics: Learning from Data</a></li>
   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><a href="https://www.amazon.com/Signal-Noise-Many-Predictions-Fail--/dp/0143125087">The Signal and the Noise: Why So Many Predictions Fail–but Some Don’t</a></li>
@@ -33,7 +117,7 @@
   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><a href="https://www.youtube.com/watch?v=kYB8IZa5AuE&amp;list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab&amp;index=4">Essence of Linear Algebra</a></li>
   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><a href="https://www.youtube.com/watch?v=s8B4A5ubw6c&amp;ab_channel=Stanford">Machine Learning for SVM</a></li>
   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><a href="https://www.youtube.com/watch?v=UzxYlbK2c7E&amp;list=PLA89DCFA6ADACE599&amp;ab_channel=Stanford">Machine Learning Stanford</a></li>
-</ul>]]></content><author><name></name></author><summary type="html"><![CDATA[Here comes a personal collections of books, articles, and videos that I want to read.]]></summary></entry><entry><title type="html">Principal Component Analysis</title><link href="https://yaolinge.github.io/blog/2024/PCA/" rel="alternate" type="text/html" title="Principal Component Analysis" /><published>2024-12-11T00:00:00+01:00</published><updated>2024-12-11T00:00:00+01:00</updated><id>https://yaolinge.github.io/blog/2024/PCA</id><content type="html" xml:base="https://yaolinge.github.io/blog/2024/PCA/"><![CDATA[<h1 id="eigenvalues-and-eigenvectors">Eigenvalues and Eigenvectors</h1>
+</ul>]]></content><author><name></name></author><summary type="html"><![CDATA[Here comes a personal collections of books, articles, and videos that I want to read.]]></summary></entry><entry><title type="html">Principal Component Analysis</title><link href="https://yaolinge.github.io/blog/2024/PCA/" rel="alternate" type="text/html" title="Principal Component Analysis" /><published>2024-12-11T00:00:00+08:00</published><updated>2024-12-11T00:00:00+08:00</updated><id>https://yaolinge.github.io/blog/2024/PCA</id><content type="html" xml:base="https://yaolinge.github.io/blog/2024/PCA/"><![CDATA[<h1 id="eigenvalues-and-eigenvectors">Eigenvalues and Eigenvectors</h1>
 <p>What is an eigenvector? What is an eigenvalue? What is the relationship between the two?</p>
 
 <h1 id="principal-components">Principal components</h1>
@@ -47,7 +131,7 @@
 <h1 id="references">References</h1>
 <ul>
   <li><a href="https://www.youtube.com/watch?v=_UVHneBUBW0&amp;ab_channel=StatQuestwithJoshStarmer">StatQuest</a></li>
-</ul>]]></content><author><name></name></author><summary type="html"><![CDATA[A brief introduction to PCA]]></summary></entry><entry><title type="html">Dancing, Julebord, and Meta Dreams</title><link href="https://yaolinge.github.io/blog/2024/rejection-from-meta/" rel="alternate" type="text/html" title="Dancing, Julebord, and Meta Dreams" /><published>2024-12-04T00:00:00+01:00</published><updated>2024-12-04T00:00:00+01:00</updated><id>https://yaolinge.github.io/blog/2024/rejection-from-meta</id><content type="html" xml:base="https://yaolinge.github.io/blog/2024/rejection-from-meta/"><![CDATA[<h1 id="dancing-julebord-and-meta-dreams-lessons-from-a-rejection">“Dancing, Julebord, and Meta Dreams: Lessons from a Rejection”</h1>
+</ul>]]></content><author><name></name></author><summary type="html"><![CDATA[A brief introduction to PCA]]></summary></entry><entry><title type="html">Dancing, Julebord, and Meta Dreams</title><link href="https://yaolinge.github.io/blog/2024/rejection-from-meta/" rel="alternate" type="text/html" title="Dancing, Julebord, and Meta Dreams" /><published>2024-12-04T00:00:00+08:00</published><updated>2024-12-04T00:00:00+08:00</updated><id>https://yaolinge.github.io/blog/2024/rejection-from-meta</id><content type="html" xml:base="https://yaolinge.github.io/blog/2024/rejection-from-meta/"><![CDATA[<h1 id="dancing-julebord-and-meta-dreams-lessons-from-a-rejection">“Dancing, Julebord, and Meta Dreams: Lessons from a Rejection”</h1>
 
 <p>On October 23rd, I got a message from a Meta recruiter. My first thought? “Cool, another LinkedIn headhunt.” It happens often, so I didn’t give it much weight. But after our first chat, my enthusiasm skyrocketed. This wasn’t just any tech job—it was Meta! I suddenly saw myself working alongside some of the smartest people in the world.</p>
 
@@ -59,7 +143,7 @@
 
 <p>Here’s what I learned: to be among the best, you can’t do everything. You need focus. My dreams of working at a big tech company—Meta, Google, or the like—require serious, targeted effort. At 28, with a goal of FIRE (Financial Independence, Retire Early), time’s ticking. It’s time to prioritize, deepen my skills, and get back at it.</p>
 
-<p>Meta didn’t work out this time, but the dream is far from over. Onward and upward!</p>]]></content><author><name></name></author><summary type="html"><![CDATA[Lessons from a Rejection]]></summary></entry><entry><title type="html">Topptur in Norway</title><link href="https://yaolinge.github.io/blog/2023/topptur/" rel="alternate" type="text/html" title="Topptur in Norway" /><published>2023-04-10T00:00:00+02:00</published><updated>2023-04-10T00:00:00+02:00</updated><id>https://yaolinge.github.io/blog/2023/topptur</id><content type="html" xml:base="https://yaolinge.github.io/blog/2023/topptur/"><![CDATA[<h2 id="topptur-in-norway">Topptur in Norway</h2>
+<p>Meta didn’t work out this time, but the dream is far from over. Onward and upward!</p>]]></content><author><name></name></author><summary type="html"><![CDATA[Lessons from a Rejection]]></summary></entry><entry><title type="html">Topptur in Norway</title><link href="https://yaolinge.github.io/blog/2023/topptur/" rel="alternate" type="text/html" title="Topptur in Norway" /><published>2023-04-10T00:00:00+08:00</published><updated>2023-04-10T00:00:00+08:00</updated><id>https://yaolinge.github.io/blog/2023/topptur</id><content type="html" xml:base="https://yaolinge.github.io/blog/2023/topptur/"><![CDATA[<h2 id="topptur-in-norway">Topptur in Norway</h2>
 
 <p>As I strapped on my skis and took in the crisp mountain air, I couldn’t help but feel grateful for the opportunity to explore Norway’s incredible backcountry. Over the years, I’ve been fortunate enough to take many skiing touring trips through the rugged and stunning landscapes of this Scandinavian country.</p>
 
@@ -75,7 +159,7 @@
 
 <p>As I look back on my many skiing touring trips through Norway, I feel grateful for the memories and experiences I’ve gained. Each trip was unique and challenging in its own way, but they all shared a sense of beauty and camaraderie that made them truly special.</p>
 
-<iframe width="720" height="540" src="http://www.youtube.com/embed/0KXmd3uQ-4Y" frameborder="0" allowfullscreen=""></iframe>]]></content><author><name></name></author><summary type="html"><![CDATA[Topptur in Easter holidays]]></summary></entry><entry><title type="html">Jekyll notes</title><link href="https://yaolinge.github.io/blog/2023/jekyll-note/" rel="alternate" type="text/html" title="Jekyll notes" /><published>2023-03-13T00:00:00+01:00</published><updated>2023-03-13T00:00:00+01:00</updated><id>https://yaolinge.github.io/blog/2023/jekyll-note</id><content type="html" xml:base="https://yaolinge.github.io/blog/2023/jekyll-note/"><![CDATA[<h2 id="quick-start">Quick start</h2>
+<iframe width="720" height="540" src="http://www.youtube.com/embed/0KXmd3uQ-4Y" frameborder="0" allowfullscreen=""></iframe>]]></content><author><name></name></author><summary type="html"><![CDATA[Topptur in Easter holidays]]></summary></entry><entry><title type="html">Jekyll notes</title><link href="https://yaolinge.github.io/blog/2023/jekyll-note/" rel="alternate" type="text/html" title="Jekyll notes" /><published>2023-03-13T00:00:00+08:00</published><updated>2023-03-13T00:00:00+08:00</updated><id>https://yaolinge.github.io/blog/2023/jekyll-note</id><content type="html" xml:base="https://yaolinge.github.io/blog/2023/jekyll-note/"><![CDATA[<h2 id="quick-start">Quick start</h2>
 <ul>
   <li><code class="language-plaintext highlighter-rouge">jekyll new my-awesome-site</code> to create a new Jekyll site at ./my-awesome-site.</li>
   <li><code class="language-plaintext highlighter-rouge">cd my-awesome-site</code> to go into the new directory.</li>
@@ -138,7 +222,7 @@
 <h1 id="resources">Resources</h1>
 <ul>
   <li><a href="https://maximorlov.com/deploying-to-github-pages-dont-forget-to-fix-your-links/">Explaining permalinks</a></li>
-</ul>]]></content><author><name></name></author><summary type="html"><![CDATA[My jekyll learning notes]]></summary></entry><entry><title type="html">Northern Lights</title><link href="https://yaolinge.github.io/blog/2022/northern-lights/" rel="alternate" type="text/html" title="Northern Lights" /><published>2022-09-10T00:00:00+02:00</published><updated>2022-09-10T00:00:00+02:00</updated><id>https://yaolinge.github.io/blog/2022/northern-lights</id><content type="html" xml:base="https://yaolinge.github.io/blog/2022/northern-lights/"><![CDATA[<p>Long ago, in a land of eternal snow and ice, there lived a tribe of people who had never seen the sun. They had heard stories of it from travelers who passed through their village, but to them, it was nothing more than a myth.</p>
+</ul>]]></content><author><name></name></author><summary type="html"><![CDATA[My jekyll learning notes]]></summary></entry><entry><title type="html">Northern Lights</title><link href="https://yaolinge.github.io/blog/2022/northern-lights/" rel="alternate" type="text/html" title="Northern Lights" /><published>2022-09-10T00:00:00+08:00</published><updated>2022-09-10T00:00:00+08:00</updated><id>https://yaolinge.github.io/blog/2022/northern-lights</id><content type="html" xml:base="https://yaolinge.github.io/blog/2022/northern-lights/"><![CDATA[<p>Long ago, in a land of eternal snow and ice, there lived a tribe of people who had never seen the sun. They had heard stories of it from travelers who passed through their village, but to them, it was nothing more than a myth.</p>
 
 <p>One night, as the villagers sat around their fires, a strange and wondrous thing happened. The sky above them began to shimmer and dance with colors they had never seen before. Shades of green, blue, and purple swirled and twisted above their heads, as if a great wizard was painting the sky.</p>
 
