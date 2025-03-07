@@ -10,10 +10,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Auv_lost | Yao's Profile</title>
+    <title>C# Async | Yao's Profile</title>
     <meta name="author" content="Yao  G">
-    <meta name="description" content="Yao's personal webpage. Based on [*folio](https://github.com/bogoli/-folio) design.
-">
+    <meta name="description" content="Asynchronous programming in C#">
     <meta name="keywords" content="Yaolin, Yaolin Ge, 葛耀林, 耀林, AI, robotics, oceanography">
 
 
@@ -34,7 +33,7 @@
     <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;">
     
     <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="canonical" href="https://yaolinge.github.io/news/auv_lost/">
+    <link rel="canonical" href="https://yaolinge.github.io/blog/2025/async/">
     
     <!-- Dark Mode -->
     
@@ -73,8 +72,8 @@
               </li>
               
               <!-- Blog -->
-              <li class="nav-item ">
-                <a class="nav-link" href="/blog/">Blog</a>
+              <li class="nav-item active">
+                <a class="nav-link" href="/blog/">Blog<span class="sr-only">(current)</span></a>
               </li>
 
               <!-- Other pages -->
@@ -119,17 +118,181 @@
 <div class="post">
 
   <header class="post-header">
-    <h1 class="post-title">Auv_lost</h1>
-    <p class="post-meta">June 26, 2023</p>
+    <h1 class="post-title">C# Async</h1>
+    <p class="post-meta">February 20, 2025</p>
     <p class="post-tags">
-      <a href="//blog/2023"> <i class="fas fa-calendar fa-sm"></i> 2023 </a>
+      <a href="//blog/2025"> <i class="fas fa-calendar fa-sm"></i> 2025 </a>
 
     </p>
   </header>
 
   <article class="post-content">
-    <p>We have lost an underwater vehicle called Thor</p>
+    <h2 id="cancellationtoken">CancellationToken</h2>
 
+<pre><code class="language-C#">using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+class Program
+{
+    static async Task Main()
+    {
+        using var cts = new CancellationTokenSource(); // Create a token source
+        CancellationToken token = cts.Token;
+
+        Task task = DoWorkAsync(token);
+
+        // Listen for user input in a separate task
+        _ = Task.Run(() =&gt;
+        {
+            while (true)
+            {
+                if (Console.KeyAvailable)
+                {
+                    var key = Console.ReadKey(true).Key;
+                    Console.WriteLine($"Key pressed: {key}");
+                    if (key == ConsoleKey.B)
+                    {
+                        cts.Cancel();
+                        break;
+                    }
+                }
+            }
+        });
+
+        try
+        {
+            await task;
+        }
+        catch (OperationCanceledException)
+        {
+            Console.WriteLine("Task was canceled.");
+        }
+    }
+
+    static async Task DoWorkAsync(CancellationToken token)
+    {
+        while (true)
+        {
+            token.ThrowIfCancellationRequested(); // Check for cancellation
+            Console.WriteLine($"Working... Local time: {DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}");
+            await Task.Delay(1000);
+        }
+    }
+}
+
+</code></pre>
+
+<h2 id="observer-pattern">Observer pattern</h2>
+<p>In the below example, I use the observer pattern to notify multiple observers when the temperature changes. The <code class="language-plaintext highlighter-rouge">WeatherStation</code> class is the subject that maintains a list of observers. The <code class="language-plaintext highlighter-rouge">TemperatureDisplay</code> and <code class="language-plaintext highlighter-rouge">AnotherTemperatureDisplay</code> classes are concrete observers that display the temperature. The <code class="language-plaintext highlighter-rouge">WeatherStation</code> class notifies all observers when the temperature changes.
+The user can increase or decrease the temperature by pressing the up and down arrow keys, respectively. The user can exit the program by pressing the Esc key.</p>
+
+<pre><code class="language-C#">
+using System;
+using System.Collections.Generic;
+
+// The Subject (WeatherStation)
+public class WeatherStation
+{
+    private List&lt;IObserver&gt; observers = new List&lt;IObserver&gt;(); // List of observers
+    private float temperature;
+
+    // Method to attach an observer
+    public void Attach(IObserver observer)
+    {
+        observers.Add(observer);
+    }
+
+    // Method to detach an observer
+    public void Detach(IObserver observer)
+    {
+        observers.Remove(observer);
+    }
+
+    // Method to notify all observers
+    public void Notify()
+    {
+        foreach (var observer in observers)
+        {
+            observer.Update(temperature);  // Notify observer with the new temperature
+        }
+    }
+
+    // Method to simulate temperature change
+    public void SetTemperature(float temperature)
+    {
+        this.temperature = temperature;
+        Notify();  // Notify observers about the state change
+    }
+}
+
+// The Observer Interface
+public interface IObserver
+{
+    void Update(float temperature);
+}
+
+// Concrete Observer - Display 1 (Temperature Display)
+public class TemperatureDisplay : IObserver
+{
+    public void Update(float temperature)
+    {
+        Console.WriteLine($"Temperature Display: Current temperature is {temperature}°C");
+    }
+}
+
+// Concrete Observer - Display 2 (Another Temperature Display)
+public class AnotherTemperatureDisplay : IObserver
+{
+    public void Update(float temperature)
+    {
+        Console.WriteLine($"Another Temperature Display: Current temperature is {temperature}°C");
+    }
+}
+
+// Client Code
+class Program
+{
+    static void Main()
+    {
+        // Create subject (weather station)
+        WeatherStation weatherStation = new WeatherStation();
+
+        // Create observers (displays)
+        IObserver display1 = new TemperatureDisplay();
+        IObserver display2 = new AnotherTemperatureDisplay();
+
+        // Attach observers to the subject
+        weatherStation.Attach(display1);
+        weatherStation.Attach(display2);
+
+        float baseTemperature = 25.0f;
+        weatherStation.SetTemperature(baseTemperature);
+
+        while (true)
+        {
+            if (Console.KeyAvailable)
+            {
+                var key = Console.ReadKey(true).Key;
+                if (key == ConsoleKey.UpArrow)
+                {
+                    baseTemperature += 0.5f;
+                    weatherStation.SetTemperature(baseTemperature);
+                }
+                else if (key == ConsoleKey.DownArrow)
+                {
+                    baseTemperature -= 0.5f;
+                    weatherStation.SetTemperature(baseTemperature);
+                }
+                else if (key == ConsoleKey.Escape)
+                {
+                    break;
+                }
+            }
+        }
+    }
+}
+</code></pre>
 
   </article>
 
@@ -144,12 +307,6 @@
     <!-- Adds related posts to the end of an article -->
     <h2 class="text-3xl font-semibold mb-4 mt-12">Enjoy Reading This Article?</h2>
     <p class="mb-2">Here are some more articles you might like to read next:</p>
-  
-
-  <li class="my-2">
-    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="//blog/2025/async/">C# Async</a>
-  </li>
-
   
 
   <li class="my-2">
@@ -172,6 +329,12 @@
 
   <li class="my-2">
     <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="//blog/2025/entropy/">Entropy</a>
+  </li>
+
+  
+
+  <li class="my-2">
+    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="//blog/2024/SVM/">Support Vector Machine</a>
   </li>
 
 </div>

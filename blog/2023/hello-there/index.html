@@ -10,10 +10,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Auv_lost | Yao's Profile</title>
+    <title>Programming knowledge | Yao's Profile</title>
     <meta name="author" content="Yao  G">
-    <meta name="description" content="Yao's personal webpage. Based on [*folio](https://github.com/bogoli/-folio) design.
-">
+    <meta name="description" content="Interesting programming knowledge">
     <meta name="keywords" content="Yaolin, Yaolin Ge, 葛耀林, 耀林, AI, robotics, oceanography">
 
 
@@ -34,7 +33,7 @@
     <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;">
     
     <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="canonical" href="https://yaolinge.github.io/news/auv_lost/">
+    <link rel="canonical" href="https://yaolinge.github.io/blog/2023/hello-there/">
     
     <!-- Dark Mode -->
     
@@ -73,8 +72,8 @@
               </li>
               
               <!-- Blog -->
-              <li class="nav-item ">
-                <a class="nav-link" href="/blog/">Blog</a>
+              <li class="nav-item active">
+                <a class="nav-link" href="/blog/">Blog<span class="sr-only">(current)</span></a>
               </li>
 
               <!-- Other pages -->
@@ -119,8 +118,8 @@
 <div class="post">
 
   <header class="post-header">
-    <h1 class="post-title">Auv_lost</h1>
-    <p class="post-meta">June 26, 2023</p>
+    <h1 class="post-title">Programming knowledge</h1>
+    <p class="post-meta">March 8, 2023</p>
     <p class="post-tags">
       <a href="//blog/2023"> <i class="fas fa-calendar fa-sm"></i> 2023 </a>
 
@@ -128,8 +127,16 @@
   </header>
 
   <article class="post-content">
-    <p>We have lost an underwater vehicle called Thor</p>
+    <h1 id="programming-knowledge">Programming knowledge</h1>
 
+<h2 id="data-types">Data types</h2>
+<ul>
+  <li>In C#, a boolean takes 1 bit of memory, however, if one uses sizeof(bool), it will return 1 byte, and not 1 bit. This is because the smallest addressable unit of memory is a byte. The remaining 7 bits are stuffed.</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">iterrows()</code> can be used for a pandas data frame, to get the index and the row. However, it is not the most efficient way to iterate over a data frame. The most efficient way is to use <code class="language-plaintext highlighter-rouge">itertuples()</code> or <code class="language-plaintext highlighter-rouge">iteritems()</code>.</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">a = {"name":10, "age":10}</code> can be updated using <code class="language-plaintext highlighter-rouge">a.update({"name":20})</code>, no need to use <code class="language-plaintext highlighter-rouge">a["name"] = 20</code>.</li>
+</ul>
 
   </article>
 
