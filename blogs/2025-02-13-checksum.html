@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>checksum</title>
+    <link rel="stylesheet" href="/static/style.css" />
+    
+</head>
+<body>
+<header>
+    <h1>checksum</h1>
+</header>
+<main>
+    
+<article class="blog-post">
+    <h1>Notes for checksum</h1>
+    <div class="date">2025-02-13</div>
+    <div id="content">
+        <h1 id="checksums">Checksums</h1>
+<pre class="codehilite"><code class="language-powershell">Get-FileHash -Path .\file.txt -Algorithm MD5
+</code></pre>
+
+<p>I can change the content of the same filename, then the checksums will be altered immediately. As long as the content of the file remains the same, then the checksum will remain the same.</p>
+<p>Even if the file is renamed, the checksum will remain the same. Checksums are used to verify the integrity of files, i.e. to check if the file has been tampered with. </p>
+    </div>
+</article>
+
+</main>
+<footer>
+    &copy; 2025 Yao
+</footer>
+<script src="/static/script.js"></script>
+
+</body>
+</html>

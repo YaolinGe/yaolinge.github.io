@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Entropy</title>
+    <link rel="stylesheet" href="/static/style.css" />
+    
+</head>
+<body>
+<header>
+    <h1>Entropy</h1>
+</header>
+<main>
+    
+<article class="blog-post">
+    <h1>Notes for Entropy</h1>
+    <div class="date">2025-01-24</div>
+    <div id="content">
+        <h1 id="understanding-entropy">Understanding Entropy</h1>
+<p>Entropy is a measure of the uncertainty or randomness in a system. In the context of information theory, it quantifies the amount of information contained in a message or the average amount of information produced by a stochastic source of data.</p>
+<p><span style="color:yellow; font-size:large;">Entropy emphasizes the uncertainty: when events have the same chance of happening, they have the largest uncertainty. Conversely, when events occur very deterministically, they have the lowest uncertainty.</span></p>
+<h2 id="mathematical-definition">Mathematical Definition</h2>
+<p>The entropy ( H(X) ) of a discrete random variable ( X ) with possible values ( {x_1, x_2, \ldots, x_n} ) and probability mass function ( P(X) ) is defined as:</p>
+<p>$$
+H(X) = - \sum_{i=1}^{n} P(x_i) \log_b P(x_i)
+$$</p>
+<p>where:
+- ( P(x_i) ) is the probability of ( x_i )
+- ( b ) is the base of the logarithm (commonly 2, e, or 10)</p>
+<h2 id="calculation-of-entropy">Calculation of Entropy</h2>
+<p>Let's calculate the entropy of a simple example. Consider a fair coin toss with two possible outcomes: Heads (H) and Tails (T), each with a probability of 0.5.</p>
+<p>$$
+H(X) = - (P(H) \log_2 P(H) + P(T) \log_2 P(T))
+$$</p>
+<p>Substituting the probabilities:</p>
+<p>$$
+H(X) = - (0.5 \log_2 0.5 + 0.5 \log_2 0.5)
+$$</p>
+<p>Since ( \log_2 0.5 = -1 ):</p>
+<p>$$
+H(X) = - (0.5 \times -1 + 0.5 \times -1) = 1
+$$</p>
+<p>So, the entropy of a fair coin toss is 1 bit.</p>
+<h2 id="why-entropy-is-useful">Why Entropy is Useful</h2>
+<p>Entropy has several important applications:
+- <strong>Data Compression</strong>: Entropy provides a theoretical limit on the best possible lossless compression of any communication.
+- <strong>Cryptography</strong>: High entropy indicates high unpredictability, which is desirable in cryptographic keys.
+- <strong>Machine Learning</strong>: Entropy is used in decision trees to measure the impurity or disorder of a dataset.</p>
+<h2 id="example-calculation-in-python">Example Calculation in Python</h2>
+<p>Let's calculate the entropy of a given probability distribution using Python.</p>
+<pre class="codehilite"><code class="language-python">import numpy as np
+
+def calculate_entropy(probabilities):
+    return -np.sum(probabilities * np.log2(probabilities))
+
+# Example: Fair coin toss
+probabilities = np.array([0.5, 0.5])
+entropy = calculate_entropy(probabilities)
+print(f'Entropy: {entropy} bits')
+</code></pre>
+
+<pre class="codehilite"><code>Entropy: 1.0 bits
+</code></pre>
+
+<h1 id="example-of-rolling-a-fair-six-sided-die">Example of rolling a fair six-sided die</h1>
+<p>When the die is fair, the probability of each face is ( \frac{1}{6} ), then the uncertainty is very high, as you don't know which side will be up. Whereas when the die is loaded, the probability of each face is different, then the uncertainty is lower, as you can predict which side will be up.</p>
+<pre class="codehilite"><code class="language-python">p = np.array([1/6]*6)
+entropy = calculate_entropy(p)
+print(f'Entropy: {entropy} bits for event with 6 equiprobable outcomes')
+</code></pre>
+
+<pre class="codehilite"><code>Entropy: 2.584962500721156 bits for event with 6 equiprobable outcomes
+</code></pre>
+
+<pre class="codehilite"><code class="language-python">p = np.array([1/10000]*6)
+p[-1] = 1 - np.sum(p[:-1])
+entropy = calculate_entropy(p)
+print(f'Entropy: {entropy} bits for event with 6 outcomes, one with much higher probability')
+</code></pre>
+
+<pre class="codehilite"><code>Entropy: 0.007365023343275353 bits for event with 6 outcomes, one with much higher probability
+</code></pre>
+
+<h2 id="conclusion">Conclusion</h2>
+<p>Entropy is a fundamental concept in information theory that quantifies the uncertainty or randomness in a system. It has wide-ranging applications in data compression, cryptography, and machine learning. Understanding and calculating entropy can provide valuable insights into the information content and predictability of data.</p>
+<h2 id="connection-with-information-gain">Connection with information gain</h2>
+<p><a href="{{site.url}}/assets/pdf/InfoGain.pdf" width="100%">InformationGain</a></p>
+    </div>
+</article>
+
+</main>
+<footer>
+    &copy; 2025 Yao
+</footer>
+<script src="/static/script.js"></script>
+
+</body>
+</html>

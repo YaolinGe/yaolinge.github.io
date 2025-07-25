@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>C# Async</title>
+    <link rel="stylesheet" href="/static/style.css" />
+    
+</head>
+<body>
+<header>
+    <h1>C# Async</h1>
+</header>
+<main>
+    
+<article class="blog-post">
+    <h1>Asynchronous programming in C#</h1>
+    <div class="date">2025-02-20</div>
+    <div id="content">
+        <h2 id="cancellationtoken">CancellationToken</h2>
+<pre class="codehilite"><code class="language-C#">using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+class Program
+{
+    static async Task Main()
+    {
+        using var cts = new CancellationTokenSource(); // Create a token source
+        CancellationToken token = cts.Token;
+
+        Task task = DoWorkAsync(token);
+
+        // Listen for user input in a separate task
+        _ = Task.Run(() =&gt;
+        {
+            while (true)
+            {
+                if (Console.KeyAvailable)
+                {
+                    var key = Console.ReadKey(true).Key;
+                    Console.WriteLine($&quot;Key pressed: {key}&quot;);
+                    if (key == ConsoleKey.B)
+                    {
+                        cts.Cancel();
+                        break;
+                    }
+                }
+            }
+        });
+
+        try
+        {
+            await task;
+        }
+        catch (OperationCanceledException)
+        {
+            Console.WriteLine(&quot;Task was canceled.&quot;);
+        }
+    }
+
+    static async Task DoWorkAsync(CancellationToken token)
+    {
+        while (true)
+        {
+            token.ThrowIfCancellationRequested(); // Check for cancellation
+            Console.WriteLine($&quot;Working... Local time: {DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}&quot;);
+            await Task.Delay(1000);
+        }
+    }
+}
+</code></pre>
+
+<h2 id="observer-pattern">Observer pattern</h2>
+<p>In the below example, I use the observer pattern to notify multiple observers when the temperature changes. The <code>WeatherStation</code> class is the subject that maintains a list of observers. The <code>TemperatureDisplay</code> and <code>AnotherTemperatureDisplay</code> classes are concrete observers that display the temperature. The <code>WeatherStation</code> class notifies all observers when the temperature changes.
+The user can increase or decrease the temperature by pressing the up and down arrow keys, respectively. The user can exit the program by pressing the Esc key.</p>
+<pre class="codehilite"><code class="language-C#">using System;
+using System.Collections.Generic;
+
+// The Subject (WeatherStation)
+public class WeatherStation
+{
+    private List&lt;IObserver&gt; observers = new List&lt;IObserver&gt;(); // List of observers
+    private float temperature;
+
+    // Method to attach an observer
+    public void Attach(IObserver observer)
+    {
+        observers.Add(observer);
+    }
+
+    // Method to detach an observer
+    public void Detach(IObserver observer)
+    {
+        observers.Remove(observer);
+    }
+
+    // Method to notify all observers
+    public void Notify()
+    {
+        foreach (var observer in observers)
+        {
+            observer.Update(temperature);  // Notify observer with the new temperature
+        }
+    }
+
+    // Method to simulate temperature change
+    public void SetTemperature(float temperature)
+    {
+        this.temperature = temperature;
+        Notify();  // Notify observers about the state change
+    }
+}
+
+// The Observer Interface
+public interface IObserver
+{
+    void Update(float temperature);
+}
+
+// Concrete Observer - Display 1 (Temperature Display)
+public class TemperatureDisplay : IObserver
+{
+    public void Update(float temperature)
+    {
+        Console.WriteLine($&quot;Temperature Display: Current temperature is {temperature}°C&quot;);
+    }
+}
+
+// Concrete Observer - Display 2 (Another Temperature Display)
+public class AnotherTemperatureDisplay : IObserver
+{
+    public void Update(float temperature)
+    {
+        Console.WriteLine($&quot;Another Temperature Display: Current temperature is {temperature}°C&quot;);
+    }
+}
+
+// Client Code
+class Program
+{
+    static void Main()
+    {
+        // Create subject (weather station)
+        WeatherStation weatherStation = new WeatherStation();
+
+        // Create observers (displays)
+        IObserver display1 = new TemperatureDisplay();
+        IObserver display2 = new AnotherTemperatureDisplay();
+
+        // Attach observers to the subject
+        weatherStation.Attach(display1);
+        weatherStation.Attach(display2);
+
+        float baseTemperature = 25.0f;
+        weatherStation.SetTemperature(baseTemperature);
+
+        while (true)
+        {
+            if (Console.KeyAvailable)
+            {
+                var key = Console.ReadKey(true).Key;
+                if (key == ConsoleKey.UpArrow)
+                {
+                    baseTemperature += 0.5f;
+                    weatherStation.SetTemperature(baseTemperature);
+                }
+                else if (key == ConsoleKey.DownArrow)
+                {
+                    baseTemperature -= 0.5f;
+                    weatherStation.SetTemperature(baseTemperature);
+                }
+                else if (key == ConsoleKey.Escape)
+                {
+                    break;
+                }
+            }
+        }
+    }
+}
+</code></pre>
+
+<h1 id="delegate">Delegate</h1>
+<pre class="codehilite"><code class="language-C#">using System;
+
+class Program
+{
+    // Delegate definition
+    public delegate void GreetDelegate(string name);
+
+    // Method that matches the delegate signature
+    public static void GreetInEnglish(string name)
+    {
+        Console.WriteLine(&quot;Hello, &quot; + name);
+    }
+
+    // Another method with a similar signature
+    public static void GreetInSpanish(string name)
+    {
+        Console.WriteLine(&quot;Hola, &quot; + name);
+    }
+
+    static void Main()
+    {
+        // Instantiate delegate and point it to GreetInEnglish method
+        GreetDelegate greet = GreetInEnglish;
+        greet(&quot;Alice&quot;); // Calls GreetInEnglish
+
+        // Pointing delegate to GreetInSpanish method
+        greet = GreetInSpanish;
+        greet(&quot;Bob&quot;); // Calls GreetInSpanish
+    }
+}
+</code></pre>
+
+<h3 id="example-ii-multicast">Example II, multicast</h3>
+<pre class="codehilite"><code class="language-C#">using System;
+
+class Program
+{
+    // Delegate definition
+    public delegate void NotifyDelegate();
+
+    // Methods to be called by the delegate
+    public static void NotifyByEmail()
+    {
+        Console.WriteLine(&quot;Notification sent via email.&quot;);
+    }
+
+    public static void NotifyBySMS()
+    {
+        Console.WriteLine(&quot;Notification sent via SMS.&quot;);
+    }
+
+    static void Main()
+    {
+        // Create a multicast delegate by combining two methods
+        NotifyDelegate notify = NotifyByEmail;
+        notify += NotifyBySMS;  // Add another method to the delegate
+
+        // Calls both methods
+        notify();
+    }
+}
+</code></pre>
+
+<h3 id="example-iii-dynamic-invocation">Example III, dynamic invocation</h3>
+<pre class="codehilite"><code class="language-C#">using System;
+
+class Program
+{
+    // Delegate definition
+    public delegate int Operation(int a, int b);
+
+    // Methods to be passed to the delegate
+    public static int Add(int a, int b)
+    {
+        return a + b;
+    }
+
+    public static int Multiply(int a, int b)
+    {
+        return a * b;
+    }
+
+    // Method that accepts a delegate
+    public static void PerformOperation(int a, int b, Operation operation)
+    {
+        int result = operation(a, b);
+        Console.WriteLine(&quot;Result: &quot; + result);
+    }
+
+    static void Main()
+    {
+        // Passing methods via delegate
+        PerformOperation(5, 3, Add);       // Calls Add
+        PerformOperation(5, 3, Multiply);  // Calls Multiply
+    }
+}
+</code></pre>
+    </div>
+</article>
+
+</main>
+<footer>
+    &copy; 2025 Yao
+</footer>
+<script src="/static/script.js"></script>
+
+</body>
+</html>

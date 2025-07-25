@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Task and async in C#</title>
+    <link rel="stylesheet" href="/static/style.css" />
+    
+</head>
+<body>
+<header>
+    <h1>Task and async in C#</h1>
+</header>
+<main>
+    
+<article class="blog-post">
+    <h1>Task Parallel Library and async programming in C#</h1>
+    <div class="date">2025-03-13</div>
+    <div id="content">
+        <h2 id="1-parallel-processing-with-task-parallel-library-tpl">1. Parallel Processing with Task Parallel Library (TPL)</h2>
+<p>The first example demonstrates parallel processing using TPL:</p>
+<pre class="codehilite"><code class="language-csharp">ParallelOptions options = new ParallelOptions { MaxDegreeOfParallelism = 10 };
+Parallel.For(0, 10, options, i =&gt;
+{
+    // Parallel processing code here
+});
+
+// Resource-intensive computation
+static void ResourceIntensiveFunction()
+{
+    double result = 0;
+    for (int i = 0; i &lt; 1000000000; i++)
+    {
+        result += Math.Sqrt(i);
+    }
+}
+</code></pre>
+
+<p>This code shows how to limit parallel processing to 10 threads and measure performance using <code>Stopwatch</code>.</p>
+<h2 id="2-delegates-in-c">2. Delegates in C</h2>
+<p>Here's an example of using delegates for method invocation:</p>
+<pre class="codehilite"><code class="language-csharp">public delegate int Operation(int a, int b);
+
+public static int Add(int a, int b) =&gt; a + b;
+public static int Multiply(int a, int b) =&gt; a * b;
+
+public static void PerformOperation(int a, int b, Operation operation)
+{
+    int result = operation(a, b);
+    Console.WriteLine(&quot;Result: &quot; + result);
+}
+</code></pre>
+
+<p>Delegates provide a way to pass methods as parameters, enabling flexible and reusable code.</p>
+<h2 id="3-unicode-output-in-console">3. Unicode Output in Console</h2>
+<p>Console applications can display Unicode characters:</p>
+<pre class="codehilite"><code class="language-csharp">Console.OutputEncoding = System.Text.Encoding.Unicode;
+Console.WriteLine(&quot;\u2304&quot;);        // ⌄
+Console.WriteLine(&quot;\U0001F4AF&quot;);    // 💯
+Console.WriteLine(&quot;\U0001F604&quot;);    // 😄
+</code></pre>
+
+<p>Setting proper encoding ensures correct display of Unicode characters.</p>
+<h2 id="4-asynchronous-matrix-operations">4. Asynchronous Matrix Operations</h2>
+<p>This example shows parallel matrix computations:</p>
+<pre class="codehilite"><code class="language-csharp">static async Task Main()
+{
+    const int N = 10000;
+    Task[] tasks = new Task[4];
+    for (int i = 0; i &lt; 4; i++)
+    {
+        tasks[i] = Task.Run(() =&gt; ComputeMatrixInverse(N));
+    }
+    await Task.WhenAll(tasks);
+}
+</code></pre>
+
+<p>The code demonstrates parallel matrix operations using Tasks for improved performance.</p>
+<h2 id="5-task-and-thread-management">5. Task and Thread Management</h2>
+<p>Here's an example of task and thread management:</p>
+<pre class="codehilite"><code class="language-csharp">Task singleTask = Task.Run(() =&gt; {
+    Console.WriteLine($&quot;Single task on thread {Thread.CurrentThread.ManagedThreadId}&quot;);
+    Thread.Sleep(2000);
+});
+
+Parallel.For(0, 4, i =&gt; {
+    Console.WriteLine($&quot;Parallel {i} on thread {Thread.CurrentThread.ManagedThreadId}&quot;);
+    Thread.Sleep(2000);
+});
+</code></pre>
+
+<p>This demonstrates different ways to handle concurrent operations in C#.</p>
+<h2 id="6-timer-implementation">6. Timer Implementation</h2>
+<p>Finally, a timer example:</p>
+<pre class="codehilite"><code class="language-csharp">private static System.Timers.Timer aTimer;
+
+private static void SetTimer()
+{
+    aTimer = new System.Timers.Timer(2000);
+    aTimer.Elapsed += OnTimedEvent;
+    aTimer.AutoReset = true;
+    aTimer.Enabled = true;
+}
+</code></pre>
+
+<p>This shows how to implement recurring events using Timer in C#.</p>
+<p>Each of these examples demonstrates different aspects of C# programming, from basic concepts to advanced parallel processing techniques. The code samples provide practical implementations that can be used as building blocks for larger applications.</p>
+<h1 id="volatile-keyword"><code>volatile</code> Keyword</h1>
+<h2 id="why-volatile-is-useful">Why <code>volatile</code> is Useful</h2>
+<p>In multi-threaded applications, threads may cache variables in their local memory, leading to inconsistencies when the variable is updated by another thread. The <code>volatile</code> keyword prevents such caching, ensuring that the variable is always read from the main memory, thus maintaining data consistency across threads.</p>
+<h2 id="how-volatile-is-used">How <code>volatile</code> is Used</h2>
+<p>To use the <code>volatile</code> keyword, simply declare the field with the <code>volatile</code> modifier. For example:</p>
+<pre class="codehilite"><code class="language-csharp">private volatile bool keepRunning = true;
+</code></pre>
+
+<p>In the provided code, <code>keepRunning</code> is marked as <code>volatile</code> to ensure that changes made by one thread (e.g., the <code>Stop</code> method) are immediately visible to other threads (e.g., the <code>Worker</code> method).</p>
+<h2 id="when-to-use-volatile">When to Use <code>volatile</code></h2>
+<ul>
+<li>When a field is accessed by multiple threads without using locks.</li>
+<li>When you need to ensure that the most recent value of a field is always read by all threads.</li>
+</ul>
+<h2 id="when-not-to-use-volatile">When Not to Use <code>volatile</code></h2>
+<ul>
+<li>When more complex synchronization is required (e.g., atomic operations, multiple fields).</li>
+<li>When you need to perform compound operations (e.g., incrementing a counter) that must be atomic.</li>
+<li>When the field is not accessed by multiple threads.</li>
+</ul>
+<p>In such cases, other synchronization mechanisms like <code>lock</code>, <code>Monitor</code>, or <code>Interlocked</code> should be used to ensure thread safety.</p>
+<pre class="codehilite"><code class="language-csharp">using System;
+using System.Threading;
+
+public class VolatileExample
+{
+    private volatile bool keepRunning = true;
+
+    public void Start()
+    {
+        Thread workerThread = new Thread(Worker);
+        workerThread.Start();
+    }
+
+    private void Worker()
+    {
+        while (keepRunning)
+        {
+            Console.WriteLine(&quot;Working...&quot;);
+            Thread.Sleep(1000); // Simulate work
+        }
+        Console.WriteLine(&quot;Stopped working.&quot;);
+    }
+
+    public void Stop()
+    {
+        keepRunning = false;
+    }
+
+    public static void Main()
+    {
+        VolatileExample example = new VolatileExample();
+        example.Start();
+
+        // Simulate some work, then stop the worker thread
+        Thread.Sleep(5000); // Let it run for 5 seconds
+        example.Stop();
+    }
+}
+</code></pre>
+
+<h1 id="time-measurement-in-c">Time Measurement in C</h1>
+<p>Time is a critical aspect of many applications. C# provides several ways to measure, track, and represent time. Let's explore the most common approaches:</p>
+<h2 id="datetime">DateTime</h2>
+<p>DateTime represents a specific point in time, typically expressed as a date and time of day.</p>
+<pre class="codehilite"><code class="language-csharp">// Get current date and time
+DateTime now = DateTime.Now; // Local time
+DateTime utcNow = DateTime.UtcNow; // UTC time
+
+// Creating specific dates
+DateTime specificDate = new DateTime(2023, 12, 31, 23, 59, 59);
+
+// Parsing from string
+DateTime parsedDate = DateTime.Parse(&quot;2023-01-01 12:30:45&quot;);
+
+// Formatting
+string formatted = now.ToString(&quot;yyyy-MM-dd HH:mm:ss&quot;);
+
+// Date calculations
+DateTime tomorrow = now.AddDays(1);
+DateTime nextMonth = now.AddMonths(1);
+TimeSpan difference = tomorrow - now;
+</code></pre>
+
+<h2 id="timespan">TimeSpan</h2>
+<p>TimeSpan represents a time interval (duration).</p>
+<pre class="codehilite"><code class="language-csharp">// Create from explicit values
+TimeSpan duration = new TimeSpan(2, 30, 45); // 2 hours, 30 minutes, 45 seconds
+TimeSpan twoHours = TimeSpan.FromHours(2);
+TimeSpan tenMinutes = TimeSpan.FromMinutes(10);
+
+// Create from difference between DateTimes
+DateTime start = DateTime.Now;
+DateTime end = start.AddHours(3);
+TimeSpan elapsed = end - start;
+
+// Properties
+double totalHours = elapsed.TotalHours;
+int minutes = elapsed.Minutes; // Just the minutes component (0-59)
+</code></pre>
+
+<h2 id="stopwatch">Stopwatch</h2>
+<p>Stopwatch provides high-precision timing for measuring code execution performance.</p>
+<pre class="codehilite"><code class="language-csharp">using System.Diagnostics;
+
+// Basic usage
+Stopwatch sw = new Stopwatch();
+sw.Start();
+// Code to measure
+DoSomethingExpensive();
+sw.Stop();
+
+Console.WriteLine($&quot;Execution took {sw.ElapsedMilliseconds} ms&quot;);
+Console.WriteLine($&quot;Or more precisely: {sw.Elapsed.TotalSeconds} seconds&quot;);
+
+// Reusing stopwatch
+sw.Reset(); // Resets back to zero
+sw.Restart(); // Combines Reset() and Start()
+</code></pre>
+
+<h2 id="environmenttickcount">Environment.TickCount</h2>
+<p>TickCount provides the number of milliseconds since the system started.</p>
+<pre class="codehilite"><code class="language-csharp">// Get system uptime in milliseconds (wraps around after ~25 days)
+int tickCount = Environment.TickCount;
+
+// Get system uptime in milliseconds (Int64 version, doesn't wrap)
+long tickCount64 = Environment.TickCount64;
+
+// Calculate elapsed time between operations
+int start = Environment.TickCount;
+DoSomeWork();
+int end = Environment.TickCount;
+int elapsed = end - start;
+</code></pre>
+
+<h2 id="datetimeoffset">DateTimeOffset</h2>
+<p>DateTimeOffset represents a point in time with timezone awareness.</p>
+<pre class="codehilite"><code class="language-csharp">// Create with timezone information
+DateTimeOffset now = DateTimeOffset.Now;
+DateTimeOffset utcNow = DateTimeOffset.UtcNow;
+
+// Create with specific offset
+DateTimeOffset custom = new DateTimeOffset(2023, 12, 31, 23, 59, 59, TimeSpan.FromHours(-5));
+
+// Get from DateTime
+DateTimeOffset fromDateTime = new DateTimeOffset(DateTime.Now);
+
+// Access timezone information
+TimeSpan offset = now.Offset;
+</code></pre>
+
+<h2 id="valuestopwatch-high-performance-option">ValueStopwatch (High-Performance Option)</h2>
+<p>For extremely performance-sensitive code, a struct-based stopwatch can reduce allocations:</p>
+<pre class="codehilite"><code class="language-csharp">using System.Runtime.CompilerServices;
+
+// Lightweight stopwatch (struct-based to avoid allocations)
+public readonly struct ValueStopwatch
+{
+    private readonly long _startTimestamp;
+
+    public static ValueStopwatch StartNew() =&gt; new ValueStopwatch(Stopwatch.GetTimestamp());
+
+    private ValueStopwatch(long startTimestamp)
+    {
+        _startTimestamp = startTimestamp;
+    }
+
+    public TimeSpan GetElapsedTime()
+    {
+        long end = Stopwatch.GetTimestamp();
+        long elapsed = end - _startTimestamp;
+        return TimeSpan.FromTicks(elapsed * TimeSpan.TicksPerSecond / Stopwatch.Frequency);
+    }
+}
+
+// Usage
+var watch = ValueStopwatch.StartNew();
+DoSomeWork();
+TimeSpan elapsed = watch.GetElapsedTime();
+</code></pre>
+
+<h2 id="choosing-the-right-tool">Choosing the Right Tool</h2>
+<ul>
+<li><strong>DateTime</strong>: For calendar dates and times</li>
+<li><strong>DateTimeOffset</strong>: When timezone information matters</li>
+<li><strong>TimeSpan</strong>: For time intervals and calculations</li>
+<li><strong>Stopwatch</strong>: For precise code performance measurement</li>
+<li><strong>Environment.TickCount</strong>: For system uptime or simple elapsed time</li>
+</ul>
+<p>Each approach has its strengths and is designed for specific scenarios. For performance-critical applications, Stopwatch is usually the best choice for timing code execution.</p>
+<h2 id="observer-pattern-in-c">Observer Pattern in C</h2>
+<p>The Observer pattern is a behavioral design pattern where an object (the subject) maintains a list of dependents (observers) and notifies them automatically of state changes. This pattern is fundamental for implementing distributed event handling systems.</p>
+<h3 id="implementation-using-event-handlers">Implementation Using Event Handlers</h3>
+<p>The most common way to implement the Observer pattern in C# is using events and delegates:</p>
+<pre class="codehilite"><code class="language-csharp">public class StockMarket
+{
+    // Event declaration using built-in EventHandler
+    public event EventHandler&lt;StockChangeEventArgs&gt; StockPriceChanged;
+
+    private decimal currentPrice;
+    public decimal CurrentPrice
+    {
+        get { return currentPrice; }
+        set
+        {
+            if (currentPrice != value)
+            {
+                currentPrice = value;
+                // Notify observers about the price change
+                OnStockPriceChanged(new StockChangeEventArgs(currentPrice));
+            }
+        }
+    }
+
+    // Method to raise the event
+    protected virtual void OnStockPriceChanged(StockChangeEventArgs e)
+    {
+        StockPriceChanged?.Invoke(this, e);
+    }
+}
+
+// Custom event args
+public class StockChangeEventArgs : EventArgs
+{
+    public decimal NewPrice { get; }
+
+    public StockChangeEventArgs(decimal newPrice)
+    {
+        NewPrice = newPrice;
+    }
+}
+
+// Observer
+public class StockTrader
+{
+    public string Name { get; }
+
+    public StockTrader(string name, StockMarket market)
+    {
+        Name = name;
+        // Subscribe to the event
+        market.StockPriceChanged += OnStockPriceChanged;
+    }
+
+    private void OnStockPriceChanged(object sender, StockChangeEventArgs e)
+    {
+        Console.WriteLine($&quot;{Name} noticed stock price changed to {e.NewPrice:C}&quot;);
+    }
+}
+
+// Usage
+public static void Main()
+{
+    var market = new StockMarket();
+    var trader1 = new StockTrader(&quot;Alice&quot;, market);
+    var trader2 = new StockTrader(&quot;Bob&quot;, market);
+
+    market.CurrentPrice = 100.00m; // Both traders will be notified
+    market.CurrentPrice = 105.75m; // Both traders will be notified again
+}
+</code></pre>
+
+<p>This implementation is clean and straightforward, leveraging C#'s built-in event system. The <code>StockMarket</code> acts as the subject, while <code>StockTrader</code> instances are observers.</p>
+<h3 id="implementation-using-reactive-extensions-rx">Implementation Using Reactive Extensions (Rx)</h3>
+<p>For more complex scenarios, Reactive Extensions provide a powerful way to implement the Observer pattern:</p>
+<pre class="codehilite"><code class="language-csharp">using System;
+using System.Reactive.Subjects;
+
+public class StockMarketRx
+{
+    // Subject acts as both an observable and an observer
+    private readonly Subject&lt;decimal&gt; priceSubject = new Subject&lt;decimal&gt;();
+
+    // Expose the observable interface to prevent direct calls to OnNext
+    public IObservable&lt;decimal&gt; PriceChanges =&gt; priceSubject;
+
+    private decimal currentPrice;
+    public decimal CurrentPrice
+    {
+        get { return currentPrice; }
+        set
+        {
+            if (currentPrice != value)
+            {
+                currentPrice = value;
+                // Publish new price to all subscribers
+                priceSubject.OnNext(currentPrice);
+            }
+        }
+    }
+}
+
+public class StockTraderRx : IObserver&lt;decimal&gt;
+{
+    public string Name { get; }
+    private IDisposable subscription;
+
+    public StockTraderRx(string name, StockMarketRx market)
+    {
+        Name = name;
+        // Subscribe to price changes
+        subscription = market.PriceChanges.Subscribe(this);
+    }
+
+    public void OnCompleted()
+    {
+        Console.WriteLine($&quot;{Name}: Market closed for the day&quot;);
+    }
+
+    public void OnError(Exception error)
+    {
+        Console.WriteLine($&quot;{Name}: Error occurred: {error.Message}&quot;);
+    }
+
+    public void OnNext(decimal price)
+    {
+        Console.WriteLine($&quot;{Name} noticed stock price changed to {price:C}&quot;);
+    }
+
+    public void Unsubscribe()
+    {
+        subscription?.Dispose();
+    }
+}
+
+// Usage
+public static void RxExample()
+{
+    var market = new StockMarketRx();
+    var trader1 = new StockTraderRx(&quot;Alice&quot;, market);
+    var trader2 = new StockTraderRx(&quot;Bob&quot;, market);
+
+    market.CurrentPrice = 100.00m;
+    market.CurrentPrice = 105.75m;
+
+    // Unsubscribe one trader
+    trader1.Unsubscribe();
+
+    // Only trader2 gets this update
+    market.CurrentPrice = 110.50m;
+}
+</code></pre>
+
+<p>The Rx implementation provides additional benefits:
+- Built-in support for error handling
+- Explicit completion notification
+- Easy subscription management with IDisposable
+- Ability to transform and filter events using LINQ operators</p>
+<h3 id="which-approach-to-choose">Which Approach to Choose?</h3>
+<p><strong>Use C# Events when:</strong>
+- You need a simple, lightweight implementation
+- Your application has straightforward publisher-subscriber relationships
+- You want to leverage familiar C# language features</p>
+<p><strong>Use Reactive Extensions when:</strong>
+- You need advanced event processing capabilities (filtering, throttling, etc.)
+- Your application deals with complex event streams
+- You want better error handling and resource cleanup
+- You need to compose multiple event sources together</p>
+<p>Both approaches effectively implement the Observer pattern, but Reactive Extensions scales better for complex scenarios while adding a small learning curve and dependency.</p>
+    </div>
+</article>
+
+</main>
+<footer>
+    &copy; 2025 Yao
+</footer>
+<script src="/static/script.js"></script>
+
+</body>
+</html>

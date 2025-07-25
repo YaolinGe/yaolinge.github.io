@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>C# Programming</title>
+    <link rel="stylesheet" href="/static/style.css" />
+    
+</head>
+<body>
+<header>
+    <h1>C# Programming</h1>
+</header>
+<main>
+    
+<article class="blog-post">
+    <h1>Quick notes on C# with examples</h1>
+    <div class="date">2025-04-24</div>
+    <div id="content">
+        <h1 id="c-programming">C# Programming 🚀</h1>
+<h2 id="string-formatting">String Formatting 🧵</h2>
+<pre class="codehilite"><code class="language-C#">string text = &quot;Hello, {0}! Today is {1:D}.&quot;;
+Console.WriteLine(string.Format(text, &quot;Alice&quot;, DateTime.Now));
+// Output: Hello, Alice! Today is Wednesday, April 24, 2025.
+
+string template = &quot;Product: {0}, Price: {1:C}&quot;;
+Console.WriteLine(string.Format(template, &quot;Laptop&quot;, 999.99));
+// Output: Product: Laptop, Price: $999.99
+
+string template = &quot;|{0,-10}|{1,10:N2}|&quot;;
+string result = string.Format(template, &quot;Item&quot;, 1234.567);
+Console.WriteLine(result);
+// Output: |Item     |  1,234.57|
+</code></pre>
+
+<hr />
+<h2 id="abstract-class-methods">Abstract Class &amp; Methods 🛠️</h2>
+<h3 id="what-is-it">What is it? 🤔</h3>
+<ul>
+<li><strong>Abstract Class</strong>: A blueprint class that can't be instantiated directly.</li>
+<li><strong>Abstract Method</strong>: A method without a body that <em>must</em> be implemented in derived classes.</li>
+</ul>
+<h3 id="key-points">Key Points 📌</h3>
+<ul>
+<li>Abstract classes can have both abstract and non-abstract methods.</li>
+<li>Abstract methods <strong>must</strong> be overridden in derived classes.</li>
+<li>Virtual methods <strong>can</strong> be overridden but aren't mandatory.</li>
+</ul>
+<h3 id="example-code">Example Code 💻</h3>
+<pre class="codehilite"><code class="language-C#">abstract class Animal {
+    public abstract void Speak(); // Abstract method 🐾
+    public void Sleep() {
+        Console.WriteLine(&quot;Sleeping... 😴&quot;);
+    }
+}
+
+class Dog : Animal {
+    public override void Speak() {
+        Console.WriteLine(&quot;Woof! 🐶&quot;);
+    }
+}
+
+class Cat : Animal {
+    public override void Speak() {
+        Console.WriteLine(&quot;Meow! 🐱&quot;);
+    }
+}
+
+Animal myDog = new Dog();
+myDog.Speak(); // Output: Woof! 🐶
+myDog.Sleep(); // Output: Sleeping... 😴
+</code></pre>
+
+<h3 id="meme-time">Meme Time 🎉</h3>
+<blockquote>
+<p><strong>Abstract Class</strong>: "I'm the blueprint, not the builder!"<br />
+<strong>Derived Class</strong>: "Got it, boss! I'll do the heavy lifting. 💪"</p>
+</blockquote>
+<hr />
+<h2 id="getvalueordefault">GetValueOrDefault() 🛠</h2>
+<pre class="codehilite"><code class="language-C#">int? nullableInt = null;
+int value1 = nullableInt.GetValueOrDefault(); // returns 0, the default for int
+
+nullableInt = 5;
+int value2 = nullableInt.GetValueOrDefault(); // returns 5, the actual value
+
+int value3 = nullableInt.GetValueOrDefault(10); // returns 5, because nullableInt has a value
+
+nullableInt = null;
+int value4 = nullableInt.GetValueOrDefault(10); // returns 10, the specified default value
+</code></pre>
+    </div>
+</article>
+
+</main>
+<footer>
+    &copy; 2025 Yao
+</footer>
+<script src="/static/script.js"></script>
+
+</body>
+</html>
