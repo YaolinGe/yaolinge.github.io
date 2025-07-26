@@ -3,68 +3,67 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Jekyll notes</title>
+    <title>Jekyll</title>
     <link rel="stylesheet" href="/static/style.css" />
     
 </head>
 <body>
 <header>
-    <h1>Jekyll notes</h1>
+    <h1>Jekyll</h1>
 </header>
 <main>
     
 <article class="blog-post">
-    <h1>My jekyll learning notes</h1>
+    <h1>My Jekyll learning notes</h1>
     <div class="date">2023-03-13</div>
     <div id="content">
-        <h2 id="quick-start">Quick start</h2>
+        <h2 id="quick-start">Quick Start</h2>
 <ul>
-<li><code>jekyll new my-awesome-site</code> to create a new Jekyll site at ./my-awesome-site.</li>
-<li><code>cd my-awesome-site</code> to go into the new directory.</li>
-<li><code>bundle exec jekyll serve</code> to build the site and make it available on a local server.</li>
+<li><code>jekyll new my-awesome-site</code> — Create a new Jekyll site.</li>
+<li><code>cd my-awesome-site</code> — Enter the new directory.</li>
+<li><code>bundle exec jekyll serve</code> — Build and serve the site locally.</li>
 </ul>
-<h3 id="here-are-simplfied-notes-for-jekyll-assisted-blog-webpage-building">Here are simplfied notes for jekyll-assisted blog webpage building.</h3>
-<p>:warning: <code>JEKYLL_ENV=production bundle exec jekyll build</code> to build the website in production environment, then copy contents from <code>_site</code> to github.</p>
-<p>:warning: Every time after I have modified <code>_config.yml</code> file, then I need to restart the server.</p>
-<p>:warning: <code>baseurl=/Blog</code> does not have <code>/</code> in the end</p>
-<p>:warning: <code>link: /Blog/</code> then needs to have it in the end in <code>navigation.yml</code>.</p>
-<h3 id="jekyll-commands">Jekyll commands</h3>
+<h2 id="notes-for-jekyll-blog-building">Notes for Jekyll Blog Building</h2>
 <ul>
-<li><code>bundle exec jekyll serve</code> to start the server, but :warning: it is not the production environment, and good for local development.</li>
-<li><code>JEKYLL_ENV=production bundle exec jekyll build</code> to build the website in production environment, then copy contents from <code>_site</code> to github. </li>
-<li><code>bundle exec jekyll serve --livereload</code> to start the server with live reload.</li>
-<li><code>bundle exec jekyll serve --draft</code> to start the server with draft posts.</li>
+<li>:warning: Use <code>JEKYLL_ENV=production bundle exec jekyll build</code> to build for production, then copy <code>_site</code> contents to GitHub.</li>
+<li>:warning: Restart the server after modifying <code>_config.yml</code>.</li>
+<li>:warning: <code>baseurl=/Blog</code> should not end with a slash.</li>
+<li>:warning: In <code>navigation.yml</code>, use <code>link: /Blog/</code> (with trailing slash).</li>
 </ul>
-<h3 id="jekyll-plugins">Jekyll plugins</h3>
+<h2 id="jekyll-commands">Jekyll Commands</h2>
 <ul>
-<li>How to change theme: <ul>
-<li>Go to <a href="https://rubygems.org/">rubygems.org</a> and search <strong>jekyll-theme</strong> for the theme you want to use.</li>
-<li>Add the theme to your <code>Gemfile</code> such as <code>gem "jekyll-theme-hacker"</code> and run <code>bundle install</code>.</li>
-<li>Add <code>theme: jekyll-theme-hacker</code> to your <code>_config.yml</code> file.</li>
-<li>Run <code>bundle exec jekyll serve</code> and your site should now be using the theme you added.</li>
+<li><code>bundle exec jekyll serve</code> — Start local server (development).</li>
+<li><code>JEKYLL_ENV=production bundle exec jekyll build</code> — Build for production.</li>
+<li><code>bundle exec jekyll serve --livereload</code> — Serve with live reload.</li>
+<li><code>bundle exec jekyll serve --draft</code> — Serve including draft posts.</li>
+</ul>
+<h2 id="jekyll-plugins">Jekyll Plugins</h2>
+<ul>
+<li>To change theme:<ul>
+<li>Search for <strong>jekyll-theme</strong> on <a href="https://rubygems.org/">rubygems.org</a>.</li>
+<li>Add to <code>Gemfile</code> (e.g., <code>gem "jekyll-theme-hacker"</code>) and run <code>bundle install</code>.</li>
+<li>Add <code>theme: jekyll-theme-hacker</code> to <code>_config.yml</code>.</li>
+<li>Run <code>bundle exec jekyll serve</code> to use the new theme.</li>
 </ul>
 </li>
 </ul>
-<h3 id="jekyll-layouts">Jekyll layouts</h3>
+<h2 id="jekyll-layouts">Jekyll Layouts</h2>
 <ul>
-<li>How to add a new layout: Create a new file <code>post.html</code> in the <code>_layouts</code> directory with the following front matter:</li>
+<li>To add a new layout: Create <code>post.html</code> in <code>_layouts</code> with the desired front matter.</li>
 </ul>
-<h3 id="jekyll-styling">Jekyll styling</h3>
+<h2 id="jekyll-styling">Jekyll Styling</h2>
 <ul>
-<li><code>&lt;br&gt;</code> for line break. </li>
-<li><code>&lt;hr&gt;</code> for horizontal line.</li>
+<li>Use <code>&lt;br&gt;</code> for line breaks.</li>
+<li>Use <code>&lt;hr&gt;</code> for horizontal lines.</li>
 </ul>
-<h3 id="github-pages">Github pages</h3>
+<h2 id="github-pages">GitHub Pages</h2>
 <ul>
-<li>How to launch it on github pages: <ul>
-<li>Build the site locally with <code>JEKYLL_ENV=production bundle exec jekyll build</code>.</li>
-<li><code>git checkout -b gh-pages</code> to create a new branch called <code>gh-pages</code>.</li>
-<li>Copy the contents of the <code>_site</code> directory to the root of the <code>gh-pages</code> branch.</li>
-<li><code>git push origin gh-pages</code> to push the <code>gh-pages</code> branch to GitHub.</li>
+<li>Build locally: <code>JEKYLL_ENV=production bundle exec jekyll build</code>.</li>
+<li>Create branch: <code>git checkout -b gh-pages</code>.</li>
+<li>Copy <code>_site</code> contents to root of <code>gh-pages</code> branch.</li>
+<li>Push: <code>git push origin gh-pages</code>.</li>
 </ul>
-</li>
-</ul>
-<h1 id="resources">Resources</h1>
+<h2 id="resources">Resources</h2>
 <ul>
 <li><a href="https://maximorlov.com/deploying-to-github-pages-dont-forget-to-fix-your-links/">Explaining permalinks</a></li>
 </ul>

@@ -1,49 +1,122 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  font: 100%/1.5 sans-serif;
+  background: #fafbfc;
+  color: #222;
+  padding: 1.5em;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    margin: auto 10rem;
-    overflow: scroll; 
 }
 
 header {
-    background-color: rgb(173, 50, 231);
-    color: white;
-    padding: 20px;
     text-align: center;
+    margin-bottom: 2em;
+}
+
+main {
+    margin: 0 auto; 
+    max-width: 80vw;
 }
 
 footer {
     text-align: center;
+    margin-top: 2em;
     font-size: 0.8em;
-    color: #999;
-    margin: 50px 0;
+    color: #666;
 }
+
+
+a { color: #fa6432; text-decoration: none; }
+a:hover, a:focus { text-decoration: underline; }
 
 pre, code {
-    background: #f6f8fa;
-    color: #24292e;
-    border-radius: 6px;
-    font-family: 'Fira Mono', 'Consolas', 'Menlo', 'Monaco', monospace;
-    font-size: 0.95em;
-    white-space: pre-wrap;
-    word-break: break-word;
-    overflow-x: auto;
-    tab-size: 4;
-    padding: 0.5em 0.75em;
-    border: 1px solid #d1d5da;
-    box-shadow: 0 1px 2px rgba(27,31,35,0.04);
+  background: #eee;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-family: monospace, monospace;
 }
 
-code {
-    padding: 0.2em 0.4em;
-    border-radius: 4px;
-    background: #f6f8fa;
-    border: 1px solid #e1e4e8;
-    font-size: 0.95em;
+
+
+/* 
+Index page styles 
+ */
+.blog-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5em;
 }
 
-pre {
-    margin: 1em 0;
+
+/* #region Blog post styles */
+/*
+Blog post styles
+ */
+.blog-post {
+    padding: 2em 2.5em;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2em;
+}
+
+.blog-post h1 {
+    font-size: 2.2em;
+    font-weight: 700;
+    margin-bottom: 0.2em;
+    color: #222;
+    letter-spacing: -1px;
+    line-height: 1.1;
+}
+
+.blog-post .date {
+    font-size: 0.95em;
+    color: #888;
+    margin-bottom: 1em;
+    font-style: italic;
+}
+
+.blog-post .content {
+    font-size: 1.1em;
+    line-height: 1.7;
+    color: #222;
+}
+
+.blog-post p {
+    margin: 1.2em 0; 
+    line-height: 1.6;
+}
+
+.blog-post img {
+    max-width: 80%;
+    border-radius: 60px;
+    margin: 1em auto;
+    display: block;
+}
+
+.blog-post pre {
+    background: #f5f5f7;
+    color: #222;
     padding: 1em;
-    overflow: auto;
+    border-radius: 5px;
+    overflow-x: auto;
+    font-size: 1em;
+    margin: 1.2em 0;
 }
+
+.blog-post code {
+    background: #f0f0f0;
+    color: #c7254e;
+    border-radius: 3px;
+    padding: 0.2em 0.4em;
+    font-size: 0.97em;
+}
+
+/* #endregion Blog post styles */

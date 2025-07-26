@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Computer Systems A Programmer&#39;s Perspective</title>
+    <link rel="stylesheet" href="/static/style.css" />
+    
+</head>
+<body>
+<header>
+    <h1>Computer Systems A Programmer&#39;s Perspective</h1>
+</header>
+<main>
+    
+<article class="blog-post">
+    <h1>Notes for CSSAPP</h1>
+    <div class="date">2025-07-26</div>
+    <div id="content">
+        <p>In C#, <code>bool</code> uses 1 byte (not 1 bit) due to memory alignment. To store multiple flags efficiently, use bit masking:</p>
+<pre class="codehilite"><code class="language-csharp">byte flags = 0b_0000_1010; // 8 flags in 1 byte
+bool flag2 = (flags &amp; (1 &lt;&lt; 1)) != 0; // check 2nd flag
+bool flagN = (flags &amp; (1 &lt;&lt; N)) != 0; // check N-th flag, 0 &lt;= N &lt; 8
+</code></pre>
+    </div>
+</article>
+
+</main>
+<footer>
+    &copy; 2025 Yao
+</footer>
+<script src="/static/script.js"></script>
+
+</body>
+</html>

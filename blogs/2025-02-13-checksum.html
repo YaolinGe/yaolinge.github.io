@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>checksum</title>
+    <title>Checksum</title>
     <link rel="stylesheet" href="/static/style.css" />
     
 </head>
 <body>
 <header>
-    <h1>checksum</h1>
+    <h1>Checksum</h1>
 </header>
 <main>
     
@@ -17,12 +17,21 @@
     <h1>Notes for checksum</h1>
     <div class="date">2025-02-13</div>
     <div id="content">
-        <h1 id="checksums">Checksums</h1>
+        <h2 id="checksums">Checksums</h2>
+<p>A <strong>checksum</strong> is a short, fixed-length value calculated from a file's contents using a hash function (such as MD5, SHA-1, or SHA-256). The main objective of a checksum is to verify data integrity—ensuring that a file has not been altered, corrupted, or tampered with during transfer or storage.</p>
+<h3 id="why-use-checksums">Why Use Checksums?</h3>
+<ul>
+<li><strong>Integrity Verification:</strong> Detect accidental or malicious changes to files.</li>
+<li><strong>File Comparison:</strong> Quickly check if two files are identical without comparing their entire contents.</li>
+<li><strong>Data Security:</strong> Ensure downloaded files are authentic and unmodified.</li>
+</ul>
+<h3 id="how-are-checksums-calculated">How Are Checksums Calculated?</h3>
+<p>A hash algorithm processes the file's data and produces a unique value (the checksum). Even a tiny change in the file will result in a completely different checksum. Renaming a file does not affect its checksum, as only the content matters.</p>
+<h3 id="example-calculate-a-checksum-in-powershell">Example: Calculate a Checksum in PowerShell</h3>
 <pre class="codehilite"><code class="language-powershell">Get-FileHash -Path .\file.txt -Algorithm MD5
 </code></pre>
 
-<p>I can change the content of the same filename, then the checksums will be altered immediately. As long as the content of the file remains the same, then the checksum will remain the same.</p>
-<p>Even if the file is renamed, the checksum will remain the same. Checksums are used to verify the integrity of files, i.e. to check if the file has been tampered with. </p>
+<p>Replace <code>MD5</code> with <code>SHA256</code> or another algorithm as needed. The output is the checksum value, which you can compare with a known good value to verify file integrity.</p>
     </div>
 </article>
 

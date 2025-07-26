@@ -17,16 +17,16 @@
     <h1>Model-View-Controller and Unicode</h1>
     <div class="date">2025-03-11</div>
     <div id="content">
-        <h1 id="understanding-model-view-controller-with-flask-and-exploring-unicode">Understanding Model-View-Controller with Flask and Exploring Unicode</h1>
-<p>In this blog post, we'll explore two fundamental concepts in software development: the Model-View-Controller (MVC) architectural pattern and Unicode character encoding. Let's dive in!</p>
-<h2 id="part-1-model-view-controller-in-flask">Part 1: Model-View-Controller in Flask</h2>
-<p>The MVC pattern separates application logic into three interconnected components:
-- <strong>Model</strong>: Manages data and business logic
-- <strong>View</strong>: Handles the UI elements and presentation
-- <strong>Controller</strong>: Processes and responds to user interactions</p>
-<h3 id="building-a-simple-counter-app-with-flask">Building a Simple Counter App with Flask</h3>
-<p>Let's implement a basic counter application using Flask that demonstrates the MVC pattern.</p>
-<h4 id="project-structure">Project Structure</h4>
+        <h2 id="model-view-controller-mvc-with-flask-unicode-essentials">Model-View-Controller (MVC) with Flask &amp; Unicode Essentials</h2>
+<p>This post introduces the Model-View-Controller (MVC) pattern using Flask and demystifies Unicode encoding for modern software development.</p>
+<hr />
+<h2 id="1-mvc-pattern-in-flask">1. MVC Pattern in Flask</h2>
+<p>MVC divides an application into three components:
+- <strong>Model</strong>: Handles data and business logic.
+- <strong>View</strong>: Manages UI and presentation.
+- <strong>Controller</strong>: Processes user input and updates Model/View.</p>
+<h3 id="example-flask-counter-app">Example: Flask Counter App</h3>
+<p><strong>Project Structure</strong></p>
 <pre class="codehilite"><code>counter_app/
 ├── app.py
 ├── models.py
@@ -37,30 +37,25 @@
     └── style.css
 </code></pre>
 
-<h4 id="the-model-modelspy">The Model (models.py)</h4>
+<p><strong>Model (<code>models.py</code>)</strong></p>
 <pre class="codehilite"><code class="language-python">class Counter:
     def __init__(self):
         self.value = 0
-
     def increment(self):
         self.value += 1
         return self.value
-
     def decrement(self):
         self.value -= 1
         return self.value
-
     def reset(self):
         self.value = 0
         return self.value
-
     def get_value(self):
         return self.value
 </code></pre>
 
-<h4 id="the-view-templatesindexhtml">The View (templates/index.html)</h4>
+<p><strong>View (<code>templates/index.html</code>)</strong></p>
 <pre class="codehilite"><code class="language-html">{% extends &quot;layout.html&quot; %}
-
 {% block content %}
 &lt;div class=&quot;counter-container&quot;&gt;
     &lt;h1&gt;Flask Counter App&lt;/h1&gt;
@@ -80,7 +75,7 @@
 {% endblock %}
 </code></pre>
 
-<h4 id="the-controller-apppy">The Controller (app.py)</h4>
+<p><strong>Controller (<code>app.py</code>)</strong></p>
 <pre class="codehilite"><code class="language-python">from flask import Flask, render_template, redirect, url_for
 from models import Counter
 
@@ -89,14 +84,11 @@ counter = Counter()
 
 @app.route('/')
 def index():
-    # Controller gets data from Model
     count = counter.get_value()
-    # Controller sends data to View
     return render_template('index.html', count=count)
 
 @app.route('/increment', methods=['POST'])
 def increment():
-    # Controller updates Model
     counter.increment()
     return redirect(url_for('index'))
 
@@ -114,73 +106,33 @@ if __name__ == '__main__':
     app.run(debug=True)
 </code></pre>
 
-<h3 id="mvc-in-action">MVC in Action</h3>
-<p>In this example:
-- <strong>Model</strong> (Counter class): Manages the counter's state and operations
-- <strong>View</strong> (HTML templates): Presents the UI to the user
-- <strong>Controller</strong> (Flask routes): Handles HTTP requests and coordinates between Model and View</p>
-<p>This separation of concerns makes the code more maintainable, testable, and allows different components to evolve independently.</p>
-<h2 id="part-2-understanding-unicode">Part 2: Understanding Unicode</h2>
+<p><strong>Summary:</strong><br />
+- <strong>Model</strong>: Counter logic<br />
+- <strong>View</strong>: HTML templates<br />
+- <strong>Controller</strong>: Flask routes<br />
+This separation improves maintainability and scalability.</p>
+<hr />
+<h2 id="2-unicode-the-universal-character-set">2. Unicode: The Universal Character Set</h2>
 <h3 id="what-is-unicode">What is Unicode?</h3>
-<p>Unicode is a universal character encoding standard that provides a unique number for every character, regardless of the platform, program, or language. Before Unicode, different encoding systems were used for different languages, causing compatibility issues.</p>
+<p>Unicode assigns a unique number to every character, supporting all major writing systems. It solves compatibility issues from legacy encodings.</p>
 <h3 id="unicode-vs-ascii">Unicode vs. ASCII</h3>
-<p>ASCII (American Standard Code for Information Interchange) uses 7 bits to represent characters, limiting it to 128 characters—mostly Latin letters, digits, and some special characters.</p>
-<p>Unicode, on the other hand, can represent characters from virtually all writing systems in use today.</p>
+<ul>
+<li><strong>ASCII</strong>: 7 bits, 128 characters (mainly English)</li>
+<li><strong>Unicode</strong>: Supports all languages and symbols</li>
+</ul>
 <h3 id="utf-8-vs-utf-16">UTF-8 vs. UTF-16</h3>
-<p>Unicode has different encoding forms:</p>
-<h4 id="utf-8">UTF-8</h4>
 <ul>
-<li>Variable-width encoding: characters use 1 to 4 bytes</li>
-<li>Backward compatible with ASCII (the first 128 characters are encoded the same way)</li>
-<li>Space-efficient for Latin-based text</li>
-<li>Dominant encoding on the web</li>
+<li><strong>UTF-8</strong>: 1–4 bytes/character, ASCII-compatible, web standard</li>
+<li><strong>UTF-16</strong>: 2 or 4 bytes/character, used by Windows/Java/JS</li>
 </ul>
-<p>Example UTF-8 encoding:
-- Character 'A' (U+0041): <code>01000001</code> (1 byte)
-- Character '€' (U+20AC): <code>11100010 10000010 10101100</code> (3 bytes)
-- Character '😊' (U+1F60A): <code>11110000 10011111 10011000 10001010</code> (4 bytes)</p>
-<h4 id="utf-16">UTF-16</h4>
-<ul>
-<li>Uses either 2 or 4 bytes per character</li>
-<li>All BMP (Basic Multilingual Plane) characters use 2 bytes</li>
-<li>Characters outside BMP use 4 bytes (using surrogate pairs)</li>
-<li>Used internally by systems like Windows, Java, and JavaScript</li>
-</ul>
-<p>Example UTF-16 encoding:
-- Character 'A' (U+0041): <code>0000 0000 0100 0001</code> (2 bytes)
-- Character '€' (U+20AC): <code>0010 0000 1010 1100</code> (2 bytes)
-- Character '😊' (U+1F60A): <code>1101 1000 0001 1111 1101 1100 0000 1010</code> (4 bytes, surrogate pair)</p>
-<h3 id="unicode-in-python">Unicode in Python</h3>
-<p>Python 3 strings are Unicode by default. Here's how to work with Unicode in Python:</p>
-<pre class="codehilite"><code class="language-python"># Unicode string literals
-hello_world = &quot;Hello, World! 你好，世界! こんにちは! 안녕하세요!&quot;
-print(hello_world)
-
-# Unicode code points
-print(&quot;Euro symbol: \u20AC&quot;)
-print(&quot;Snowman: \u2603&quot;)
-print(&quot;Smiling face: \U0001F60A&quot;)
-
-# Getting the Unicode code point
-print(ord('A'))  # 65
-print(ord('€'))  # 8364
-print(ord('😊'))  # 128522
-
-# Converting from code point to character
-print(chr(65))  # A
-print(chr(8364))  # €
-print(chr(128522))  # 😊
-</code></pre>
-
-<h3 id="unicode-examples-table">Unicode Examples Table</h3>
 <table>
 <thead>
 <tr>
 <th>Character</th>
 <th>Description</th>
-<th>Unicode Code Point</th>
-<th>UTF-8 (hex)</th>
-<th>UTF-16 (hex)</th>
+<th>Code Point</th>
+<th>UTF-8</th>
+<th>UTF-16</th>
 </tr>
 </thead>
 <tbody>
@@ -193,7 +145,7 @@ print(chr(128522))  # 😊
 </tr>
 <tr>
 <td>é</td>
-<td>Latin e with acute</td>
+<td>e with acute</td>
 <td>U+00E9</td>
 <td>C3 A9</td>
 <td>00E9</td>
@@ -228,13 +180,29 @@ print(chr(128522))  # 😊
 </tr>
 </tbody>
 </table>
-<h3 id="practical-applications">Practical Applications</h3>
-<p>Unicode is essential for:
-- Internationalization (i18n) of software
-- Cross-platform data exchange
-- Multilingual websites and applications
-- Text processing in global contexts</p>
-<p>As developers, understanding Unicode helps us create applications that work correctly across different languages and cultures, ensuring our software is truly global.</p>
+<h3 id="unicode-in-python">Unicode in Python</h3>
+<p>Python 3 strings are Unicode by default:</p>
+<pre class="codehilite"><code class="language-python">hello_world = &quot;Hello, World! 你好，世界! こんにちは! 안녕하세요!&quot;
+print(hello_world)
+print(&quot;Euro symbol: \u20AC&quot;)
+print(&quot;Snowman: \u2603&quot;)
+print(&quot;Smiling face: \U0001F60A&quot;)
+print(ord('A'))      # 65
+print(ord('€'))      # 8364
+print(ord('😊'))     # 128522
+print(chr(65))       # A
+print(chr(8364))     # €
+print(chr(128522))   # 😊
+</code></pre>
+
+<hr />
+<h2 id="key-takeaways">Key Takeaways</h2>
+<ul>
+<li><strong>MVC</strong>: Cleanly separates logic, UI, and control flow.</li>
+<li><strong>Unicode</strong>: Enables global, multilingual software.</li>
+<li><strong>Python</strong>: Unicode support is built-in and straightforward.</li>
+</ul>
+<p>Understanding these concepts is essential for building robust, internationalized applications.</p>
     </div>
 </article>
 

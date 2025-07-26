@@ -14,10 +14,40 @@
 <main>
     
 <article class="blog-post">
-    <h1>Asynchronous programming in C#</h1>
+    <h1>Overview of asynchronous programming, observer pattern, and delegates in C#. Learn objectives, methods, and practical applications for writing responsive, maintainable, and scalable code.</h1>
     <div class="date">2025-02-20</div>
     <div id="content">
-        <h2 id="cancellationtoken">CancellationToken</h2>
+        <h2 id="objectives">Objectives</h2>
+<ul>
+<li>Understand asynchronous programming, observer pattern, and delegates in C#.</li>
+<li>Learn how to implement cancellation, event-driven design, and flexible method invocation.</li>
+<li>Recognize scenarios where these techniques improve code responsiveness, modularity, and maintainability.</li>
+</ul>
+<h2 id="methods">Methods</h2>
+<ul>
+<li><strong>Asynchronous Programming</strong>: Use <code>async</code>/<code>await</code> and <code>CancellationToken</code> to perform non-blocking operations and support cooperative cancellation.</li>
+<li><strong>Observer Pattern</strong>: Implement subjects and observers to enable event-driven updates and decoupled communication between components.</li>
+<li><strong>Delegates</strong>: Define and use delegates for flexible method references, multicast invocation, and dynamic behavior.</li>
+</ul>
+<h2 id="why-it-is-useful-and-important">Why It Is Useful and Important</h2>
+<ul>
+<li><strong>Async Programming</strong>: Enhances application responsiveness by preventing UI or main thread blocking during long-running tasks. Cancellation support allows for graceful task termination.</li>
+<li><strong>Observer Pattern</strong>: Promotes loose coupling and scalability by allowing multiple observers to react to state changes without direct dependencies.</li>
+<li><strong>Delegates</strong>: Enable flexible, reusable, and type-safe method invocation, supporting event handling and callback mechanisms.</li>
+</ul>
+<h2 id="how-to-do-so">How to Do So</h2>
+<ul>
+<li>Use <code>CancellationTokenSource</code> and <code>CancellationToken</code> to manage and signal task cancellation.</li>
+<li>Implement the observer pattern by defining a subject (with attach/detach/notify methods) and observer interfaces.</li>
+<li>Declare delegates to encapsulate method references, combine them for multicast, and pass them as parameters for dynamic invocation.</li>
+</ul>
+<h2 id="when-to-use-them">When to Use Them</h2>
+<ul>
+<li><strong>Async Programming</strong>: For I/O-bound, long-running, or user-interruptible operations.</li>
+<li><strong>Observer Pattern</strong>: When multiple components need to react to changes in another component’s state.</li>
+<li><strong>Delegates</strong>: For event handling, callbacks, and scenarios requiring flexible method assignment.</li>
+</ul>
+<h2 id="cancellationtoken">CancellationToken</h2>
 <pre class="codehilite"><code class="language-C#">using System;
 using System.Threading;
 using System.Threading.Tasks;
