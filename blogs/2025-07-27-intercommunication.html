@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Inter Communication</title>
+    <link rel="stylesheet" href="/static/style.css" />
+    
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/posts.html">Posts</a></li>
+            <li><a href="/projects.html">Projects</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    
+<article class="blog-post">
+    <h1>How to hack from one computer to another</h1>
+    <div class="date">2025-07-27</div>
+    <div id="content">
+        <p>Assume you have to computers, they have the following IP address
+- <code>10.0.0.2</code> PC1
+- <code>10.0.0.3</code> PC2</p>
+<p>One can then use <code>nc</code> to launch the simplest listener on PC1 at port 3000
+- <code>nc -l 3000</code> to launch the listener</p>
+<p>Then I can use <code>nc 10.0.0.2 3000</code> to teleport into the PC1 from PC2 and then send command as text</p>
+    </div>
+</article>
+
+</main>
+<footer>
+    &copy; 2025 Yao
+</footer>
+<script src="/static/script.js"></script>
+<script src="/static/analytics.js"></script>
+
+</body>
+</html>
