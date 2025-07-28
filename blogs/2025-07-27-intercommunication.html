@@ -23,12 +23,48 @@
     <h1>How to hack from one computer to another</h1>
     <div class="date">2025-07-27</div>
     <div id="content">
+<<<<<<< HEAD
         <p>Assume you have to computers, they have the following IP address
+=======
+        <h2 id="teleporting-between-computers">Teleporting Between Computers</h2>
+<p>Assume you have to computers, they have the following IP address
+>>>>>>> 33c6897670458c5abce924cbaf38bbe7ea9fa864
 - <code>10.0.0.2</code> PC1
 - <code>10.0.0.3</code> PC2</p>
 <p>One can then use <code>nc</code> to launch the simplest listener on PC1 at port 3000
 - <code>nc -l 3000</code> to launch the listener</p>
 <p>Then I can use <code>nc 10.0.0.2 3000</code> to teleport into the PC1 from PC2 and then send command as text</p>
+<<<<<<< HEAD
+=======
+<h2 id="check-ip-address">Check IP address</h2>
+<h4 id="public-ip-address-at-the-beginning-of-the-vpn-tunnel">Public IP Address at the beginning of the VPN tunnel</h4>
+<ul>
+<li><code>curl https://api.ipify.org</code> gets the public IP address</li>
+</ul>
+<h4 id="public-ip-address-at-the-end-of-the-vpn-tunnel">Public IP Address at the end of the VPN tunnel</h4>
+<ul>
+<li><code>curl -4 ifconfig.me</code> gets the public IP address</li>
+<li><code>curl -6 ifconfig.me</code> gets the public IPv6 address</li>
+<li><code>curl https://ifconfig.co</code> gets the public IP address</li>
+<li><code>curl https://ifconfig.co/ip</code> gets the public IP address</li>
+<li><code>curl https://ipinfo.io/ip</code> gets the public IP address</li>
+<li><code>curl https://icanhazip.com</code> gets the public IP address</li>
+<li><code>curl https://checkip.amazonaws.com</code> gets the public IP address</li>
+<li><code>curl https://api.myip.com</code> gets the public IP address</li>
+</ul>
+<h4 id="local-ip-address">Local IP Address</h4>
+<ul>
+<li><code>ip addr</code> gets the local IP address</li>
+<li><code>hostname -I</code> gets the local IP address in a single line</li>
+</ul>
+<h2 id="check-the-geographical-location-of-the-ip-address">Check the geographical location of the IP address</h2>
+<ul>
+<li><code>curl https://ipinfo.io</code> gets the geographical location of the IP address</li>
+<li><code>curl https://ipinfo.io/123.234.10.1/json</code> gets the geographical location of the specific IP address</li>
+<li><code>curl https://ipapi.co/json</code> gets the geographical location of the IP address</li>
+<li><code>curl https://ipapi.co/123.234.10.1/json</code> gets the geographical location of the specific IP address</li>
+</ul>
+>>>>>>> 33c6897670458c5abce924cbaf38bbe7ea9fa864
     </div>
 </article>
 
@@ -37,7 +73,11 @@
     &copy; 2025 Yao
 </footer>
 <script src="/static/script.js"></script>
+<<<<<<< HEAD
 <script src="/static/analytics.js"></script>
+=======
+<!-- <script src="/static/analytics.js"></script> -->
+>>>>>>> 33c6897670458c5abce924cbaf38bbe7ea9fa864
 
 </body>
 </html>
