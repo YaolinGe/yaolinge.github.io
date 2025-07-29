@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flexbox Properties Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .demo-section {
+            padding: 40px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .demo-section:last-child {
+            border-bottom: none;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #667eea;
+            border-left: 4px solid #667eea;
+            padding-left: 15px;
+        }
+
+        .property-demo {
+            margin-bottom: 40px;
+        }
+
+        .property-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #444;
+        }
+
+        .flex-container {
+            display: flex;
+            background: #f8f9fa;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            min-height: 150px;
+        }
+
+        .flex-item {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            margin: 5px;
+            border-radius: 8px;
+            font-weight: bold;
+            text-align: center;
+            min-width: 80px;
+        }
+
+        .controls {
+            margin: 20px 0;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+
+        .btn.active {
+            background: #764ba2;
+            box-shadow: 0 4px 15px rgba(118, 75, 162, 0.4);
+        }
+
+        .code-display {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            margin-top: 15px;
+            overflow-x: auto;
+        }
+
+        /* Specific demo styles */
+        .justify-content-start { justify-content: flex-start; }
+        .justify-content-end { justify-content: flex-end; }
+        .justify-content-center { justify-content: center; }
+        .justify-content-between { justify-content: space-between; }
+        .justify-content-around { justify-content: space-around; }
+        .justify-content-evenly { justify-content: space-evenly; }
+
+        .align-items-start { align-items: flex-start; }
+        .align-items-end { align-items: flex-end; }
+        .align-items-center { align-items: center; }
+        .align-items-stretch { align-items: stretch; }
+        .align-items-baseline { align-items: baseline; }
+
+        .flex-direction-row { flex-direction: row; }
+        .flex-direction-column { flex-direction: column; }
+        .flex-direction-row-reverse { flex-direction: row-reverse; }
+        .flex-direction-column-reverse { flex-direction: column-reverse; }
+
+        .flex-wrap-nowrap { flex-wrap: nowrap; }
+        .flex-wrap-wrap { flex-wrap: wrap; }
+        .flex-wrap-reverse { flex-wrap: wrap-reverse; }
+
+        .item-grow-1 { flex-grow: 1; }
+        .item-grow-2 { flex-grow: 2; }
+        .item-shrink-0 { flex-shrink: 0; }
+        .item-align-start { align-self: flex-start; }
+        .item-align-end { align-self: flex-end; }
+        .item-align-center { align-self: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Flexbox Properties Demo</h1>
+            <p>Interactive demonstration of CSS Flexbox properties</p>
+        </div>
+
+        <!-- Justify Content Demo -->
+        <div class="demo-section">
+            <h2 class="section-title">justify-content</h2>
+            <div class="property-demo">
+                <h3 class="property-title">Controls horizontal alignment of items</h3>
+                <div class="controls">
+                    <button class="btn active" onclick="changeJustifyContent('flex-start')">flex-start</button>
+                    <button class="btn" onclick="changeJustifyContent('flex-end')">flex-end</button>
+                    <button class="btn" onclick="changeJustifyContent('center')">center</button>
+                    <button class="btn" onclick="changeJustifyContent('space-between')">space-between</button>
+                    <button class="btn" onclick="changeJustifyContent('space-around')">space-around</button>
+                    <button class="btn" onclick="changeJustifyContent('space-evenly')">space-evenly</button>
+                </div>
+                <div id="justify-demo" class="flex-container justify-content-start">
+                    <div class="flex-item">1</div>
+                    <div class="flex-item">2</div>
+                    <div class="flex-item">3</div>
+                </div>
+                <div class="code-display" id="justify-code">
+                    justify-content: flex-start;
+                </div>
+            </div>
+        </div>
+
+        <!-- Align Items Demo -->
+        <div class="demo-section">
+            <h2 class="section-title">align-items</h2>
+            <div class="property-demo">
+                <h3 class="property-title">Controls vertical alignment of items</h3>
+                <div class="controls">
+                    <button class="btn active" onclick="changeAlignItems('flex-start')">flex-start</button>
+                    <button class="btn" onclick="changeAlignItems('flex-end')">flex-end</button>
+                    <button class="btn" onclick="changeAlignItems('center')">center</button>
+                    <button class="btn" onclick="changeAlignItems('stretch')">stretch</button>
+                    <button class="btn" onclick="changeAlignItems('baseline')">baseline</button>
+                </div>
+                <div id="align-demo" class="flex-container align-items-start">
+                    <div class="flex-item">Item 1</div>
+                    <div class="flex-item" style="padding: 30px 20px;">Taller Item</div>
+                    <div class="flex-item">Item 3</div>
+                </div>
+                <div class="code-display" id="align-code">
+                    align-items: flex-start;
+                </div>
+            </div>
+        </div>
+
+        <!-- Flex Direction Demo -->
+        <div class="demo-section">
+            <h2 class="section-title">flex-direction</h2>
+            <div class="property-demo">
+                <h3 class="property-title">Controls the direction of flex items</h3>
+                <div class="controls">
+                    <button class="btn active" onclick="changeFlexDirection('row')">row</button>
+                    <button class="btn" onclick="changeFlexDirection('column')">column</button>
+                    <button class="btn" onclick="changeFlexDirection('row-reverse')">row-reverse</button>
+                    <button class="btn" onclick="changeFlexDirection('column-reverse')">column-reverse</button>
+                </div>
+                <div id="direction-demo" class="flex-container flex-direction-row">
+                    <div class="flex-item">First</div>
+                    <div class="flex-item">Second</div>
+                    <div class="flex-item">Third</div>
+                </div>
+                <div class="code-display" id="direction-code">
+                    flex-direction: row;
+                </div>
+            </div>
+        </div>
+
+        <!-- Flex Grow Demo -->
+        <div class="demo-section">
+            <h2 class="section-title">flex-grow</h2>
+            <div class="property-demo">
+                <h3 class="property-title">Controls how items grow to fill available space</h3>
+                <div class="controls">
+                    <button class="btn active" onclick="changeFlexGrow('default')">Default (0)</button>
+                    <button class="btn" onclick="changeFlexGrow('equal')">Equal Growth (1)</button>
+                    <button class="btn" onclick="changeFlexGrow('different')">Different Growth</button>
+                </div>
+                <div id="grow-demo" class="flex-container">
+                    <div class="flex-item" id="grow-item-1">Item 1</div>
+                    <div class="flex-item" id="grow-item-2">Item 2</div>
+                    <div class="flex-item" id="grow-item-3">Item 3</div>
+                </div>
+                <div class="code-display" id="grow-code">
+                    flex-grow: 0; (default)
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function changeJustifyContent(value) {
+            const demo = document.getElementById('justify-demo');
+            const code = document.getElementById('justify-code');
+            
+            demo.className = `flex-container justify-content-${value}`;
+            code.textContent = `justify-content: ${value};`;
+            
+            updateActiveButton(event.target);
+        }
+
+        function changeAlignItems(value) {
+            const demo = document.getElementById('align-demo');
+            const code = document.getElementById('align-code');
+            
+            demo.className = `flex-container align-items-${value}`;
+            code.textContent = `align-items: ${value};`;
+            
+            updateActiveButton(event.target);
+        }
+
+        function changeFlexDirection(value) {
+            const demo = document.getElementById('direction-demo');
+            const code = document.getElementById('direction-code');
+            
+            demo.className = `flex-container flex-direction-${value}`;
+            code.textContent = `flex-direction: ${value};`;
+            
+            updateActiveButton(event.target);
+        }
+
+        function changeFlexGrow(type) {
+            const item1 = document.getElementById('grow-item-1');
+            const item2 = document.getElementById('grow-item-2');
+            const item3 = document.getElementById('grow-item-3');
+            const code = document.getElementById('grow-code');
+            
+            // Reset styles
+            [item1, item2, item3].forEach(item => {
+                item.style.flexGrow = '';
+            });
+            
+            switch(type) {
+                case 'default':
+                    code.textContent = 'flex-grow: 0; (default)';
+                    break;
+                case 'equal':
+                    [item1, item2, item3].forEach(item => {
+                        item.style.flexGrow = '1';
+                    });
+                    code.textContent = 'flex-grow: 1; (all items)';
+                    break;
+                case 'different':
+                    item1.style.flexGrow = '1';
+                    item2.style.flexGrow = '2';
+                    item3.style.flexGrow = '1';
+                    code.textContent = 'Item 1: flex-grow: 1;\nItem 2: flex-grow: 2;\nItem 3: flex-grow: 1;';
+                    break;
+            }
+            
+            updateActiveButton(event.target);
+        }
+
+        function updateActiveButton(clickedButton) {
+            // Remove active class from siblings
+            const siblings = clickedButton.parentNode.children;
+            Array.from(siblings).forEach(btn => btn.classList.remove('active'));
+            
+            // Add active class to clicked button
+            clickedButton.classList.add('active');
+        }
+    </script>
+</body>
+</html></div>
