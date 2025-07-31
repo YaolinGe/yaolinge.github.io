@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CSS Tricks</title>
+    <link rel="stylesheet" href="/static/style.css" />
+    
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/posts.html">Posts</a></li>
+            <li><a href="/projects.html">Projects</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    
+<article class="blog-post">
+    <h1>Notes</h1>
+    <div class="date">2025-07-28</div>
+    <div id="content">
+        <p><code>background-color</code> is the color behind an element's content and padding.</p>
+<h2 id="ui-design-fundamentals">UI design fundamentals</h2>
+<hr />
+<h4 id="white-space">White space</h4>
+<ul>
+<li><code>padding</code> and <code>margin</code> help create white space around and between elements, improving readability and visual hierarchy.</li>
+<li><code>em</code> refers to the font size of the element, allowing for scalable spacing.</li>
+<li><code>rem</code> refers to the root element's font size, providing consistent spacing across the document.</li>
+<li><code>vh</code> and <code>vw</code> are relative units based on the viewport height and width, respectively, useful for responsive designs.</li>
+</ul>
+<h4 id="alignment">Alignment</h4>
+<ul>
+<li><code>border-left</code>, <code>border-right</code>, <code>border-top</code>, and <code>border-bottom</code> can be used to create visual separation between elements.</li>
+<li><code>border-left</code> can be used to check if an element is aligned with another element.</li>
+<li><code>text-align</code> can be used to align text within an element.</li>
+</ul>
+<h4 id="contrast">Contrast</h4>
+<ul>
+<li><code>WCAG2.0</code> recommends a contrast ratio of at least 4.5:1 for normal text and 3:1 for large text.</li>
+<li><code>WCGA2.0 AAA</code> level requires a contrast ratio of at least 7:1 for normal text and 4.5:1 for large text.</li>
+<li>Use tools like <code>contrast ratio checker</code> to ensure compliance with accessibility standards.</li>
+</ul>
+<h4 id="scale">Scale</h4>
+<ul>
+<li>Use <code>em</code> and <code>rem</code> for scalable typography and spacing.</li>
+<li>Use <code>vh</code> and <code>vw</code> for responsive designs that adapt to different screen sizes.</li>
+<li>Use grid and flexbox layouts to create scalable and flexible designs. Occupy available space without fixed dimensions.</li>
+<li>Increase the scale / relative comparison / highlight / constrast for important elements to draw attention.</li>
+</ul>
+<h4 id="typography">Typography</h4>
+<ul>
+<li>Font choices should be legible and appropriate for the content.</li>
+<li>Visual hierarchy can be established through font size, weight, and style.</li>
+<li>Font size should be responsive, using <code>rem</code> or <code>em</code> units for scalability.</li>
+<li>Alignment and spacing should be consistent to improve readability.</li>
+<li>Letter spacing and line height should be adjusted for optimal readability.</li>
+<li>Font styles should be used to create emphasis and contrast, such as bold or italic.</li>
+<li>Color contrast should be considered for accessibility, ensuring text is readable against its background.</li>
+</ul>
+<h4 id="color">Color</h4>
+<ul>
+<li>Use a limited color palette to create a cohesive design.</li>
+<li>Use color to create visual hierarchy and emphasis.</li>
+<li>Consider color blindness and ensure sufficient contrast between text and background.</li>
+<li>Use tools like <code>color contrast checker</code> to ensure compliance with accessibility standards.</li>
+<li>Use CSS variables for consistent color management across the design.</li>
+<li>Use <code>rgba</code> for colors with transparency to create depth and layering effects.</li>
+<li>Use <code>hsl</code> for more intuitive color manipulation, allowing for easier adjustments to hue, saturation, and lightness.</li>
+</ul>
+<h4 id="visual-hierarchy">Visual hierarchy</h4>
+<ul>
+<li>Increase the scale / relative comparison / highlight / constrast for important elements to draw attention.</li>
+</ul>
+<hr />
+<h2 id="flexbox">Flexbox</h2>
+<hr />
+<p>Flexbox is a layout model that allows for responsive and flexible designs. It provides an efficient way to align and distribute space among items in a container, even when their size is unknown or dynamic.</p>
+<h4 id="live-demo-spacing">Live Demo: Spacing</h4>
+<ul>
+<li><code>space-between</code> separates items with equal space between them, no padding in the beginning and end.</li>
+<li><code>space-around</code> separates items with equal space around them, but the first and last items are flush with the edges of the container.</li>
+<li><code>space-evenly</code> separates items with equal space around them.</li>
+</ul>
+<h1 id="todo-fix-the-live-demo-to-work-with-the-radio-buttons">TODO: fix the live demo to work with the radio buttons</h1>
+<!-- #region live demo: spacing -->
+<style>
+.container {
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    border: 5px solid cyan; 
+}
+.flexbox {
+    display: flex; 
+    width: 100%; 
+    border: 5px solid #ccc;
+}
+.flexbox > div {
+    background-color: #f0f0f0; 
+    border: 1px solid #ccc; 
+    text-align: center; 
+}
+.label {
+    margin-bottom: 0.3rem;
+    font-size: 0.95em;
+    color: #555;
+}
+input[type="radio"] {
+    margin-right: 0.5rem;
+    cursor: pointer;
+    accent-color: #00bcd4;
+
+}
+</style>
+
+<script>
+</script>
+
+<div class="container">
+    <div>
+        <span class="label">justify-content:</span>
+        <label><input type="radio" name="justify" value="flex-start"> flex-start</label>
+        <label><input type="radio" name="justify" value="flex-end"> flex-end</label>
+        <label><input type="radio" name="justify" value="center"> center</label>
+        <label><input type="radio" name="justify" value="space-between" checked> space-between</label>
+        <label><input type="radio" name="justify" value="space-around"> space-around</label>
+        <label><input type="radio" name="justify" value="space-evenly"> space-evenly</label>
+    </div>
+    <label class="label" id="justifyLabel">justify-content: space-between</label>
+    <div class="flexbox" id="flexbox">
+        <div>Item 1</div>
+        <div>Item 2</div>
+        <div>Item 3</div>
+    </div>
+</div>
+
+<!-- #endregion live demo: spacing -->
+
+<h3 id="flexbox-properties">Flexbox properties</h3>
+<ul>
+<li><code>display: flex;</code> - Defines a flex container and enables flexbox layout.</li>
+<li><code>flex-direction</code> - Defines the direction of the flex items (row, column, row-reverse, column-reverse).</li>
+<li><code>flex-wrap</code> - Controls whether flex items should wrap onto multiple lines or stay on a single line.</li>
+<li><code>justify-content</code> - Aligns flex items along the main axis (start, end, center, space-between, space-around).</li>
+<li><code>align-items</code> - Aligns flex items along the cross axis (start, end, center, baseline, stretch).</li>
+<li><code>align-content</code> - Aligns flex lines within the flex container when there is extra space (start, end, center, space-between, space-around, stretch).</li>
+<li><code>flex-grow</code> - Defines how much a flex item should grow relative to the rest of the flex items.</li>
+<li><code>flex-shrink</code> - Defines how much a flex item should shrink relative to the rest of the flex items.</li>
+<li><code>flex-basis</code> - Defines the initial size of a flex item before it grows or shrinks.</li>
+<li><code>flex</code> - A shorthand property for <code>flex-grow</code>, <code>flex-shrink</code>, and <code>flex-basis</code>. Set to <code>1</code> to allow the item to grow and shrink as needed.</li>
+<li><code>align-self</code> - Allows the default alignment (or the one specified by <code>align-items</code>) to be overridden for individual flex items.</li>
+</ul>
+<h5 id="flex-grow-and-shrink">Flex grow and shrink</h5>
+<ul>
+<li><code>flex-grow</code> allows a flex item to grow and occupy available space in the container.</li>
+<li><code>flex-shrink</code> allows a flex item to shrink when there is not enough space in the container.</li>
+<li>Both properties can be set to <code>0</code> to prevent growing or shrinking, or set to a positive integer to allow growing or shrinking relative to other items.</li>
+<li><code>flex-basis</code> defines the initial size of a flex item before it grows or shrinks. It is important to set this property to ensure that flex items have a defined size before the flexbox algorithm applies growth or shrinkage.</li>
+</ul>
+<pre class="codehilite"><code class="language-css">.f1 {
+    flex-grow: 1; /* Allows the item to grow */
+    flex-shrink: 2; /* This will shrink twice as much as f2 */
+    flex-basis: 100px; /* Sets the initial size of the item */
+}
+
+.f2 {
+    flex-grow: 2; /* Allows the item to grow twice as much as f1 */
+    flex-shrink: 1; /* Allows the item to shrink */
+    flex-basis: 100px; /* Sets the initial size of the item */
+}
+
+.f3 {
+    flex-grow: 3; /* Prevents the item from growing */
+    flex-shrink: 0; /* Prevents the item from shrinking */
+    flex-basis: 100px; /* Sets the initial size of the item */
+}
+</code></pre>
+
+<h5 id="order">Order</h5>
+<ul>
+<li>The <code>order</code> property allows you to change the visual order of flex items without changing their source order in the HTML.</li>
+<li>By default, all flex items have an order of <code>0</code>. Items with a lower order value will appear before items with a higher order value.</li>
+<li>This can be useful for creating responsive designs where the visual order of items needs to change based on screen size or layout.</li>
+</ul>
+<pre class="codehilite"><code class="language-css">.item {
+    order: 1; /* Default order is 0, so this item will appear after items with order 0 */
+}
+.item.special {
+    order: -1; /* This item will appear before items with order 0 */
+}
+</code></pre>
+
+<p>TOCHECK: 
+- media queries 
+- flex wrap</p>
+<p>TODO: Add a live demo for the flex shrink and grow</p>
+<iframe src="/src/flexbox.html" style="width: 100%; height: 500px; border: none;"></iframe>
+    </div>
+</article>
+
+</main>
+<footer>
+    &copy; 2025 Yao
+</footer>
+<script src="/static/script.js"></script>
+<!-- <script src="/static/analytics.js"></script> -->
+
+</body>
+</html>

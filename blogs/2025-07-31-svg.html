@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SVG</title>
+    <link rel="stylesheet" href="/static/style.css" />
+    
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/posts.html">Posts</a></li>
+            <li><a href="/projects.html">Projects</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    
+<article class="blog-post">
+    <h1>Exploring Scalable Vector Graphics (SVG) for web development.</h1>
+    <div class="date">2025-07-31</div>
+    <div id="content">
+        <h2 id="svg-basics">SVG Basics</h2>
+<p>SVG allows for the creation of shapes, paths, and text that can be styled with CSS and manipulated with JavaScript. This makes SVG a powerful tool for creating interactive and dynamic graphics on the web.</p>
+<h2 id="svg-path">SVG Path</h2>
+<ul>
+<li>Capital letters in SVG path commands indicate absolute coordinates, while lowercase letters indicate relative coordinates.</li>
+<li><code>M</code>: Move to a specific point (e.g., <code>M 10 10</code> moves to coordinates (10, 10)).</li>
+<li><code>L</code>: Draw a line to a specific point (e.g., <code>L 20 20</code> draws a line to coordinates (20, 20)).</li>
+<li><code>H</code>: Draw a horizontal line (e.g., <code>H 30</code> draws a horizontal line to x=30).</li>
+<li><code>V</code>: Draw a vertical line (e.g., <code>V 40</code> draws a vertical line to y=40).</li>
+<li><code>Z</code>: Closes the current path by drawing a line back to the starting point.</li>
+</ul>
+<h4 id="curves">Curves</h4>
+<ul>
+<li><code>Cubic bezier curves</code>, <code>Quadratic bezier curves</code>, and <code>Arc</code> commands are used to create complex shapes.</li>
+<li><code>C</code>: Cubic Bezier curve (e.g., <code>C x1 y1 x2 y2 x y</code>) defines a curve with two control points and an end point.</li>
+<li>
+<p><code>S</code>: Smooth cubic Bezier curve (e.g., <code>S x2 y2 x y</code>) continues from the previous curve's end point.</p>
+</li>
+<li>
+<p><code>Q</code>: Quadratic Bezier curve (e.g., <code>Q x1 y1 x y</code>) defines a curve with one control point and an end point.</p>
+</li>
+<li><code>T</code>: Smooth quadratic Bezier curve (e.g., <code>T x y</code>) continues from the previous curve's end point.</li>
+</ul>
+    </div>
+</article>
+
+</main>
+<footer>
+    &copy; 2025 Yao
+</footer>
+<script src="/static/script.js"></script>
+<!-- <script src="/static/analytics.js"></script> -->
+
+</body>
+</html>
