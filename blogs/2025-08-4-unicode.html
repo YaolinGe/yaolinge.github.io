@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Unicode</title>
+    <link rel="stylesheet" href="/static/style.css" />
+    
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/posts.html">Posts</a></li>
+            <li><a href="/projects.html">Projects</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    
+<article class="blog-post">
+    <h1>Notes on Unicode</h1>
+    <div class="date">2025-08-04</div>
+    <div id="content">
+        <h1 id="utf-8-utf-16-and-utf-32">UTF-8, UTF-16, and UTF-32</h1>
+<p><img alt="Unicode" src="/assets/img/unicode-enc-methods2.png" /></p>
+<ul>
+<li>UTF-8 uses 1 byte to represent characters in the old ASCII set, two bytes for characters in several more alphabetic blocks, and three bytes for the rest of the BMP. Supplementary characters use 4 bytes.</li>
+<li>UTF-16 uses 2 bytes for any character in the BMP, and 4 bytes for supplementary characters.</li>
+<li>UTF-32 uses 4 bytes everywhere.</li>
+</ul>
+<h1 id="reference">Reference</h1>
+<p><a href="https://r12a.github.io/scripts/tutorial/part2">UnicodeTutorial</a></p>
+    </div>
+</article>
+
+</main>
+<footer>
+    &copy; 2025 Yao
+</footer>
+<script src="/static/script.js"></script>
+<!-- <script src="/static/analytics.js"></script> -->
+
+</body>
+</html>

@@ -28,6 +28,14 @@
 bool flag2 = (flags &amp; (1 &lt;&lt; 1)) != 0; // check 2nd flag
 bool flagN = (flags &amp; (1 &lt;&lt; N)) != 0; // check N-th flag, 0 &lt;= N &lt; 8
 </code></pre>
+
+<h2 id="chapter-3-machine-level-representation-of-programs">Chapter 3: Machine-Level Representation of Programs</h2>
+<hr />
+<ul>
+<li>Each memory address is 8 bytes (64 bits) in modern systems.</li>
+<li>A 32-bit machine can only m ake use of around 4GB (2^32 bytes) of memory.</li>
+<li>A 64-bit machine can address up to 16 exabytes (2^64 bytes), but practically it is 2^48 bytes (256 TB) due to OS limitations. Given the development of AI and demand for large context windows. It is needed to use all 64 bits for memory addressing.</li>
+</ul>
     </div>
 </article>
 
