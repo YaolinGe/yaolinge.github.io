@@ -155,6 +155,50 @@ input[type="radio"] {
 <li><code>flex</code> - A shorthand property for <code>flex-grow</code>, <code>flex-shrink</code>, and <code>flex-basis</code>. Set to <code>1</code> to allow the item to grow and shrink as needed.</li>
 <li><code>align-self</code> - Allows the default alignment (or the one specified by <code>align-items</code>) to be overridden for individual flex items.</li>
 </ul>
+<h5 id="flex-grow-and-shrink">Flex grow and shrink</h5>
+<ul>
+<li><code>flex-grow</code> allows a flex item to grow and occupy available space in the container.</li>
+<li><code>flex-shrink</code> allows a flex item to shrink when there is not enough space in the container.</li>
+<li>Both properties can be set to <code>0</code> to prevent growing or shrinking, or set to a positive integer to allow growing or shrinking relative to other items.</li>
+<li><code>flex-basis</code> defines the initial size of a flex item before it grows or shrinks. It is important to set this property to ensure that flex items have a defined size before the flexbox algorithm applies growth or shrinkage.</li>
+</ul>
+<pre class="codehilite"><code class="language-css">.f1 {
+    flex-grow: 1; /* Allows the item to grow */
+    flex-shrink: 2; /* This will shrink twice as much as f2 */
+    flex-basis: 100px; /* Sets the initial size of the item */
+}
+
+.f2 {
+    flex-grow: 2; /* Allows the item to grow twice as much as f1 */
+    flex-shrink: 1; /* Allows the item to shrink */
+    flex-basis: 100px; /* Sets the initial size of the item */
+}
+
+.f3 {
+    flex-grow: 3; /* Prevents the item from growing */
+    flex-shrink: 0; /* Prevents the item from shrinking */
+    flex-basis: 100px; /* Sets the initial size of the item */
+}
+</code></pre>
+
+<h5 id="order">Order</h5>
+<ul>
+<li>The <code>order</code> property allows you to change the visual order of flex items without changing their source order in the HTML.</li>
+<li>By default, all flex items have an order of <code>0</code>. Items with a lower order value will appear before items with a higher order value.</li>
+<li>This can be useful for creating responsive designs where the visual order of items needs to change based on screen size or layout.</li>
+</ul>
+<pre class="codehilite"><code class="language-css">.item {
+    order: 1; /* Default order is 0, so this item will appear after items with order 0 */
+}
+.item.special {
+    order: -1; /* This item will appear before items with order 0 */
+}
+</code></pre>
+
+<h2 id="css-grid">CSS Grid</h2>
+<p>TOCHECK: 
+- media queries 
+- flex wrap</p>
 <p>TODO: Add a live demo for the flex shrink and grow</p>
 <iframe src="/src/flexbox.html" style="width: 100%; height: 500px; border: none;"></iframe>
     </div>
