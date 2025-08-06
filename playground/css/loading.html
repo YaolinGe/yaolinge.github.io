@@ -15,6 +15,7 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
+            border: 5px solid black; 
         }
 
         h1 {
@@ -208,5 +209,16 @@
             </div>
         </div>
     </div>
+    <script> 
+        const loader_card = document.querySelector(".loader-card");
+        const container = document.querySelector(".loader-grid");
+        window.addEventListener("resize", () => {
+            const cardWidth = loader_card.offsetWidth;
+            const containerWidth = container.offsetWidth;
+            console.log(`Card Width: ${cardWidth}px, Container Width: ${containerWidth}px`);
+            // const cardsPerRow = Math.floor(containerWidth / cardWidth);
+            // console.log(`Cards per row: ${cardsPerRow}`);
+        })
+    </script>
 </body>
 </html></div>

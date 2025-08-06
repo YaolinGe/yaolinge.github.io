@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS Transform Properties Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f7f7f7;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        .demo {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            width: 220px;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            text-align: center;
+        }
+        .box {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 12px auto;
+            background: #4f8cff;
+            border-radius: 8px;
+            transition: transform .5s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        .demo:hover .box {
+            /* On hover, apply the transform for demo */
+            transform: var(--transform);
+        }
+        code {
+            background: #eee;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+    </style>
+</head>
+<body>
+    <h1>CSS Transform Properties Demo</h1>
+    <p style="text-align:center;">Hover over each box to see the transform effect.<br>
+        <small>All main transform functions and combinations are shown.</small>
+    </p>
+    <div class="container">
+        <!-- translate -->
+        <div class="demo">
+            <div class="box" style="--transform: translate(40px, 20px);">T</div>
+            <div><code>transform: translate(40px, 20px);</code></div>
+        </div>
+        <!-- translateX -->
+        <div class="demo">
+            <div class="box" style="--transform: translateX(50px);">TX</div>
+            <div><code>transform: translateX(50px);</code></div>
+        </div>
+        <!-- translateY -->
+        <div class="demo">
+            <div class="box" style="--transform: translateY(-30px);">TY</div>
+            <div><code>transform: translateY(-30px);</code></div>
+        </div>
+        <!-- scale -->
+        <div class="demo">
+            <div class="box" style="--transform: scale(1.5, 0.7);">S</div>
+            <div><code>transform: scale(1.5, 0.7);</code></div>
+        </div>
+        <!-- scaleX -->
+        <div class="demo">
+            <div class="box" style="--transform: scaleX(1.8);">SX</div>
+            <div><code>transform: scaleX(1.8);</code></div>
+        </div>
+        <!-- scaleY -->
+        <div class="demo">
+            <div class="box" style="--transform: scaleY(0.5);">SY</div>
+            <div><code>transform: scaleY(0.5);</code></div>
+        </div>
+        <!-- rotate -->
+        <div class="demo">
+            <div class="box" style="--transform: rotate(45deg);">R</div>
+            <div><code>transform: rotate(45deg);</code></div>
+        </div>
+        <!-- skew -->
+        <div class="demo">
+            <div class="box" style="--transform: skew(20deg, 10deg);">SK</div>
+            <div><code>transform: skew(20deg, 10deg);</code></div>
+        </div>
+        <!-- skewX -->
+        <div class="demo">
+            <div class="box" style="--transform: skewX(30deg);">SKX</div>
+            <div><code>transform: skewX(30deg);</code></div>
+        </div>
+        <!-- skewY -->
+        <div class="demo">
+            <div class="box" style="--transform: skewY(-25deg);">SKY</div>
+            <div><code>transform: skewY(-25deg);</code></div>
+        </div>
+        <!-- matrix -->
+        <div class="demo">
+            <div class="box" style="--transform: matrix(1, 0.5, -0.5, 1, 30, 10);">M</div>
+            <div><code>transform: matrix(1, 0.5, -0.5, 1, 30, 10);</code></div>
+        </div>
+        <!-- perspective + rotateY (3D) -->
+        <div class="demo">
+            <div class="box" style="--transform: perspective(120px) rotateY(45deg);">3D</div>
+            <div><code>transform: perspective(120px) rotateY(45deg);</code></div>
+        </div>
+        <!-- rotateX (3D) -->
+        <div class="demo">
+            <div class="box" style="--transform: rotateX(60deg);">RX</div>
+            <div><code>transform: rotateX(60deg);</code></div>
+        </div>
+        <!-- rotateZ (3D, same as rotate) -->
+        <div class="demo">
+            <div class="box" style="--transform: rotateZ(90deg);">RZ</div>
+            <div><code>transform: rotateZ(90deg);</code></div>
+        </div>
+        <!-- rotate3d -->
+        <div class="demo">
+            <div class="box" style="--transform: rotate3d(1, 1, 0, 45deg);">R3D</div>
+            <div><code>transform: rotate3d(1, 1, 0, 45deg);</code></div>
+        </div>
+        <!-- scale3d -->
+        <div class="demo">
+            <div class="box" style="--transform: scale3d(1.2, 0.8, 1.5);">S3D</div>
+            <div><code>transform: scale3d(1.2, 0.8, 1.5);</code></div>
+        </div>
+        <!-- translate3d -->
+        <div class="demo">
+            <div class="box" style="--transform: translate3d(30px, 10px, 20px);">T3D</div>
+            <div><code>transform: translate3d(30px, 10px, 20px);</code></div>
+        </div>
+        <!-- Multiple transforms -->
+        <div class="demo">
+            <div class="box" style="--transform: translateX(30px) scale(1.2) rotate(30deg) skewY(10deg);">ALL</div>
+            <div><code>transform: translateX(30px) scale(1.2) rotate(30deg) skewY(10deg);</code></div>
+        </div>
+    </div>
+    <p style="text-align:center; margin-top:40px;">
+        <small>
+            <b>Tip:</b> You can combine any number of transform functions in a single <code>transform</code> property.<br>
+            3D transforms require perspective to be visible.
+        </small>
+    </p>
+
+    <!-- <p>To print "Hello, World!" in Python, you would use: <code>print("Hello, World!")</code></p>
+
+    <pre>
+        <code>
+            function greet(name) {
+                console.log("Hello, " + name + "!");
+            }
+            greet("World");
+        </code>
+    </pre> -->
+</body>
+</html>

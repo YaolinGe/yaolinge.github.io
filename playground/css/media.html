@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Media Queries Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            border: 1px solid red; 
+        }
+        .box {
+            width: 80%;
+            margin: 40px auto;
+            padding: 40px;
+            background: #4a90e2;
+            color: white;
+            font-size: 2rem;
+            border-radius: 8px;
+            transition: background 3s;
+        }
+
+        /* Media query for tablets and below */
+        @media (max-width: 768px) {
+            .box {
+                background: #50e3c2;
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Media query for mobile devices */
+        @media (max-width: 480px) {
+            .box {
+                background: #e94e77;
+                font-size: 1rem;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        Resize the browser window to see the background color and font size change!
+    </div>
+</body>
+</html>

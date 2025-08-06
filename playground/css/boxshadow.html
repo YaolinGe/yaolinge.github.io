@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS Box-Shadow Effects Demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: system-ui, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 2rem;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .box {
+            background: #fff;
+            border-radius: 12px;
+            padding: 2rem 1rem;
+            text-align: center;
+            transition: box-shadow 0.3s, transform 0.3s;
+            cursor: pointer;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .box span {
+            font-size: 0.95rem;
+            color: #555;
+            margin-top: 1rem;
+            word-break: break-all;
+        }
+
+        /* Box-shadow variations */
+        .none { box-shadow: none; }
+        .basic { box-shadow: 4px 4px 12px rgba(0,0,0,0.15); }
+        .inset { box-shadow: inset 0 2px 8px rgba(0,0,0,0.25); }
+        .multiple { box-shadow: 0 2px 8px rgba(0,0,0,0.15), 0 0 0 4px #90cdf4; }
+        .colored { box-shadow: 0 4px 16px 0 rgba(0, 128, 255, 0.4); }
+        .spread { box-shadow: 0 0 20px 10px rgba(255,0,0,0.15); }
+        .hard { box-shadow: 0 8px 0 0 #333; }
+        .glow { box-shadow: 0 0 16px 4px #00ffb3; }
+        .neumorph { box-shadow: 8px 8px 20px #d1d9e6, -8px -8px 20px #ffffff; }
+        .long { box-shadow: 0 16px 40px -8px rgba(0,0,0,0.3); }
+
+        /* Hover effects for each box */
+        .box.none:hover { box-shadow: 0 0 0 3px #bbb; }
+        .box.basic:hover { box-shadow: 8px 8px 24px rgba(0,0,0,0.25); transform: translateY(-4px) scale(1.03);}
+        .box.inset:hover { box-shadow: inset 0 4px 16px rgba(0,0,0,0.35); }
+        .box.multiple:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.25), 0 0 0 8px #3182ce; }
+        .box.colored:hover { box-shadow: 0 8px 32px 0 rgba(0, 128, 255, 0.6); }
+        .box.spread:hover { box-shadow: 0 0 40px 20px rgba(255,0,0,0.25); }
+        .box.hard:hover { box-shadow: 0 16px 0 0 #111; }
+        .box.glow:hover { box-shadow: 0 0 32px 8px #00ffb3, 0 0 8px 2px #fff; }
+        .box.neumorph:hover { box-shadow: 16px 16px 40px #d1d9e6, -16px -16px 40px #ffffff; }
+        .box.long:hover { box-shadow: 0 32px 80px -16px rgba(0,0,0,0.4); }
+
+        @media (max-width: 600px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>CSS Box-Shadow Effects Demo</h1>
+    <div class="container">
+        <div class="box none">
+            <strong>No Shadow</strong>
+            <span>box-shadow: none;</span>
+        </div>
+        <div class="box basic">
+            <strong>Basic Shadow</strong>
+            <span>box-shadow: 4px 4px 12px rgba(0,0,0,0.15);</span>
+        </div>
+        <div class="box inset">
+            <strong>Inset Shadow</strong>
+            <span>box-shadow: inset 0 2px 8px rgba(0,0,0,0.25);</span>
+        </div>
+        <div class="box multiple">
+            <strong>Multiple Shadows</strong>
+            <span>box-shadow: 0 2px 8px rgba(0,0,0,0.15), 0 0 0 4px #90cdf4;</span>
+        </div>
+        <div class="box colored">
+            <strong>Colored Shadow</strong>
+            <span>box-shadow: 0 4px 16px 0 rgba(0, 128, 255, 0.4);</span>
+        </div>
+        <div class="box spread">
+            <strong>Spread Shadow</strong>
+            <span>box-shadow: 0 0 20px 10px rgba(255,0,0,0.15);</span>
+        </div>
+        <div class="box hard">
+            <strong>Hard Shadow</strong>
+            <span>box-shadow: 0 8px 0 0 #333;</span>
+        </div>
+        <div class="box glow">
+            <strong>Glow Effect</strong>
+            <span>box-shadow: 0 0 16px 4px #00ffb3;</span>
+        </div>
+        <div class="box neumorph">
+            <strong>Neumorphism</strong>
+            <span>box-shadow: 8px 8px 20px #d1d9e6, -8px -8px 20px #ffffff;</span>
+        </div>
+        <div class="box long">
+            <strong>Long Shadow</strong>
+            <span>box-shadow: 0 16px 40px -8px rgba(0,0,0,0.3);</span>
+        </div>
+    </div>
+</body>
+</html>

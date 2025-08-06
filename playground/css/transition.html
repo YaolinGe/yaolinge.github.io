@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS Transition Examples</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 2rem;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            border: 2px solid red; 
+        }
+        .demo {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            padding: 1.5rem;
+            width: 320px;
+            box-sizing: border-box;
+        }
+        .demo h2 {
+            font-size: 1.1rem;
+            margin-top: 0;
+        }
+        /* 1. Transition on hover (single property) */
+        .box1 {
+            width: 100px;
+            height: 100px;
+            background: #2196f3;
+            transition: background 0.5s;
+            margin: 1rem auto;
+        }
+        .box1:hover {
+            background: #e91e63;
+        }
+
+        /* 2. Transition multiple properties */
+        .box2 {
+            width: 100px;
+            height: 100px;
+            background: #4caf50;
+            color: #fff;
+            transition: width 0.5s, height 0.5s, background 0.5s;
+            margin: 1rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .box2:hover {
+            width: 150px;
+            height: 150px;
+            background: #ff9800;
+        }
+
+        /* 3. Transition with timing function */
+        .box3 {
+            width: 100px;
+            height: 100px;
+            background: #9c27b0;
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            margin: 1rem auto;
+        }
+        .box3:hover {
+            transform: rotate(20deg) scale(1.2);
+        }
+
+        /* 4. Transition with delay */
+        .box4 {
+            width: 100px;
+            height: 100px;
+            background: #ff5722;
+            transition: background 0.5s 0.5s;
+            margin: 1rem auto;
+        }
+        .box4:hover {
+            background: #00bcd4;
+        }
+
+        /* 5. Transition on focus (input) */
+        .input-transition {
+            padding: 0.5rem;
+            border: 2px solid #bbb;
+            border-radius: 4px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            outline: none;
+            width: 90%;
+            margin: 1rem auto;
+            display: block;
+        }
+        .input-transition:focus {
+            border-color: #2196f3;
+            box-shadow: 0 0 8px #2196f3;
+        }
+
+        /* 6. Transition using shorthand */
+        .box5 {
+            width: 100px;
+            height: 100px;
+            background: #607d8b;
+            transition: all 0.7s ease-in-out;
+            margin: 1rem auto;
+        }
+        .box5:hover {
+            width: 140px;
+            height: 140px;
+            background: #cddc39;
+            border-radius: 50%;
+            box-shadow: 0 0 20px #cddc39;
+        }
+
+        /* 7. Transition triggered by class (JS) */
+        .box6 {
+            width: 100px;
+            height: 100px;
+            background: #795548;
+            transition: transform 0.5s, background 0.5s;
+            margin: 1rem auto;
+        }
+        .box6.active {
+            transform: translateX(80px) scale(1.3);
+            background: #ffeb3b;
+        }
+        .btn {
+            display: block;
+            margin: 0.5rem auto 0;
+            padding: 0.4rem 1rem;
+            background: #2196f3;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background: #1976d2;
+        }
+    </style>
+</head>
+<body>
+    <h1>CSS Transition: Complete Examples</h1>
+    <div class="container">
+        <div class="demo">
+            <h2>1. Hover (Single Property)</h2>
+            <div class="box1"></div>
+            <p>Background color transitions on hover.</p>
+        </div>
+        <div class="demo">
+            <h2>2. Hover (Multiple Properties)</h2>
+            <div class="box2">Hover me</div>
+            <p>Width, height, and background transition together.</p>
+        </div>
+        <div class="demo">
+            <h2>3. Timing Function</h2>
+            <div class="box3"></div>
+            <p>Uses a custom cubic-bezier timing function.</p>
+        </div>
+        <div class="demo">
+            <h2>4. With Delay</h2>
+            <div class="box4"></div>
+            <p>Background color transition starts after 0.5s delay.</p>
+        </div>
+        <div class="demo">
+            <h2>5. On Focus (Input)</h2>
+            <input class="input-transition" placeholder="Focus me" />
+            <p>Border and shadow transition on focus.</p>
+        </div>
+        <div class="demo">
+            <h2>6. Shorthand <code>all</code></h2>
+            <div class="box5"></div>
+            <p>All properties transition using shorthand.</p>
+        </div>
+        <div class="demo">
+            <h2>7. Triggered by Class (JS)</h2>
+            <div class="box6" id="jsBox"></div>
+            <button class="btn" onclick="toggleActive()">Toggle Transition</button>
+            <p>Transition triggered by adding/removing a class.</p>
+        </div>
+    </div>
+    <script>
+        function toggleActive() {
+            document.getElementById('jsBox').classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

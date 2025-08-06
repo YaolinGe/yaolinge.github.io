@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>CSS Width Example</title>
+        <style>
+            .container {
+                border: 5px solid black; 
+                display: flex; 
+            }
+
+            .container > div {
+                /* flex: 1; */
+            }
+
+            .container > div:nth-child(1) {
+                background-color: aquamarine;
+                flex: 1 1 0; 
+                max-width: 20em; 
+                min-width: 10em; 
+            }
+
+            .container > div:nth-child(2) {
+                /* width: 50%; */
+                background-color: lightcoral;
+                flex: 1 1 0;
+            }
+
+            .container > div:nth-child(3) {
+                /* width: 100%; */
+                background-color: lightgreen;
+                flex: 1 1 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+        </div>
+    </body>
+
+    <script>
+        const firstDiv = document.querySelector('.container > div:nth-child(1)');
+
+        function logWidth() {
+            console.log(firstDiv.offsetWidth);
+        }
+
+        // Log initially
+        logWidth();
+
+        // Log on window resize
+        window.addEventListener('resize', logWidth);
+    </script>
+</html>
