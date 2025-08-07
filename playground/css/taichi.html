@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dynamic Taichi (Yin Yang) Animation</title>
+    <style>
+        body {
+            background: #222;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        canvas {
+            background: #222;
+            display: block;
+            border-radius: 50%;
+            box-shadow: 0 0 40px #000a;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="taichi" width="400" height="400"></canvas>
+    <script>
+        const canvas = document.getElementById('taichi');
+        const ctx = canvas.getContext('2d');
+        const w = canvas.width, h = canvas.height;
+        const cx = w / 2, cy = h / 2;
+        const R = 160;
+
+        function drawTaichi(angle) {
+            ctx.clearRect(0, 0, w, h);
+
+            // Draw main circle
+            ctx.save();
+            ctx.translate(cx, cy);
+            ctx.rotate(angle);
+
+            // Yin (black)
+            ctx.beginPath();
+            ctx.arc(0, 0, R, 0.5 * Math.PI, 1.5 * Math.PI, false);
+            ctx.arc(0, -R / 2, R / 2, 1.5 * Math.PI, 0.5 * Math.PI, true);
+            ctx.closePath();
+            ctx.fillStyle = '#111';
+            ctx.fill();
+
+            // Yang (white)
+            ctx.beginPath();
+            ctx.arc(0, 0, R, 1.5 * Math.PI, 0.5 * Math.PI, false);
+            ctx.arc(0, R / 2, R / 2, 0.5 * Math.PI, 1.5 * Math.PI, true);
+            ctx.closePath();
+            ctx.fillStyle = '#fff';
+            ctx.fill();
+
+            // Small black dot in white
+            ctx.beginPath();
+            ctx.arc(0, -R / 2, R / 8, 0, 2 * Math.PI);
+            ctx.fillStyle = '#111';
+            ctx.shadowColor = '#000';
+            ctx.shadowBlur = 8;
+            ctx.fill();
+            ctx.shadowBlur = 0;
+
+            // Small white dot in black
+            ctx.beginPath();
+            ctx.arc(0, R / 2, R / 8, 0, 2 * Math.PI);
+            ctx.fillStyle = '#fff';
+            ctx.shadowColor = '#fff';
+            ctx.shadowBlur = 8;
+            ctx.fill();
+            ctx.shadowBlur = 0;
+
+            ctx.restore();
+        }
+
+        let lastTime = 0;
+        function animate(time) {
+            const speed = 0.0006; // radians/ms
+            let angle = (time * speed) % (2 * Math.PI);
+
+            // Add a subtle breathing effect
+            const scale = 1 + 0.03 * Math.sin(time * 0.001);
+            ctx.setTransform(scale, 0, 0, scale, cx * (1 - scale), cy * (1 - scale));
+
+            drawTaichi(angle);
+            requestAnimationFrame(animate);
+        }
+
+        animate(0);
+    </script>
+</body>
+</html>
