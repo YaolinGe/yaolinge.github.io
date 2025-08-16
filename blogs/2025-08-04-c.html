@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>C</title>
+    <link rel="stylesheet" href="/static/style.css" />
+    
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/posts.html">Posts</a></li>
+            <li><a href="/projects.html">Projects</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    
+<article class="blog-post">
+    <h1>How to run C program</h1>
+    <div class="date">2025-08-04</div>
+    <div id="content">
+        <h1 id="how-to-run-c-program-on-windows">How to run C program on windows</h1>
+<ol>
+<li>Visual studio has a built-in C compiler. </li>
+<li>Run <code>"C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvarsall.bat" x64</code> in cmd to set up the environment. <strong>Note:</strong> It cannot run on powershell 7+. </li>
+<li>Use <code>cl</code> command to compile C files, e.g., <code>cl test.c -o test.exe</code>.</li>
+<li>Run the compiled program with <code>test.exe</code>.</li>
+</ol>
+<h1 id="alternative-or-must-way-on-windows">Alternative or must way on Windows</h1>
+<ul>
+<li>Use developer powershell for VS2022 will resolve the above hacks. </li>
+<li>Just open a new terminal with <code>Developer Command Prompt for VS 2022</code> or <code>Developer PowerShell for VS 2022</code>.</li>
+<li>Then <code>cl</code> command will work without any additional setup.</li>
+</ul>
+    </div>
+</article>
+
+</main>
+<footer>
+    &copy; 2025 Yao
+</footer>
+<script src="/static/script.js"></script>
+<!-- <script src="/static/analytics.js"></script> -->
+
+</body>
+</html>
