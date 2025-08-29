@@ -23,15 +23,41 @@
     <h1>Notes on Unicode</h1>
     <div class="date">2025-08-04</div>
     <div id="content">
-        <h1 id="utf-8-utf-16-and-utf-32">UTF-8, UTF-16, and UTF-32</h1>
+        <h1 id="utf">UTF</h1>
+<ul>
+<li>Unicode Transformation Format (UTF) is a way to encode Unicode characters.</li>
+</ul>
+<h1 id="utf-8-utf-16-and-utf-32">UTF-8, UTF-16, and UTF-32</h1>
 <p><img alt="Unicode" src="/assets/img/unicode-enc-methods2.png" /></p>
 <ul>
 <li>UTF-8 uses 1 byte to represent characters in the old ASCII set, two bytes for characters in several more alphabetic blocks, and three bytes for the rest of the BMP. Supplementary characters use 4 bytes.</li>
 <li>UTF-16 uses 2 bytes for any character in the BMP, and 4 bytes for supplementary characters.</li>
 <li>UTF-32 uses 4 bytes everywhere.</li>
 </ul>
+<h2 id="run-c-program-with-utf-8-encoded-string">Run C program with UTF-8 encoded string</h2>
+<pre class="codehilite"><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    // UTF-8 encoded string &quot;A 😀&quot;
+    unsigned char text[] = {0x41, 0x20, 0xF0, 0x9F, 0x98, 0x80, 0x00};
+
+    // Printing the string
+    printf(&quot;%s\n&quot;, text);  // Output: A 😀
+
+    return 0;
+}
+</code></pre>
+
+<ul>
+<li>Save the above code in a file named <code>test.c</code>.</li>
+<li>Compile it using the command: <code>cl test.c -o test.exe</code> for Windows (run in cmd) or <code>gcc test.c -o test</code> for Linux.</li>
+<li>Run the compiled program with <code>test.exe</code> on Windows or <code>./test</code> on Linux</li>
+<li>On Windows, if it is run in cmd, ensure the console supports UTF-8 encoding by running <code>chcp 65001</code> before executing the program. Then I have to run <code>chcp 437</code> to switch back to default to a code page that supports the characters.</li>
+<li>The output will be <code>A 😀</code>, demonstrating that the UTF-8 encoded string is correctly interpreted.</li>
+</ul>
 <h1 id="reference">Reference</h1>
-<p><a href="https://r12a.github.io/scripts/tutorial/part2">UnicodeTutorial</a></p>
+<p><a href="https://r12a.github.io/scripts/tutorial/part2">UnicodeTutorial</a>
+<a href="https://r12a.github.io/uniview/">UniView</a></p>
     </div>
 </article>
 
