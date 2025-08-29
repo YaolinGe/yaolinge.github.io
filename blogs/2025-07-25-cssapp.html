@@ -24,10 +24,10 @@
     <div class="date">2025-07-26</div>
     <div id="content">
         <p>In C#, <code>bool</code> uses 1 byte (not 1 bit) due to memory alignment. To store multiple flags efficiently, use bit masking:</p>
-<pre class="codehilite"><code class="language-csharp">byte flags = 0b_0000_1010; // 8 flags in 1 byte
-bool flag2 = (flags &amp; (1 &lt;&lt; 1)) != 0; // check 2nd flag
-bool flagN = (flags &amp; (1 &lt;&lt; N)) != 0; // check N-th flag, 0 &lt;= N &lt; 8
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="kt">byte</span><span class="w"> </span><span class="n">flags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="n">b_0000_1010</span><span class="p">;</span><span class="w"> </span><span class="c1">// 8 flags in 1 byte</span>
+<span class="kt">bool</span><span class="w"> </span><span class="n">flag2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">flags</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">1</span><span class="p">))</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="c1">// check 2nd flag</span>
+<span class="kt">bool</span><span class="w"> </span><span class="n">flagN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">flags</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">N</span><span class="p">))</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="c1">// check N-th flag, 0 &lt;= N &lt; 8</span>
+</code></pre></div>
 
 <h2 id="chapter-3-machine-level-representation-of-programs">Chapter 3: Machine-Level Representation of Programs</h2>
 <hr />

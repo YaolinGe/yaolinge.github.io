@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Useful commands</title>
+    <link rel="stylesheet" href="/static/style.css" />
+    
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/posts.html">Posts</a></li>
+            <li><a href="/projects.html">Projects</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    
+<article class="blog-post">
+    <h1>This document contains a collection of useful commands and resources.</h1>
+    <div class="date">2025-08-29</div>
+    <div id="content">
+        <h2 id="python-environment-ipykernel-creation">Python environment ipykernel creation</h2>
+<ul>
+<li>Assume you have <code>uv</code> package manager installed. It is fast. </li>
+<li>Run <code>uv create -n myenv</code> to create a new environment.</li>
+<li>Run <code>uv activate myenv</code> to activate the environment.</li>
+<li>Run <code>uv pip install ipykernel</code> to install the kernel first. </li>
+<li>Run <code>python -m ipykernel install --user --name=myenv --display-name=myenv</code> to create the kernel specification. <code>--display-name</code> can be anything you want.</li>
+<li>Run <code>Ctrl + Shift + P</code> and select <code>Developer: Reload Window</code> to reload the window and make the new kernel available.</li>
+</ul>
+    </div>
+</article>
+
+</main>
+<footer>
+    &copy; 2025 Yao
+</footer>
+<script src="/static/script.js"></script>
+<!-- <script src="/static/analytics.js"></script> -->
+
+</body>
+</html>

@@ -55,33 +55,33 @@ $$</p>
 - <strong>Machine Learning</strong>: Entropy is used in decision trees to measure the impurity or disorder of a dataset.</p>
 <h3 id="example-calculation-in-python">Example Calculation in Python</h3>
 <p>Let's calculate the entropy of a given probability distribution using Python.</p>
-<pre class="codehilite"><code class="language-python">import numpy as np
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-def calculate_entropy(probabilities):
-    return -np.sum(probabilities * np.log2(probabilities))
+<span class="k">def</span><span class="w"> </span><span class="nf">calculate_entropy</span><span class="p">(</span><span class="n">probabilities</span><span class="p">):</span>
+    <span class="k">return</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">probabilities</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">probabilities</span><span class="p">))</span>
 
-# Example: Fair coin toss
-probabilities = np.array([0.5, 0.5])
-entropy = calculate_entropy(probabilities)
-print(f'Entropy: {entropy} bits')
-</code></pre>
+<span class="c1"># Example: Fair coin toss</span>
+<span class="n">probabilities</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
+<span class="n">entropy</span> <span class="o">=</span> <span class="n">calculate_entropy</span><span class="p">(</span><span class="n">probabilities</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Entropy: </span><span class="si">{</span><span class="n">entropy</span><span class="si">}</span><span class="s1"> bits&#39;</span><span class="p">)</span>
+</code></pre></div>
 
-<pre class="codehilite"><code>Entropy: 1.0 bits
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="n">Entropy</span><span class="o">:</span><span class="w"> </span><span class="mf">1.0</span><span class="w"> </span><span class="n">bits</span>
+</code></pre></div>
 
 <h3 id="example-of-rolling-a-fair-six-sided-die">Example of rolling a fair six-sided die</h3>
 <p>When the die is fair, the probability of each face is ( \frac{1}{6} ), then the uncertainty is very high, as you don't know which side will be up. Whereas when the die is loaded, the probability of each face is different, then the uncertainty is lower, as you can predict which side will be up.</p>
-<pre class="codehilite"><code class="language-python">p = np.array([1/6]*6)
-entropy = calculate_entropy(p)
-print(f'Entropy: {entropy} bits for event with 6 equiprobable outcomes')
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="o">/</span><span class="mi">6</span><span class="p">]</span><span class="o">*</span><span class="mi">6</span><span class="p">)</span>
+<span class="n">entropy</span> <span class="o">=</span> <span class="n">calculate_entropy</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Entropy: </span><span class="si">{</span><span class="n">entropy</span><span class="si">}</span><span class="s1"> bits for event with 6 equiprobable outcomes&#39;</span><span class="p">)</span>
+</code></pre></div>
 
 <p>Entropy: 2.584962500721156 bits for event with 6 equiprobable outcomes</p>
-<pre class="codehilite"><code class="language-python">p = np.array([1/10000]*6)
-p[-1] = 1 - np.sum(p[:-1])
-entropy = calculate_entropy(p)
-print(f'Entropy: {entropy} bits for event with 6 outcomes, one with much higher probability')
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="o">/</span><span class="mi">10000</span><span class="p">]</span><span class="o">*</span><span class="mi">6</span><span class="p">)</span>
+<span class="n">p</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">p</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">entropy</span> <span class="o">=</span> <span class="n">calculate_entropy</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Entropy: </span><span class="si">{</span><span class="n">entropy</span><span class="si">}</span><span class="s1"> bits for event with 6 outcomes, one with much higher probability&#39;</span><span class="p">)</span>
+</code></pre></div>
 
 <p>Entropy: 0.007365023343275353 bits for event with 6 outcomes, one with much higher probability</p>
 <h2 id="conclusion">Conclusion</h2>

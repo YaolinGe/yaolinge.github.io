@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The art of unix</title>
+    <link rel="stylesheet" href="/static/style.css" />
+    
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/posts.html">Posts</a></li>
+            <li><a href="/projects.html">Projects</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    
+<article class="blog-post">
+    <h1>Reading notes of the art of unix programming</h1>
+    <div class="date">2025-08-16</div>
+    <div id="content">
+        <p>The consequence of the exponential power-versus-time curve in computing makes that 50% of what one knows becomes obsolete every 18 months. But Unix is exceptional. </p>
+<p>The unix tradition lays heavy emphasis on keeping programming interfaces relatively small, clean and orthogonal: easy things are easy and hard things are at least possible. Whereas many other operating systems touted themselves as modern or user friendly by locking users and developers into one interface policy. Therefore, tasks that designers have anticipated are very easy but tasks that are not anticipated are often impossible or at best extremely painful.</p>
+<p>Sometimes, the excessive complexity comes from project requirements that are based on the marketing fad of the month rather than the reality of what customers want or software can actually deliver. Some features are coming from the marketing's pile of "checklist features" - features that often no customer will ever use. And a vicious circle operates. The competition thinks it has to compete with chrome by adding more chrome. Pretty soon, massive bloat is the industry standard and everyone is using huge, buggy programs not even their developers can love. </p>
+<p>Premature optimization is the root of all evil. -- Donald Knuth (The art of computer programming). </p>
+<p>Prototype, then polish. Get it working before you optimize it. -- Ken Thompson's maxim. Make it work first, then make it work fast.
+Make it run, then make it right, then make it fast. -- Kent Beck. 
+The most powerful optimization tool in existence maybe the delete key. </p>
+<h2 id="attitude">Attitude</h2>
+<p>When you see the right thing, do it — this may look like more work in the short term, but it's the path of least effort in the long run. If you don't know what the right thing is, do the minimum necessary to get the job done, at least until you figure out what the right thing is.</p>
+<p>To do the Unix philosophy right, you have to be loyal to excellence. You have to believe that software design is a craft worth all the intelligence, creativity, and passion you can muster. Otherwise you won't look past the easy, stereotyped ways of approaching design and implementation; you'll rush into coding when you should be thinking. You'll carelessly complicate when you should be relentlessly simplifying — and then you'll wonder why your code bloats and debugging is so hard.</p>
+<p>To do the Unix philosophy right, you have to value your own time enough never to waste it. If someone has already solved a problem once, don't let pride or politics suck you into solving it a second time rather than re-using. And never work harder than you have to; work smarter instead, and save the extra effort for when you need it. Lean on your tools and automate everything you can.</p>
+<p>Software design and implementation should be a joyous art, a kind of high-level play. If this attitude seems preposterous or vaguely embarrassing to you, stop and think; ask yourself what you've forgotten. Why do you design software instead of doing something else to make money or pass the time? You must have thought software was worthy of your passion once....</p>
+<p>To do the Unix philosophy right, you need to have (or recover) that attitude. You need to care. You need to play. You need to be willing to explore.</p>
+<h1 id="ten-rules-from-unix-programming">Ten rules from Unix programming</h1>
+<p><strong>Rule of Modularity:</strong> Write simple parts connected by clean interfaces.<br />
+<strong>Rule of Clarity:</strong> Clarity is better than cleverness.<br />
+<strong>Rule of Composition:</strong> Design programs to be connected to other programs.<br />
+<strong>Rule of Separation:</strong> Separate policy from mechanism; separate interfaces from engines.<br />
+<strong>Rule of Simplicity:</strong> Design for simplicity; add complexity only where you must.<br />
+<strong>Rule of Parsimony:</strong> Write a big program only when it is clear by demonstration that nothing else will do.<br />
+<strong>Rule of Transparency:</strong> Design for visibility to make inspection and debugging easier.<br />
+<strong>Rule of Robustness:</strong> Robustness is the child of transparency and simplicity.<br />
+<strong>Rule of Representation:</strong> Fold knowledge into data so program logic can be stupid and robust.<br />
+<strong>Rule of Least Surprise:</strong> In interface design, always do the least surprising thing.<br />
+<strong>Rule of Silence:</strong> When a program has nothing surprising to say, it should say nothing.<br />
+<strong>Rule of Repair:</strong> When you must fail, fail noisily and as soon as possible.<br />
+<strong>Rule of Economy:</strong> Programmer time is expensive; conserve it in preference to machine time.<br />
+<strong>Rule of Generation:</strong> Avoid hand-hacking; write programs to write programs when you can.<br />
+<strong>Rule of Optimization:</strong> Prototype before polishing. Get it working before you optimize it.<br />
+<strong>Rule of Diversity:</strong> Distrust all claims for “the one true way” to do things.<br />
+<strong>Rule of Extensibility:</strong> Design for the future, because it will be here sooner than you think.  </p>
+    </div>
+</article>
+
+</main>
+<footer>
+    &copy; 2025 Yao
+</footer>
+<script src="/static/script.js"></script>
+<!-- <script src="/static/analytics.js"></script> -->
+
+</body>
+</html>

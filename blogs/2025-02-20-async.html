@@ -54,266 +54,266 @@
 <li><strong>Delegates</strong>: For event handling, callbacks, and scenarios requiring flexible method assignment.</li>
 </ul>
 <h2 id="cancellationtoken">CancellationToken</h2>
-<pre class="codehilite"><code class="language-C#">using System;
-using System.Threading;
-using System.Threading.Tasks;
+<div class="codehilite"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span><span class="w"> </span><span class="nn">System.Threading</span><span class="p">;</span>
+<span class="k">using</span><span class="w"> </span><span class="nn">System.Threading.Tasks</span><span class="p">;</span>
 
-class Program
-{
-    static async Task Main()
-    {
-        using var cts = new CancellationTokenSource(); // Create a token source
-        CancellationToken token = cts.Token;
+<span class="k">class</span><span class="w"> </span><span class="nc">Program</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="n">Task</span><span class="w"> </span><span class="nf">Main</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">using</span><span class="w"> </span><span class="nn">var</span><span class="w"> </span><span class="n">cts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">CancellationTokenSource</span><span class="p">();</span><span class="w"> </span><span class="c1">// Create a token source</span>
+<span class="w">        </span><span class="n">CancellationToken</span><span class="w"> </span><span class="n">token</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cts</span><span class="p">.</span><span class="n">Token</span><span class="p">;</span>
 
-        Task task = DoWorkAsync(token);
+<span class="w">        </span><span class="n">Task</span><span class="w"> </span><span class="n">task</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DoWorkAsync</span><span class="p">(</span><span class="n">token</span><span class="p">);</span>
 
-        // Listen for user input in a separate task
-        _ = Task.Run(() =&gt;
-        {
-            while (true)
-            {
-                if (Console.KeyAvailable)
-                {
-                    var key = Console.ReadKey(true).Key;
-                    Console.WriteLine($&quot;Key pressed: {key}&quot;);
-                    if (key == ConsoleKey.B)
-                    {
-                        cts.Cancel();
-                        break;
-                    }
-                }
-            }
-        });
+<span class="w">        </span><span class="c1">// Listen for user input in a separate task</span>
+<span class="w">        </span><span class="n">_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Task</span><span class="p">.</span><span class="n">Run</span><span class="p">(()</span><span class="w"> </span><span class="o">=&gt;</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="k">true</span><span class="p">)</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">Console</span><span class="p">.</span><span class="n">KeyAvailable</span><span class="p">)</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="kt">var</span><span class="w"> </span><span class="n">key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Console</span><span class="p">.</span><span class="n">ReadKey</span><span class="p">(</span><span class="k">true</span><span class="p">).</span><span class="n">Key</span><span class="p">;</span>
+<span class="w">                    </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$&quot;Key pressed: {key}&quot;</span><span class="p">);</span>
+<span class="w">                    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">key</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">ConsoleKey</span><span class="p">.</span><span class="n">B</span><span class="p">)</span>
+<span class="w">                    </span><span class="p">{</span>
+<span class="w">                        </span><span class="n">cts</span><span class="p">.</span><span class="n">Cancel</span><span class="p">();</span>
+<span class="w">                        </span><span class="k">break</span><span class="p">;</span>
+<span class="w">                    </span><span class="p">}</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">});</span>
 
-        try
-        {
-            await task;
-        }
-        catch (OperationCanceledException)
-        {
-            Console.WriteLine(&quot;Task was canceled.&quot;);
-        }
-    }
+<span class="w">        </span><span class="k">try</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="k">await</span><span class="w"> </span><span class="n">task</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">OperationCanceledException</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Task was canceled.&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
 
-    static async Task DoWorkAsync(CancellationToken token)
-    {
-        while (true)
-        {
-            token.ThrowIfCancellationRequested(); // Check for cancellation
-            Console.WriteLine($&quot;Working... Local time: {DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}&quot;);
-            await Task.Delay(1000);
-        }
-    }
-}
-</code></pre>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="n">Task</span><span class="w"> </span><span class="nf">DoWorkAsync</span><span class="p">(</span><span class="n">CancellationToken</span><span class="w"> </span><span class="n">token</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="k">true</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">token</span><span class="p">.</span><span class="n">ThrowIfCancellationRequested</span><span class="p">();</span><span class="w"> </span><span class="c1">// Check for cancellation</span>
+<span class="w">            </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$&quot;Working... Local time: {DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}&quot;</span><span class="p">);</span>
+<span class="w">            </span><span class="k">await</span><span class="w"> </span><span class="n">Task</span><span class="p">.</span><span class="n">Delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h2 id="observer-pattern">Observer pattern</h2>
 <p>In the below example, I use the observer pattern to notify multiple observers when the temperature changes. The <code>WeatherStation</code> class is the subject that maintains a list of observers. The <code>TemperatureDisplay</code> and <code>AnotherTemperatureDisplay</code> classes are concrete observers that display the temperature. The <code>WeatherStation</code> class notifies all observers when the temperature changes.
 The user can increase or decrease the temperature by pressing the up and down arrow keys, respectively. The user can exit the program by pressing the Esc key.</p>
-<pre class="codehilite"><code class="language-C#">using System;
-using System.Collections.Generic;
+<div class="codehilite"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span><span class="w"> </span><span class="nn">System.Collections.Generic</span><span class="p">;</span>
 
-// The Subject (WeatherStation)
-public class WeatherStation
-{
-    private List&lt;IObserver&gt; observers = new List&lt;IObserver&gt;(); // List of observers
-    private float temperature;
+<span class="c1">// The Subject (WeatherStation)</span>
+<span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">WeatherStation</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">IObserver</span><span class="o">&gt;</span><span class="w"> </span><span class="n">observers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">IObserver</span><span class="o">&gt;</span><span class="p">();</span><span class="w"> </span><span class="c1">// List of observers</span>
+<span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">temperature</span><span class="p">;</span>
 
-    // Method to attach an observer
-    public void Attach(IObserver observer)
-    {
-        observers.Add(observer);
-    }
+<span class="w">    </span><span class="c1">// Method to attach an observer</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Attach</span><span class="p">(</span><span class="n">IObserver</span><span class="w"> </span><span class="n">observer</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">observers</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">observer</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
 
-    // Method to detach an observer
-    public void Detach(IObserver observer)
-    {
-        observers.Remove(observer);
-    }
+<span class="w">    </span><span class="c1">// Method to detach an observer</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Detach</span><span class="p">(</span><span class="n">IObserver</span><span class="w"> </span><span class="n">observer</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">observers</span><span class="p">.</span><span class="n">Remove</span><span class="p">(</span><span class="n">observer</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
 
-    // Method to notify all observers
-    public void Notify()
-    {
-        foreach (var observer in observers)
-        {
-            observer.Update(temperature);  // Notify observer with the new temperature
-        }
-    }
+<span class="w">    </span><span class="c1">// Method to notify all observers</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Notify</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">foreach</span><span class="w"> </span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">observer</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">observers</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">observer</span><span class="p">.</span><span class="n">Update</span><span class="p">(</span><span class="n">temperature</span><span class="p">);</span><span class="w">  </span><span class="c1">// Notify observer with the new temperature</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
 
-    // Method to simulate temperature change
-    public void SetTemperature(float temperature)
-    {
-        this.temperature = temperature;
-        Notify();  // Notify observers about the state change
-    }
-}
+<span class="w">    </span><span class="c1">// Method to simulate temperature change</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">SetTemperature</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">temperature</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="n">temperature</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">temperature</span><span class="p">;</span>
+<span class="w">        </span><span class="n">Notify</span><span class="p">();</span><span class="w">  </span><span class="c1">// Notify observers about the state change</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 
-// The Observer Interface
-public interface IObserver
-{
-    void Update(float temperature);
-}
+<span class="c1">// The Observer Interface</span>
+<span class="k">public</span><span class="w"> </span><span class="k">interface</span><span class="w"> </span><span class="n">IObserver</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">void</span><span class="w"> </span><span class="nf">Update</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">temperature</span><span class="p">);</span>
+<span class="p">}</span>
 
-// Concrete Observer - Display 1 (Temperature Display)
-public class TemperatureDisplay : IObserver
-{
-    public void Update(float temperature)
-    {
-        Console.WriteLine($&quot;Temperature Display: Current temperature is {temperature}°C&quot;);
-    }
-}
+<span class="c1">// Concrete Observer - Display 1 (Temperature Display)</span>
+<span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">TemperatureDisplay</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">IObserver</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Update</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">temperature</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$&quot;Temperature Display: Current temperature is {temperature}°C&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 
-// Concrete Observer - Display 2 (Another Temperature Display)
-public class AnotherTemperatureDisplay : IObserver
-{
-    public void Update(float temperature)
-    {
-        Console.WriteLine($&quot;Another Temperature Display: Current temperature is {temperature}°C&quot;);
-    }
-}
+<span class="c1">// Concrete Observer - Display 2 (Another Temperature Display)</span>
+<span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">AnotherTemperatureDisplay</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">IObserver</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Update</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">temperature</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$&quot;Another Temperature Display: Current temperature is {temperature}°C&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 
-// Client Code
-class Program
-{
-    static void Main()
-    {
-        // Create subject (weather station)
-        WeatherStation weatherStation = new WeatherStation();
+<span class="c1">// Client Code</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Program</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Main</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// Create subject (weather station)</span>
+<span class="w">        </span><span class="n">WeatherStation</span><span class="w"> </span><span class="n">weatherStation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">WeatherStation</span><span class="p">();</span>
 
-        // Create observers (displays)
-        IObserver display1 = new TemperatureDisplay();
-        IObserver display2 = new AnotherTemperatureDisplay();
+<span class="w">        </span><span class="c1">// Create observers (displays)</span>
+<span class="w">        </span><span class="n">IObserver</span><span class="w"> </span><span class="n">display1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">TemperatureDisplay</span><span class="p">();</span>
+<span class="w">        </span><span class="n">IObserver</span><span class="w"> </span><span class="n">display2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">AnotherTemperatureDisplay</span><span class="p">();</span>
 
-        // Attach observers to the subject
-        weatherStation.Attach(display1);
-        weatherStation.Attach(display2);
+<span class="w">        </span><span class="c1">// Attach observers to the subject</span>
+<span class="w">        </span><span class="n">weatherStation</span><span class="p">.</span><span class="n">Attach</span><span class="p">(</span><span class="n">display1</span><span class="p">);</span>
+<span class="w">        </span><span class="n">weatherStation</span><span class="p">.</span><span class="n">Attach</span><span class="p">(</span><span class="n">display2</span><span class="p">);</span>
 
-        float baseTemperature = 25.0f;
-        weatherStation.SetTemperature(baseTemperature);
+<span class="w">        </span><span class="kt">float</span><span class="w"> </span><span class="n">baseTemperature</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">25.0f</span><span class="p">;</span>
+<span class="w">        </span><span class="n">weatherStation</span><span class="p">.</span><span class="n">SetTemperature</span><span class="p">(</span><span class="n">baseTemperature</span><span class="p">);</span>
 
-        while (true)
-        {
-            if (Console.KeyAvailable)
-            {
-                var key = Console.ReadKey(true).Key;
-                if (key == ConsoleKey.UpArrow)
-                {
-                    baseTemperature += 0.5f;
-                    weatherStation.SetTemperature(baseTemperature);
-                }
-                else if (key == ConsoleKey.DownArrow)
-                {
-                    baseTemperature -= 0.5f;
-                    weatherStation.SetTemperature(baseTemperature);
-                }
-                else if (key == ConsoleKey.Escape)
-                {
-                    break;
-                }
-            }
-        }
-    }
-}
-</code></pre>
+<span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="k">true</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">Console</span><span class="p">.</span><span class="n">KeyAvailable</span><span class="p">)</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="kt">var</span><span class="w"> </span><span class="n">key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Console</span><span class="p">.</span><span class="n">ReadKey</span><span class="p">(</span><span class="k">true</span><span class="p">).</span><span class="n">Key</span><span class="p">;</span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">key</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">ConsoleKey</span><span class="p">.</span><span class="n">UpArrow</span><span class="p">)</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">baseTemperature</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mf">0.5f</span><span class="p">;</span>
+<span class="w">                    </span><span class="n">weatherStation</span><span class="p">.</span><span class="n">SetTemperature</span><span class="p">(</span><span class="n">baseTemperature</span><span class="p">);</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">                </span><span class="k">else</span><span class="w"> </span><span class="nf">if</span><span class="w"> </span><span class="p">(</span><span class="n">key</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">ConsoleKey</span><span class="p">.</span><span class="n">DownArrow</span><span class="p">)</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">baseTemperature</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="mf">0.5f</span><span class="p">;</span>
+<span class="w">                    </span><span class="n">weatherStation</span><span class="p">.</span><span class="n">SetTemperature</span><span class="p">(</span><span class="n">baseTemperature</span><span class="p">);</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">                </span><span class="k">else</span><span class="w"> </span><span class="nf">if</span><span class="w"> </span><span class="p">(</span><span class="n">key</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">ConsoleKey</span><span class="p">.</span><span class="n">Escape</span><span class="p">)</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="k">break</span><span class="p">;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h1 id="delegate">Delegate</h1>
-<pre class="codehilite"><code class="language-C#">using System;
+<div class="codehilite"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="nn">System</span><span class="p">;</span>
 
-class Program
-{
-    // Delegate definition
-    public delegate void GreetDelegate(string name);
+<span class="k">class</span><span class="w"> </span><span class="nc">Program</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// Delegate definition</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">delegate</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">GreetDelegate</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">name</span><span class="p">);</span>
 
-    // Method that matches the delegate signature
-    public static void GreetInEnglish(string name)
-    {
-        Console.WriteLine(&quot;Hello, &quot; + name);
-    }
+<span class="w">    </span><span class="c1">// Method that matches the delegate signature</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">GreetInEnglish</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">name</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Hello, &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">name</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
 
-    // Another method with a similar signature
-    public static void GreetInSpanish(string name)
-    {
-        Console.WriteLine(&quot;Hola, &quot; + name);
-    }
+<span class="w">    </span><span class="c1">// Another method with a similar signature</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">GreetInSpanish</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">name</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Hola, &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">name</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
 
-    static void Main()
-    {
-        // Instantiate delegate and point it to GreetInEnglish method
-        GreetDelegate greet = GreetInEnglish;
-        greet(&quot;Alice&quot;); // Calls GreetInEnglish
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Main</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// Instantiate delegate and point it to GreetInEnglish method</span>
+<span class="w">        </span><span class="n">GreetDelegate</span><span class="w"> </span><span class="n">greet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GreetInEnglish</span><span class="p">;</span>
+<span class="w">        </span><span class="n">greet</span><span class="p">(</span><span class="s">&quot;Alice&quot;</span><span class="p">);</span><span class="w"> </span><span class="c1">// Calls GreetInEnglish</span>
 
-        // Pointing delegate to GreetInSpanish method
-        greet = GreetInSpanish;
-        greet(&quot;Bob&quot;); // Calls GreetInSpanish
-    }
-}
-</code></pre>
+<span class="w">        </span><span class="c1">// Pointing delegate to GreetInSpanish method</span>
+<span class="w">        </span><span class="n">greet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GreetInSpanish</span><span class="p">;</span>
+<span class="w">        </span><span class="n">greet</span><span class="p">(</span><span class="s">&quot;Bob&quot;</span><span class="p">);</span><span class="w"> </span><span class="c1">// Calls GreetInSpanish</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h3 id="example-ii-multicast">Example II, multicast</h3>
-<pre class="codehilite"><code class="language-C#">using System;
+<div class="codehilite"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="nn">System</span><span class="p">;</span>
 
-class Program
-{
-    // Delegate definition
-    public delegate void NotifyDelegate();
+<span class="k">class</span><span class="w"> </span><span class="nc">Program</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// Delegate definition</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">delegate</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">NotifyDelegate</span><span class="p">();</span>
 
-    // Methods to be called by the delegate
-    public static void NotifyByEmail()
-    {
-        Console.WriteLine(&quot;Notification sent via email.&quot;);
-    }
+<span class="w">    </span><span class="c1">// Methods to be called by the delegate</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">NotifyByEmail</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Notification sent via email.&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
 
-    public static void NotifyBySMS()
-    {
-        Console.WriteLine(&quot;Notification sent via SMS.&quot;);
-    }
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">NotifyBySMS</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Notification sent via SMS.&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
 
-    static void Main()
-    {
-        // Create a multicast delegate by combining two methods
-        NotifyDelegate notify = NotifyByEmail;
-        notify += NotifyBySMS;  // Add another method to the delegate
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Main</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// Create a multicast delegate by combining two methods</span>
+<span class="w">        </span><span class="n">NotifyDelegate</span><span class="w"> </span><span class="n">notify</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NotifyByEmail</span><span class="p">;</span>
+<span class="w">        </span><span class="n">notify</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">NotifyBySMS</span><span class="p">;</span><span class="w">  </span><span class="c1">// Add another method to the delegate</span>
 
-        // Calls both methods
-        notify();
-    }
-}
-</code></pre>
+<span class="w">        </span><span class="c1">// Calls both methods</span>
+<span class="w">        </span><span class="n">notify</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h3 id="example-iii-dynamic-invocation">Example III, dynamic invocation</h3>
-<pre class="codehilite"><code class="language-C#">using System;
+<div class="codehilite"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="nn">System</span><span class="p">;</span>
 
-class Program
-{
-    // Delegate definition
-    public delegate int Operation(int a, int b);
+<span class="k">class</span><span class="w"> </span><span class="nc">Program</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// Delegate definition</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">delegate</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">Operation</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">);</span>
 
-    // Methods to be passed to the delegate
-    public static int Add(int a, int b)
-    {
-        return a + b;
-    }
+<span class="w">    </span><span class="c1">// Methods to be passed to the delegate</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">Add</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 
-    public static int Multiply(int a, int b)
-    {
-        return a * b;
-    }
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">Multiply</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 
-    // Method that accepts a delegate
-    public static void PerformOperation(int a, int b, Operation operation)
-    {
-        int result = operation(a, b);
-        Console.WriteLine(&quot;Result: &quot; + result);
-    }
+<span class="w">    </span><span class="c1">// Method that accepts a delegate</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">PerformOperation</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">Operation</span><span class="w"> </span><span class="n">operation</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">operation</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">);</span>
+<span class="w">        </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Result: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">result</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
 
-    static void Main()
-    {
-        // Passing methods via delegate
-        PerformOperation(5, 3, Add);       // Calls Add
-        PerformOperation(5, 3, Multiply);  // Calls Multiply
-    }
-}
-</code></pre>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Main</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// Passing methods via delegate</span>
+<span class="w">        </span><span class="n">PerformOperation</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">Add</span><span class="p">);</span><span class="w">       </span><span class="c1">// Calls Add</span>
+<span class="w">        </span><span class="n">PerformOperation</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">Multiply</span><span class="p">);</span><span class="w">  </span><span class="c1">// Calls Multiply</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
     </div>
 </article>
 
