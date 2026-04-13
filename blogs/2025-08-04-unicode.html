@@ -14,6 +14,7 @@
             <li><a href="/about.html">About</a></li>
             <li><a href="/posts.html">Posts</a></li>
             <li><a href="/projects.html">Projects</a></li>
+            <li><a href="/app/">WOD Clock</a></li>
         </ul>
     </nav>
 </header>
@@ -35,18 +36,18 @@
 <li>UTF-32 uses 4 bytes everywhere.</li>
 </ul>
 <h2 id="run-c-program-with-utf-8-encoded-string">Run C program with UTF-8 encoded string</h2>
-<div class="codehilite"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<pre class="codehilite"><code class="language-c">#include &lt;stdio.h&gt;
 
-<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="c1">// UTF-8 encoded string &quot;A 😀&quot;</span>
-<span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">text</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mh">0x41</span><span class="p">,</span><span class="w"> </span><span class="mh">0x20</span><span class="p">,</span><span class="w"> </span><span class="mh">0xF0</span><span class="p">,</span><span class="w"> </span><span class="mh">0x9F</span><span class="p">,</span><span class="w"> </span><span class="mh">0x98</span><span class="p">,</span><span class="w"> </span><span class="mh">0x80</span><span class="p">,</span><span class="w"> </span><span class="mh">0x00</span><span class="p">};</span>
+int main() {
+    // UTF-8 encoded string &quot;A 😀&quot;
+    unsigned char text[] = {0x41, 0x20, 0xF0, 0x9F, 0x98, 0x80, 0x00};
 
-<span class="w">    </span><span class="c1">// Printing the string</span>
-<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">text</span><span class="p">);</span><span class="w">  </span><span class="c1">// Output: A 😀</span>
+    // Printing the string
+    printf(&quot;%s\n&quot;, text);  // Output: A 😀
 
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+    return 0;
+}
+</code></pre>
 
 <ul>
 <li>Save the above code in a file named <code>test.c</code>.</li>

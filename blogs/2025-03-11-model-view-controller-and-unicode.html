@@ -14,6 +14,7 @@
             <li><a href="/about.html">About</a></li>
             <li><a href="/posts.html">Posts</a></li>
             <li><a href="/projects.html">Projects</a></li>
+            <li><a href="/app/">WOD Clock</a></li>
         </ul>
     </nav>
 </header>
@@ -33,7 +34,7 @@
 - <strong>Controller</strong>: Processes user input and updates Model/View.</p>
 <h3 id="example-flask-counter-app">Example: Flask Counter App</h3>
 <p><strong>Project Structure</strong></p>
-<div class="codehilite"><pre><span></span><code>counter_app/
+<pre class="codehilite"><code>counter_app/
 ├── app.py
 ├── models.py
 ├── templates/
@@ -41,76 +42,76 @@
 │   └── layout.html
 └── static/
     └── style.css
-</code></pre></div>
+</code></pre>
 
 <p><strong>Model (<code>models.py</code>)</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Counter</span><span class="p">:</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">increment</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">decrement</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">-=</span> <span class="mi">1</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span>
-</code></pre></div>
+<pre class="codehilite"><code class="language-python">class Counter:
+    def __init__(self):
+        self.value = 0
+    def increment(self):
+        self.value += 1
+        return self.value
+    def decrement(self):
+        self.value -= 1
+        return self.value
+    def reset(self):
+        self.value = 0
+        return self.value
+    def get_value(self):
+        return self.value
+</code></pre>
 
 <p><strong>View (<code>templates/index.html</code>)</strong></p>
-<div class="codehilite"><pre><span></span><code>{% extends &quot;layout.html&quot; %}
+<pre class="codehilite"><code class="language-html">{% extends &quot;layout.html&quot; %}
 {% block content %}
-<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;counter-container&quot;</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Flask Counter App<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;counter-display&quot;</span><span class="p">&gt;</span>{{ count }}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;counter-controls&quot;</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">form</span> <span class="na">method</span><span class="o">=</span><span class="s">&quot;post&quot;</span> <span class="na">action</span><span class="o">=</span><span class="s">&quot;{{ url_for(&#39;increment&#39;) }}&quot;</span><span class="p">&gt;</span>
-            <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span><span class="p">&gt;</span>Increment<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
-        <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">form</span> <span class="na">method</span><span class="o">=</span><span class="s">&quot;post&quot;</span> <span class="na">action</span><span class="o">=</span><span class="s">&quot;{{ url_for(&#39;decrement&#39;) }}&quot;</span><span class="p">&gt;</span>
-            <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span><span class="p">&gt;</span>Decrement<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
-        <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">form</span> <span class="na">method</span><span class="o">=</span><span class="s">&quot;post&quot;</span> <span class="na">action</span><span class="o">=</span><span class="s">&quot;{{ url_for(&#39;reset&#39;) }}&quot;</span><span class="p">&gt;</span>
-            <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span><span class="p">&gt;</span>Reset<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
-        <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
-    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+&lt;div class=&quot;counter-container&quot;&gt;
+    &lt;h1&gt;Flask Counter App&lt;/h1&gt;
+    &lt;div class=&quot;counter-display&quot;&gt;{{ count }}&lt;/div&gt;
+    &lt;div class=&quot;counter-controls&quot;&gt;
+        &lt;form method=&quot;post&quot; action=&quot;{{ url_for('increment') }}&quot;&gt;
+            &lt;button type=&quot;submit&quot;&gt;Increment&lt;/button&gt;
+        &lt;/form&gt;
+        &lt;form method=&quot;post&quot; action=&quot;{{ url_for('decrement') }}&quot;&gt;
+            &lt;button type=&quot;submit&quot;&gt;Decrement&lt;/button&gt;
+        &lt;/form&gt;
+        &lt;form method=&quot;post&quot; action=&quot;{{ url_for('reset') }}&quot;&gt;
+            &lt;button type=&quot;submit&quot;&gt;Reset&lt;/button&gt;
+        &lt;/form&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
 {% endblock %}
-</code></pre></div>
+</code></pre>
 
 <p><strong>Controller (<code>app.py</code>)</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">flask</span><span class="w"> </span><span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">render_template</span><span class="p">,</span> <span class="n">redirect</span><span class="p">,</span> <span class="n">url_for</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">models</span><span class="w"> </span><span class="kn">import</span> <span class="n">Counter</span>
+<pre class="codehilite"><code class="language-python">from flask import Flask, render_template, redirect, url_for
+from models import Counter
 
-<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
-<span class="n">counter</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
+app = Flask(__name__)
+counter = Counter()
 
-<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">index</span><span class="p">():</span>
-    <span class="n">count</span> <span class="o">=</span> <span class="n">counter</span><span class="o">.</span><span class="n">get_value</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s1">&#39;index.html&#39;</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="n">count</span><span class="p">)</span>
+@app.route('/')
+def index():
+    count = counter.get_value()
+    return render_template('index.html', count=count)
 
-<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/increment&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">increment</span><span class="p">():</span>
-    <span class="n">counter</span><span class="o">.</span><span class="n">increment</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;index&#39;</span><span class="p">))</span>
+@app.route('/increment', methods=['POST'])
+def increment():
+    counter.increment()
+    return redirect(url_for('index'))
 
-<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/decrement&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">decrement</span><span class="p">():</span>
-    <span class="n">counter</span><span class="o">.</span><span class="n">decrement</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;index&#39;</span><span class="p">))</span>
+@app.route('/decrement', methods=['POST'])
+def decrement():
+    counter.decrement()
+    return redirect(url_for('index'))
 
-<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/reset&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">reset</span><span class="p">():</span>
-    <span class="n">counter</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;index&#39;</span><span class="p">))</span>
+@app.route('/reset', methods=['POST'])
+def reset():
+    counter.reset()
+    return redirect(url_for('index'))
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</code></pre></div>
+if __name__ == '__main__':
+    app.run(debug=True)
+</code></pre>
 
 <p><strong>Summary:</strong><br />
 - <strong>Model</strong>: Counter logic<br />
@@ -188,18 +189,18 @@ This separation improves maintainability and scalability.</p>
 </table>
 <h3 id="unicode-in-python">Unicode in Python</h3>
 <p>Python 3 strings are Unicode by default:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">hello_world</span> <span class="o">=</span> <span class="s2">&quot;Hello, World! 你好，世界! こんにちは! 안녕하세요!&quot;</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">hello_world</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Euro symbol: </span><span class="se">\u20AC</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Snowman: </span><span class="se">\u2603</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Smiling face: </span><span class="se">\U0001F60A</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">))</span>      <span class="c1"># 65</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;€&#39;</span><span class="p">))</span>      <span class="c1"># 8364</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;😊&#39;</span><span class="p">))</span>     <span class="c1"># 128522</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">chr</span><span class="p">(</span><span class="mi">65</span><span class="p">))</span>       <span class="c1"># A</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">chr</span><span class="p">(</span><span class="mi">8364</span><span class="p">))</span>     <span class="c1"># €</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">chr</span><span class="p">(</span><span class="mi">128522</span><span class="p">))</span>   <span class="c1"># 😊</span>
-</code></pre></div>
+<pre class="codehilite"><code class="language-python">hello_world = &quot;Hello, World! 你好，世界! こんにちは! 안녕하세요!&quot;
+print(hello_world)
+print(&quot;Euro symbol: \u20AC&quot;)
+print(&quot;Snowman: \u2603&quot;)
+print(&quot;Smiling face: \U0001F60A&quot;)
+print(ord('A'))      # 65
+print(ord('€'))      # 8364
+print(ord('😊'))     # 128522
+print(chr(65))       # A
+print(chr(8364))     # €
+print(chr(128522))   # 😊
+</code></pre>
 
 <hr />
 <h2 id="key-takeaways">Key Takeaways</h2>

@@ -14,6 +14,7 @@
             <li><a href="/about.html">About</a></li>
             <li><a href="/posts.html">Posts</a></li>
             <li><a href="/projects.html">Projects</a></li>
+            <li><a href="/app/">WOD Clock</a></li>
         </ul>
     </nav>
 </header>
@@ -164,24 +165,24 @@ input[type="radio"] {
 <li>It should be put in the flex item itself, not the container.</li>
 <li><code>div:nth-child(n)</code> can be used to target specific flex items for styling.</li>
 </ul>
-<div class="codehilite"><pre><span></span><code><span class="p">.</span><span class="nc">f1</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">flex-grow</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="c">/* Allows the item to grow */</span>
-<span class="w">    </span><span class="k">flex-shrink</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="c">/* This will shrink twice as much as f2 */</span>
-<span class="w">    </span><span class="k">flex-basis</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="kt">px</span><span class="p">;</span><span class="w"> </span><span class="c">/* Sets the initial size of the item */</span>
-<span class="p">}</span>
+<pre class="codehilite"><code class="language-css">.f1 {
+    flex-grow: 1; /* Allows the item to grow */
+    flex-shrink: 2; /* This will shrink twice as much as f2 */
+    flex-basis: 100px; /* Sets the initial size of the item */
+}
 
-<span class="p">.</span><span class="nc">f2</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">flex-grow</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="c">/* Allows the item to grow twice as much as f1 */</span>
-<span class="w">    </span><span class="k">flex-shrink</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="c">/* Allows the item to shrink */</span>
-<span class="w">    </span><span class="k">flex-basis</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="kt">px</span><span class="p">;</span><span class="w"> </span><span class="c">/* Sets the initial size of the item */</span>
-<span class="p">}</span>
+.f2 {
+    flex-grow: 2; /* Allows the item to grow twice as much as f1 */
+    flex-shrink: 1; /* Allows the item to shrink */
+    flex-basis: 100px; /* Sets the initial size of the item */
+}
 
-<span class="p">.</span><span class="nc">f3</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">flex-grow</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w"> </span><span class="c">/* Prevents the item from growing */</span>
-<span class="w">    </span><span class="k">flex-shrink</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="c">/* Prevents the item from shrinking */</span>
-<span class="w">    </span><span class="k">flex-basis</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="kt">px</span><span class="p">;</span><span class="w"> </span><span class="c">/* Sets the initial size of the item */</span>
-<span class="p">}</span>
-</code></pre></div>
+.f3 {
+    flex-grow: 3; /* Prevents the item from growing */
+    flex-shrink: 0; /* Prevents the item from shrinking */
+    flex-basis: 100px; /* Sets the initial size of the item */
+}
+</code></pre>
 
 <h5 id="order">Order</h5>
 <ul>
@@ -189,13 +190,13 @@ input[type="radio"] {
 <li>By default, all flex items have an order of <code>0</code>. Items with a lower order value will appear before items with a higher order value.</li>
 <li>This can be useful for creating responsive designs where the visual order of items needs to change based on screen size or layout.</li>
 </ul>
-<div class="codehilite"><pre><span></span><code><span class="p">.</span><span class="nc">item</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">order</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="c">/* Default order is 0, so this item will appear after items with order 0 */</span>
-<span class="p">}</span>
-<span class="p">.</span><span class="nc">item</span><span class="p">.</span><span class="nc">special</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">order</span><span class="p">:</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"> </span><span class="c">/* This item will appear before items with order 0 */</span>
-<span class="p">}</span>
-</code></pre></div>
+<pre class="codehilite"><code class="language-css">.item {
+    order: 1; /* Default order is 0, so this item will appear after items with order 0 */
+}
+.item.special {
+    order: -1; /* This item will appear before items with order 0 */
+}
+</code></pre>
 
 <h2 id="css-grid">CSS Grid</h2>
 <ul>

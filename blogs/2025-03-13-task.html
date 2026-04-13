@@ -14,6 +14,7 @@
             <li><a href="/about.html">About</a></li>
             <li><a href="/posts.html">Posts</a></li>
             <li><a href="/projects.html">Projects</a></li>
+            <li><a href="/app/">WOD Clock</a></li>
         </ul>
     </nav>
 </header>
@@ -25,89 +26,89 @@
     <div id="content">
         <h2 id="1-parallel-processing-with-task-parallel-library-tpl">1. Parallel Processing with Task Parallel Library (TPL)</h2>
 <p>The first example demonstrates parallel processing using TPL:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">ParallelOptions</span><span class="w"> </span><span class="n">options</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ParallelOptions</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">MaxDegreeOfParallelism</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="p">};</span>
-<span class="n">Parallel</span><span class="p">.</span><span class="n">For</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="n">options</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=&gt;</span>
-<span class="p">{</span>
-<span class="w">    </span><span class="c1">// Parallel processing code here</span>
-<span class="p">});</span>
+<pre class="codehilite"><code class="language-csharp">ParallelOptions options = new ParallelOptions { MaxDegreeOfParallelism = 10 };
+Parallel.For(0, 10, options, i =&gt;
+{
+    // Parallel processing code here
+});
 
-<span class="c1">// Resource-intensive computation</span>
-<span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">ResourceIntensiveFunction</span><span class="p">()</span>
-<span class="p">{</span>
-<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">1000000000</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
-<span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="n">result</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="n">Sqrt</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+// Resource-intensive computation
+static void ResourceIntensiveFunction()
+{
+    double result = 0;
+    for (int i = 0; i &lt; 1000000000; i++)
+    {
+        result += Math.Sqrt(i);
+    }
+}
+</code></pre>
 
 <p>This code shows how to limit parallel processing to 10 threads and measure performance using <code>Stopwatch</code>.</p>
 <h2 id="2-delegates-in-c">2. Delegates in C</h2>
 <p>Here's an example of using delegates for method invocation:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">public</span><span class="w"> </span><span class="k">delegate</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">Operation</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">);</span>
+<pre class="codehilite"><code class="language-csharp">public delegate int Operation(int a, int b);
 
-<span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">Add</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
-<span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">Multiply</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+public static int Add(int a, int b) =&gt; a + b;
+public static int Multiply(int a, int b) =&gt; a * b;
 
-<span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">PerformOperation</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">Operation</span><span class="w"> </span><span class="n">operation</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">operation</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">);</span>
-<span class="w">    </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Result: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">result</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
+public static void PerformOperation(int a, int b, Operation operation)
+{
+    int result = operation(a, b);
+    Console.WriteLine(&quot;Result: &quot; + result);
+}
+</code></pre>
 
 <p>Delegates provide a way to pass methods as parameters, enabling flexible and reusable code.</p>
 <h2 id="3-unicode-output-in-console">3. Unicode Output in Console</h2>
 <p>Console applications can display Unicode characters:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">Console</span><span class="p">.</span><span class="n">OutputEncoding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="n">Text</span><span class="p">.</span><span class="n">Encoding</span><span class="p">.</span><span class="n">Unicode</span><span class="p">;</span>
-<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\u2304&quot;</span><span class="p">);</span><span class="w">        </span><span class="c1">// ⌄</span>
-<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\U0001F4AF&quot;</span><span class="p">);</span><span class="w">    </span><span class="c1">// 💯</span>
-<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;\U0001F604&quot;</span><span class="p">);</span><span class="w">    </span><span class="c1">// 😄</span>
-</code></pre></div>
+<pre class="codehilite"><code class="language-csharp">Console.OutputEncoding = System.Text.Encoding.Unicode;
+Console.WriteLine(&quot;\u2304&quot;);        // ⌄
+Console.WriteLine(&quot;\U0001F4AF&quot;);    // 💯
+Console.WriteLine(&quot;\U0001F604&quot;);    // 😄
+</code></pre>
 
 <p>Setting proper encoding ensures correct display of Unicode characters.</p>
 <h2 id="4-asynchronous-matrix-operations">4. Asynchronous Matrix Operations</h2>
 <p>This example shows parallel matrix computations:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="n">Task</span><span class="w"> </span><span class="nf">Main</span><span class="p">()</span>
-<span class="p">{</span>
-<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10000</span><span class="p">;</span>
-<span class="w">    </span><span class="n">Task</span><span class="p">[]</span><span class="w"> </span><span class="n">tasks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Task</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
-<span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="n">tasks</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Task</span><span class="p">.</span><span class="n">Run</span><span class="p">(()</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">ComputeMatrixInverse</span><span class="p">(</span><span class="n">N</span><span class="p">));</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="n">Task</span><span class="p">.</span><span class="n">WhenAll</span><span class="p">(</span><span class="n">tasks</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
+<pre class="codehilite"><code class="language-csharp">static async Task Main()
+{
+    const int N = 10000;
+    Task[] tasks = new Task[4];
+    for (int i = 0; i &lt; 4; i++)
+    {
+        tasks[i] = Task.Run(() =&gt; ComputeMatrixInverse(N));
+    }
+    await Task.WhenAll(tasks);
+}
+</code></pre>
 
 <p>The code demonstrates parallel matrix operations using Tasks for improved performance.</p>
 <h2 id="5-task-and-thread-management">5. Task and Thread Management</h2>
 <p>Here's an example of task and thread management:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">Task</span><span class="w"> </span><span class="n">singleTask</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Task</span><span class="p">.</span><span class="n">Run</span><span class="p">(()</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$&quot;Single task on thread {Thread.CurrentThread.ManagedThreadId}&quot;</span><span class="p">);</span>
-<span class="w">    </span><span class="n">Thread</span><span class="p">.</span><span class="n">Sleep</span><span class="p">(</span><span class="mi">2000</span><span class="p">);</span>
-<span class="p">});</span>
+<pre class="codehilite"><code class="language-csharp">Task singleTask = Task.Run(() =&gt; {
+    Console.WriteLine($&quot;Single task on thread {Thread.CurrentThread.ManagedThreadId}&quot;);
+    Thread.Sleep(2000);
+});
 
-<span class="n">Parallel</span><span class="p">.</span><span class="n">For</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$&quot;Parallel {i} on thread {Thread.CurrentThread.ManagedThreadId}&quot;</span><span class="p">);</span>
-<span class="w">    </span><span class="n">Thread</span><span class="p">.</span><span class="n">Sleep</span><span class="p">(</span><span class="mi">2000</span><span class="p">);</span>
-<span class="p">});</span>
-</code></pre></div>
+Parallel.For(0, 4, i =&gt; {
+    Console.WriteLine($&quot;Parallel {i} on thread {Thread.CurrentThread.ManagedThreadId}&quot;);
+    Thread.Sleep(2000);
+});
+</code></pre>
 
 <p>This demonstrates different ways to handle concurrent operations in C#.</p>
 <h2 id="6-timer-implementation">6. Timer Implementation</h2>
 <p>Finally, a timer example:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">private</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="n">Timers</span><span class="p">.</span><span class="n">Timer</span><span class="w"> </span><span class="n">aTimer</span><span class="p">;</span>
+<pre class="codehilite"><code class="language-csharp">private static System.Timers.Timer aTimer;
 
-<span class="k">private</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">SetTimer</span><span class="p">()</span>
-<span class="p">{</span>
-<span class="w">    </span><span class="n">aTimer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="n">Timers</span><span class="p">.</span><span class="n">Timer</span><span class="p">(</span><span class="mi">2000</span><span class="p">);</span>
-<span class="w">    </span><span class="n">aTimer</span><span class="p">.</span><span class="n">Elapsed</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">OnTimedEvent</span><span class="p">;</span>
-<span class="w">    </span><span class="n">aTimer</span><span class="p">.</span><span class="n">AutoReset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="p">;</span>
-<span class="w">    </span><span class="n">aTimer</span><span class="p">.</span><span class="n">Enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+private static void SetTimer()
+{
+    aTimer = new System.Timers.Timer(2000);
+    aTimer.Elapsed += OnTimedEvent;
+    aTimer.AutoReset = true;
+    aTimer.Enabled = true;
+}
+</code></pre>
 
 <p>This shows how to implement recurring events using Timer in C#.</p>
 <p>Each of these examples demonstrates different aspects of C# programming, from basic concepts to advanced parallel processing techniques. The code samples provide practical implementations that can be used as building blocks for larger applications.</p>
@@ -116,8 +117,8 @@
 <p>In multi-threaded applications, threads may cache variables in their local memory, leading to inconsistencies when the variable is updated by another thread. The <code>volatile</code> keyword prevents such caching, ensuring that the variable is always read from the main memory, thus maintaining data consistency across threads.</p>
 <h2 id="how-volatile-is-used">How <code>volatile</code> is Used</h2>
 <p>To use the <code>volatile</code> keyword, simply declare the field with the <code>volatile</code> modifier. For example:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">private</span><span class="w"> </span><span class="n">volatile</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">keepRunning</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="p">;</span>
-</code></pre></div>
+<pre class="codehilite"><code class="language-csharp">private volatile bool keepRunning = true;
+</code></pre>
 
 <p>In the provided code, <code>keepRunning</code> is marked as <code>volatile</code> to ensure that changes made by one thread (e.g., the <code>Stop</code> method) are immediately visible to other threads (e.g., the <code>Worker</code> method).</p>
 <h2 id="when-to-use-volatile">When to Use <code>volatile</code></h2>
@@ -132,165 +133,165 @@
 <li>When the field is not accessed by multiple threads.</li>
 </ul>
 <p>In such cases, other synchronization mechanisms like <code>lock</code>, <code>Monitor</code>, or <code>Interlocked</code> should be used to ensure thread safety.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="nn">System</span><span class="p">;</span>
-<span class="k">using</span><span class="w"> </span><span class="nn">System.Threading</span><span class="p">;</span>
+<pre class="codehilite"><code class="language-csharp">using System;
+using System.Threading;
 
-<span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">VolatileExample</span>
-<span class="p">{</span>
-<span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="n">volatile</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">keepRunning</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="p">;</span>
+public class VolatileExample
+{
+    private volatile bool keepRunning = true;
 
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Start</span><span class="p">()</span>
-<span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="n">Thread</span><span class="w"> </span><span class="n">workerThread</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Thread</span><span class="p">(</span><span class="n">Worker</span><span class="p">);</span>
-<span class="w">        </span><span class="n">workerThread</span><span class="p">.</span><span class="n">Start</span><span class="p">();</span>
-<span class="w">    </span><span class="p">}</span>
+    public void Start()
+    {
+        Thread workerThread = new Thread(Worker);
+        workerThread.Start();
+    }
 
-<span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Worker</span><span class="p">()</span>
-<span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">keepRunning</span><span class="p">)</span>
-<span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Working...&quot;</span><span class="p">);</span>
-<span class="w">            </span><span class="n">Thread</span><span class="p">.</span><span class="n">Sleep</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span><span class="w"> </span><span class="c1">// Simulate work</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">        </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Stopped working.&quot;</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
+    private void Worker()
+    {
+        while (keepRunning)
+        {
+            Console.WriteLine(&quot;Working...&quot;);
+            Thread.Sleep(1000); // Simulate work
+        }
+        Console.WriteLine(&quot;Stopped working.&quot;);
+    }
 
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Stop</span><span class="p">()</span>
-<span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="n">keepRunning</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">false</span><span class="p">;</span>
-<span class="w">    </span><span class="p">}</span>
+    public void Stop()
+    {
+        keepRunning = false;
+    }
 
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Main</span><span class="p">()</span>
-<span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="n">VolatileExample</span><span class="w"> </span><span class="n">example</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">VolatileExample</span><span class="p">();</span>
-<span class="w">        </span><span class="n">example</span><span class="p">.</span><span class="n">Start</span><span class="p">();</span>
+    public static void Main()
+    {
+        VolatileExample example = new VolatileExample();
+        example.Start();
 
-<span class="w">        </span><span class="c1">// Simulate some work, then stop the worker thread</span>
-<span class="w">        </span><span class="n">Thread</span><span class="p">.</span><span class="n">Sleep</span><span class="p">(</span><span class="mi">5000</span><span class="p">);</span><span class="w"> </span><span class="c1">// Let it run for 5 seconds</span>
-<span class="w">        </span><span class="n">example</span><span class="p">.</span><span class="n">Stop</span><span class="p">();</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+        // Simulate some work, then stop the worker thread
+        Thread.Sleep(5000); // Let it run for 5 seconds
+        example.Stop();
+    }
+}
+</code></pre>
 
 <h1 id="time-measurement-in-c">Time Measurement in C</h1>
 <p>Time is a critical aspect of many applications. C# provides several ways to measure, track, and represent time. Let's explore the most common approaches:</p>
 <h2 id="datetime">DateTime</h2>
 <p>DateTime represents a specific point in time, typically expressed as a date and time of day.</p>
-<div class="codehilite"><pre><span></span><code><span class="c1">// Get current date and time</span>
-<span class="n">DateTime</span><span class="w"> </span><span class="n">now</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DateTime</span><span class="p">.</span><span class="n">Now</span><span class="p">;</span><span class="w"> </span><span class="c1">// Local time</span>
-<span class="n">DateTime</span><span class="w"> </span><span class="n">utcNow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DateTime</span><span class="p">.</span><span class="n">UtcNow</span><span class="p">;</span><span class="w"> </span><span class="c1">// UTC time</span>
+<pre class="codehilite"><code class="language-csharp">// Get current date and time
+DateTime now = DateTime.Now; // Local time
+DateTime utcNow = DateTime.UtcNow; // UTC time
 
-<span class="c1">// Creating specific dates</span>
-<span class="n">DateTime</span><span class="w"> </span><span class="n">specificDate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">DateTime</span><span class="p">(</span><span class="mi">2023</span><span class="p">,</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w"> </span><span class="mi">31</span><span class="p">,</span><span class="w"> </span><span class="mi">23</span><span class="p">,</span><span class="w"> </span><span class="mi">59</span><span class="p">,</span><span class="w"> </span><span class="mi">59</span><span class="p">);</span>
+// Creating specific dates
+DateTime specificDate = new DateTime(2023, 12, 31, 23, 59, 59);
 
-<span class="c1">// Parsing from string</span>
-<span class="n">DateTime</span><span class="w"> </span><span class="n">parsedDate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DateTime</span><span class="p">.</span><span class="n">Parse</span><span class="p">(</span><span class="s">&quot;2023-01-01 12:30:45&quot;</span><span class="p">);</span>
+// Parsing from string
+DateTime parsedDate = DateTime.Parse(&quot;2023-01-01 12:30:45&quot;);
 
-<span class="c1">// Formatting</span>
-<span class="kt">string</span><span class="w"> </span><span class="n">formatted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">now</span><span class="p">.</span><span class="n">ToString</span><span class="p">(</span><span class="s">&quot;yyyy-MM-dd HH:mm:ss&quot;</span><span class="p">);</span>
+// Formatting
+string formatted = now.ToString(&quot;yyyy-MM-dd HH:mm:ss&quot;);
 
-<span class="c1">// Date calculations</span>
-<span class="n">DateTime</span><span class="w"> </span><span class="n">tomorrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">now</span><span class="p">.</span><span class="n">AddDays</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-<span class="n">DateTime</span><span class="w"> </span><span class="n">nextMonth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">now</span><span class="p">.</span><span class="n">AddMonths</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-<span class="n">TimeSpan</span><span class="w"> </span><span class="n">difference</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tomorrow</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">now</span><span class="p">;</span>
-</code></pre></div>
+// Date calculations
+DateTime tomorrow = now.AddDays(1);
+DateTime nextMonth = now.AddMonths(1);
+TimeSpan difference = tomorrow - now;
+</code></pre>
 
 <h2 id="timespan">TimeSpan</h2>
 <p>TimeSpan represents a time interval (duration).</p>
-<div class="codehilite"><pre><span></span><code><span class="c1">// Create from explicit values</span>
-<span class="n">TimeSpan</span><span class="w"> </span><span class="n">duration</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">TimeSpan</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="mi">45</span><span class="p">);</span><span class="w"> </span><span class="c1">// 2 hours, 30 minutes, 45 seconds</span>
-<span class="n">TimeSpan</span><span class="w"> </span><span class="n">twoHours</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TimeSpan</span><span class="p">.</span><span class="n">FromHours</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-<span class="n">TimeSpan</span><span class="w"> </span><span class="n">tenMinutes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TimeSpan</span><span class="p">.</span><span class="n">FromMinutes</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+<pre class="codehilite"><code class="language-csharp">// Create from explicit values
+TimeSpan duration = new TimeSpan(2, 30, 45); // 2 hours, 30 minutes, 45 seconds
+TimeSpan twoHours = TimeSpan.FromHours(2);
+TimeSpan tenMinutes = TimeSpan.FromMinutes(10);
 
-<span class="c1">// Create from difference between DateTimes</span>
-<span class="n">DateTime</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DateTime</span><span class="p">.</span><span class="n">Now</span><span class="p">;</span>
-<span class="n">DateTime</span><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">start</span><span class="p">.</span><span class="n">AddHours</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
-<span class="n">TimeSpan</span><span class="w"> </span><span class="n">elapsed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="p">;</span>
+// Create from difference between DateTimes
+DateTime start = DateTime.Now;
+DateTime end = start.AddHours(3);
+TimeSpan elapsed = end - start;
 
-<span class="c1">// Properties</span>
-<span class="kt">double</span><span class="w"> </span><span class="n">totalHours</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">elapsed</span><span class="p">.</span><span class="n">TotalHours</span><span class="p">;</span>
-<span class="kt">int</span><span class="w"> </span><span class="n">minutes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">elapsed</span><span class="p">.</span><span class="n">Minutes</span><span class="p">;</span><span class="w"> </span><span class="c1">// Just the minutes component (0-59)</span>
-</code></pre></div>
+// Properties
+double totalHours = elapsed.TotalHours;
+int minutes = elapsed.Minutes; // Just the minutes component (0-59)
+</code></pre>
 
 <h2 id="stopwatch">Stopwatch</h2>
 <p>Stopwatch provides high-precision timing for measuring code execution performance.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="nn">System.Diagnostics</span><span class="p">;</span>
+<pre class="codehilite"><code class="language-csharp">using System.Diagnostics;
 
-<span class="c1">// Basic usage</span>
-<span class="n">Stopwatch</span><span class="w"> </span><span class="n">sw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Stopwatch</span><span class="p">();</span>
-<span class="n">sw</span><span class="p">.</span><span class="n">Start</span><span class="p">();</span>
-<span class="c1">// Code to measure</span>
-<span class="n">DoSomethingExpensive</span><span class="p">();</span>
-<span class="n">sw</span><span class="p">.</span><span class="n">Stop</span><span class="p">();</span>
+// Basic usage
+Stopwatch sw = new Stopwatch();
+sw.Start();
+// Code to measure
+DoSomethingExpensive();
+sw.Stop();
 
-<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$&quot;Execution took {sw.ElapsedMilliseconds} ms&quot;</span><span class="p">);</span>
-<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$&quot;Or more precisely: {sw.Elapsed.TotalSeconds} seconds&quot;</span><span class="p">);</span>
+Console.WriteLine($&quot;Execution took {sw.ElapsedMilliseconds} ms&quot;);
+Console.WriteLine($&quot;Or more precisely: {sw.Elapsed.TotalSeconds} seconds&quot;);
 
-<span class="c1">// Reusing stopwatch</span>
-<span class="n">sw</span><span class="p">.</span><span class="n">Reset</span><span class="p">();</span><span class="w"> </span><span class="c1">// Resets back to zero</span>
-<span class="n">sw</span><span class="p">.</span><span class="n">Restart</span><span class="p">();</span><span class="w"> </span><span class="c1">// Combines Reset() and Start()</span>
-</code></pre></div>
+// Reusing stopwatch
+sw.Reset(); // Resets back to zero
+sw.Restart(); // Combines Reset() and Start()
+</code></pre>
 
 <h2 id="environmenttickcount">Environment.TickCount</h2>
 <p>TickCount provides the number of milliseconds since the system started.</p>
-<div class="codehilite"><pre><span></span><code><span class="c1">// Get system uptime in milliseconds (wraps around after ~25 days)</span>
-<span class="kt">int</span><span class="w"> </span><span class="n">tickCount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Environment</span><span class="p">.</span><span class="n">TickCount</span><span class="p">;</span>
+<pre class="codehilite"><code class="language-csharp">// Get system uptime in milliseconds (wraps around after ~25 days)
+int tickCount = Environment.TickCount;
 
-<span class="c1">// Get system uptime in milliseconds (Int64 version, doesn&#39;t wrap)</span>
-<span class="kt">long</span><span class="w"> </span><span class="n">tickCount64</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Environment</span><span class="p">.</span><span class="n">TickCount64</span><span class="p">;</span>
+// Get system uptime in milliseconds (Int64 version, doesn't wrap)
+long tickCount64 = Environment.TickCount64;
 
-<span class="c1">// Calculate elapsed time between operations</span>
-<span class="kt">int</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Environment</span><span class="p">.</span><span class="n">TickCount</span><span class="p">;</span>
-<span class="n">DoSomeWork</span><span class="p">();</span>
-<span class="kt">int</span><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Environment</span><span class="p">.</span><span class="n">TickCount</span><span class="p">;</span>
-<span class="kt">int</span><span class="w"> </span><span class="n">elapsed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="p">;</span>
-</code></pre></div>
+// Calculate elapsed time between operations
+int start = Environment.TickCount;
+DoSomeWork();
+int end = Environment.TickCount;
+int elapsed = end - start;
+</code></pre>
 
 <h2 id="datetimeoffset">DateTimeOffset</h2>
 <p>DateTimeOffset represents a point in time with timezone awareness.</p>
-<div class="codehilite"><pre><span></span><code><span class="c1">// Create with timezone information</span>
-<span class="n">DateTimeOffset</span><span class="w"> </span><span class="n">now</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DateTimeOffset</span><span class="p">.</span><span class="n">Now</span><span class="p">;</span>
-<span class="n">DateTimeOffset</span><span class="w"> </span><span class="n">utcNow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DateTimeOffset</span><span class="p">.</span><span class="n">UtcNow</span><span class="p">;</span>
+<pre class="codehilite"><code class="language-csharp">// Create with timezone information
+DateTimeOffset now = DateTimeOffset.Now;
+DateTimeOffset utcNow = DateTimeOffset.UtcNow;
 
-<span class="c1">// Create with specific offset</span>
-<span class="n">DateTimeOffset</span><span class="w"> </span><span class="n">custom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">DateTimeOffset</span><span class="p">(</span><span class="mi">2023</span><span class="p">,</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w"> </span><span class="mi">31</span><span class="p">,</span><span class="w"> </span><span class="mi">23</span><span class="p">,</span><span class="w"> </span><span class="mi">59</span><span class="p">,</span><span class="w"> </span><span class="mi">59</span><span class="p">,</span><span class="w"> </span><span class="n">TimeSpan</span><span class="p">.</span><span class="n">FromHours</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">));</span>
+// Create with specific offset
+DateTimeOffset custom = new DateTimeOffset(2023, 12, 31, 23, 59, 59, TimeSpan.FromHours(-5));
 
-<span class="c1">// Get from DateTime</span>
-<span class="n">DateTimeOffset</span><span class="w"> </span><span class="n">fromDateTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">DateTimeOffset</span><span class="p">(</span><span class="n">DateTime</span><span class="p">.</span><span class="n">Now</span><span class="p">);</span>
+// Get from DateTime
+DateTimeOffset fromDateTime = new DateTimeOffset(DateTime.Now);
 
-<span class="c1">// Access timezone information</span>
-<span class="n">TimeSpan</span><span class="w"> </span><span class="n">offset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">now</span><span class="p">.</span><span class="n">Offset</span><span class="p">;</span>
-</code></pre></div>
+// Access timezone information
+TimeSpan offset = now.Offset;
+</code></pre>
 
 <h2 id="valuestopwatch-high-performance-option">ValueStopwatch (High-Performance Option)</h2>
 <p>For extremely performance-sensitive code, a struct-based stopwatch can reduce allocations:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="nn">System.Runtime.CompilerServices</span><span class="p">;</span>
+<pre class="codehilite"><code class="language-csharp">using System.Runtime.CompilerServices;
 
-<span class="c1">// Lightweight stopwatch (struct-based to avoid allocations)</span>
-<span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">ValueStopwatch</span>
-<span class="p">{</span>
-<span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">_startTimestamp</span><span class="p">;</span>
+// Lightweight stopwatch (struct-based to avoid allocations)
+public readonly struct ValueStopwatch
+{
+    private readonly long _startTimestamp;
 
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">ValueStopwatch</span><span class="w"> </span><span class="nf">StartNew</span><span class="p">()</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ValueStopwatch</span><span class="p">(</span><span class="n">Stopwatch</span><span class="p">.</span><span class="n">GetTimestamp</span><span class="p">());</span>
+    public static ValueStopwatch StartNew() =&gt; new ValueStopwatch(Stopwatch.GetTimestamp());
 
-<span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="nf">ValueStopwatch</span><span class="p">(</span><span class="kt">long</span><span class="w"> </span><span class="n">startTimestamp</span><span class="p">)</span>
-<span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="n">_startTimestamp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">startTimestamp</span><span class="p">;</span>
-<span class="w">    </span><span class="p">}</span>
+    private ValueStopwatch(long startTimestamp)
+    {
+        _startTimestamp = startTimestamp;
+    }
 
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">TimeSpan</span><span class="w"> </span><span class="nf">GetElapsedTime</span><span class="p">()</span>
-<span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="kt">long</span><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Stopwatch</span><span class="p">.</span><span class="n">GetTimestamp</span><span class="p">();</span>
-<span class="w">        </span><span class="kt">long</span><span class="w"> </span><span class="n">elapsed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">_startTimestamp</span><span class="p">;</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">TimeSpan</span><span class="p">.</span><span class="n">FromTicks</span><span class="p">(</span><span class="n">elapsed</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">TimeSpan</span><span class="p">.</span><span class="n">TicksPerSecond</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">Stopwatch</span><span class="p">.</span><span class="n">Frequency</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
+    public TimeSpan GetElapsedTime()
+    {
+        long end = Stopwatch.GetTimestamp();
+        long elapsed = end - _startTimestamp;
+        return TimeSpan.FromTicks(elapsed * TimeSpan.TicksPerSecond / Stopwatch.Frequency);
+    }
+}
 
-<span class="c1">// Usage</span>
-<span class="kt">var</span><span class="w"> </span><span class="n">watch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ValueStopwatch</span><span class="p">.</span><span class="n">StartNew</span><span class="p">();</span>
-<span class="n">DoSomeWork</span><span class="p">();</span>
-<span class="n">TimeSpan</span><span class="w"> </span><span class="n">elapsed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">watch</span><span class="p">.</span><span class="n">GetElapsedTime</span><span class="p">();</span>
-</code></pre></div>
+// Usage
+var watch = ValueStopwatch.StartNew();
+DoSomeWork();
+TimeSpan elapsed = watch.GetElapsedTime();
+</code></pre>
 
 <h2 id="choosing-the-right-tool">Choosing the Right Tool</h2>
 <ul>
@@ -305,154 +306,154 @@
 <p>The Observer pattern is a behavioral design pattern where an object (the subject) maintains a list of dependents (observers) and notifies them automatically of state changes. This pattern is fundamental for implementing distributed event handling systems.</p>
 <h3 id="implementation-using-event-handlers">Implementation Using Event Handlers</h3>
 <p>The most common way to implement the Observer pattern in C# is using events and delegates:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">StockMarket</span>
-<span class="p">{</span>
-<span class="w">    </span><span class="c1">// Event declaration using built-in EventHandler</span>
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">event</span><span class="w"> </span><span class="n">EventHandler</span><span class="o">&lt;</span><span class="n">StockChangeEventArgs</span><span class="o">&gt;</span><span class="w"> </span><span class="n">StockPriceChanged</span><span class="p">;</span>
+<pre class="codehilite"><code class="language-csharp">public class StockMarket
+{
+    // Event declaration using built-in EventHandler
+    public event EventHandler&lt;StockChangeEventArgs&gt; StockPriceChanged;
 
-<span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="kt">decimal</span><span class="w"> </span><span class="n">currentPrice</span><span class="p">;</span>
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">decimal</span><span class="w"> </span><span class="n">CurrentPrice</span>
-<span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="k">get</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">currentPrice</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">        </span><span class="k">set</span>
-<span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">currentPrice</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="k">value</span><span class="p">)</span>
-<span class="w">            </span><span class="p">{</span>
-<span class="w">                </span><span class="n">currentPrice</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">value</span><span class="p">;</span>
-<span class="w">                </span><span class="c1">// Notify observers about the price change</span>
-<span class="w">                </span><span class="n">OnStockPriceChanged</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">StockChangeEventArgs</span><span class="p">(</span><span class="n">currentPrice</span><span class="p">));</span>
-<span class="w">            </span><span class="p">}</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="p">}</span>
+    private decimal currentPrice;
+    public decimal CurrentPrice
+    {
+        get { return currentPrice; }
+        set
+        {
+            if (currentPrice != value)
+            {
+                currentPrice = value;
+                // Notify observers about the price change
+                OnStockPriceChanged(new StockChangeEventArgs(currentPrice));
+            }
+        }
+    }
 
-<span class="w">    </span><span class="c1">// Method to raise the event</span>
-<span class="w">    </span><span class="k">protected</span><span class="w"> </span><span class="k">virtual</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">OnStockPriceChanged</span><span class="p">(</span><span class="n">StockChangeEventArgs</span><span class="w"> </span><span class="n">e</span><span class="p">)</span>
-<span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="n">StockPriceChanged</span><span class="o">?.</span><span class="n">Invoke</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
+    // Method to raise the event
+    protected virtual void OnStockPriceChanged(StockChangeEventArgs e)
+    {
+        StockPriceChanged?.Invoke(this, e);
+    }
+}
 
-<span class="c1">// Custom event args</span>
-<span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">StockChangeEventArgs</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">EventArgs</span>
-<span class="p">{</span>
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">decimal</span><span class="w"> </span><span class="n">NewPrice</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+// Custom event args
+public class StockChangeEventArgs : EventArgs
+{
+    public decimal NewPrice { get; }
 
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="nf">StockChangeEventArgs</span><span class="p">(</span><span class="kt">decimal</span><span class="w"> </span><span class="n">newPrice</span><span class="p">)</span>
-<span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="n">NewPrice</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">newPrice</span><span class="p">;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
+    public StockChangeEventArgs(decimal newPrice)
+    {
+        NewPrice = newPrice;
+    }
+}
 
-<span class="c1">// Observer</span>
-<span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">StockTrader</span>
-<span class="p">{</span>
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">Name</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+// Observer
+public class StockTrader
+{
+    public string Name { get; }
 
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="nf">StockTrader</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">StockMarket</span><span class="w"> </span><span class="n">market</span><span class="p">)</span>
-<span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
-<span class="w">        </span><span class="c1">// Subscribe to the event</span>
-<span class="w">        </span><span class="n">market</span><span class="p">.</span><span class="n">StockPriceChanged</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">OnStockPriceChanged</span><span class="p">;</span>
-<span class="w">    </span><span class="p">}</span>
+    public StockTrader(string name, StockMarket market)
+    {
+        Name = name;
+        // Subscribe to the event
+        market.StockPriceChanged += OnStockPriceChanged;
+    }
 
-<span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">OnStockPriceChanged</span><span class="p">(</span><span class="kt">object</span><span class="w"> </span><span class="n">sender</span><span class="p">,</span><span class="w"> </span><span class="n">StockChangeEventArgs</span><span class="w"> </span><span class="n">e</span><span class="p">)</span>
-<span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$&quot;{Name} noticed stock price changed to {e.NewPrice:C}&quot;</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
+    private void OnStockPriceChanged(object sender, StockChangeEventArgs e)
+    {
+        Console.WriteLine($&quot;{Name} noticed stock price changed to {e.NewPrice:C}&quot;);
+    }
+}
 
-<span class="c1">// Usage</span>
-<span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Main</span><span class="p">()</span>
-<span class="p">{</span>
-<span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">market</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">StockMarket</span><span class="p">();</span>
-<span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">trader1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">StockTrader</span><span class="p">(</span><span class="s">&quot;Alice&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">market</span><span class="p">);</span>
-<span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">trader2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">StockTrader</span><span class="p">(</span><span class="s">&quot;Bob&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">market</span><span class="p">);</span>
+// Usage
+public static void Main()
+{
+    var market = new StockMarket();
+    var trader1 = new StockTrader(&quot;Alice&quot;, market);
+    var trader2 = new StockTrader(&quot;Bob&quot;, market);
 
-<span class="w">    </span><span class="n">market</span><span class="p">.</span><span class="n">CurrentPrice</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">100.00m</span><span class="p">;</span><span class="w"> </span><span class="c1">// Both traders will be notified</span>
-<span class="w">    </span><span class="n">market</span><span class="p">.</span><span class="n">CurrentPrice</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">105.75m</span><span class="p">;</span><span class="w"> </span><span class="c1">// Both traders will be notified again</span>
-<span class="p">}</span>
-</code></pre></div>
+    market.CurrentPrice = 100.00m; // Both traders will be notified
+    market.CurrentPrice = 105.75m; // Both traders will be notified again
+}
+</code></pre>
 
 <p>This implementation is clean and straightforward, leveraging C#'s built-in event system. The <code>StockMarket</code> acts as the subject, while <code>StockTrader</code> instances are observers.</p>
 <h3 id="implementation-using-reactive-extensions-rx">Implementation Using Reactive Extensions (Rx)</h3>
 <p>For more complex scenarios, Reactive Extensions provide a powerful way to implement the Observer pattern:</p>
-<div class="codehilite"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="nn">System</span><span class="p">;</span>
-<span class="k">using</span><span class="w"> </span><span class="nn">System.Reactive.Subjects</span><span class="p">;</span>
+<pre class="codehilite"><code class="language-csharp">using System;
+using System.Reactive.Subjects;
 
-<span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">StockMarketRx</span>
-<span class="p">{</span>
-<span class="w">    </span><span class="c1">// Subject acts as both an observable and an observer</span>
-<span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="n">Subject</span><span class="o">&lt;</span><span class="kt">decimal</span><span class="o">&gt;</span><span class="w"> </span><span class="n">priceSubject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Subject</span><span class="o">&lt;</span><span class="kt">decimal</span><span class="o">&gt;</span><span class="p">();</span>
+public class StockMarketRx
+{
+    // Subject acts as both an observable and an observer
+    private readonly Subject&lt;decimal&gt; priceSubject = new Subject&lt;decimal&gt;();
 
-<span class="w">    </span><span class="c1">// Expose the observable interface to prevent direct calls to OnNext</span>
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">IObservable</span><span class="o">&lt;</span><span class="kt">decimal</span><span class="o">&gt;</span><span class="w"> </span><span class="n">PriceChanges</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">priceSubject</span><span class="p">;</span>
+    // Expose the observable interface to prevent direct calls to OnNext
+    public IObservable&lt;decimal&gt; PriceChanges =&gt; priceSubject;
 
-<span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="kt">decimal</span><span class="w"> </span><span class="n">currentPrice</span><span class="p">;</span>
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">decimal</span><span class="w"> </span><span class="n">CurrentPrice</span>
-<span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="k">get</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">currentPrice</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">        </span><span class="k">set</span>
-<span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">currentPrice</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="k">value</span><span class="p">)</span>
-<span class="w">            </span><span class="p">{</span>
-<span class="w">                </span><span class="n">currentPrice</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">value</span><span class="p">;</span>
-<span class="w">                </span><span class="c1">// Publish new price to all subscribers</span>
-<span class="w">                </span><span class="n">priceSubject</span><span class="p">.</span><span class="n">OnNext</span><span class="p">(</span><span class="n">currentPrice</span><span class="p">);</span>
-<span class="w">            </span><span class="p">}</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
+    private decimal currentPrice;
+    public decimal CurrentPrice
+    {
+        get { return currentPrice; }
+        set
+        {
+            if (currentPrice != value)
+            {
+                currentPrice = value;
+                // Publish new price to all subscribers
+                priceSubject.OnNext(currentPrice);
+            }
+        }
+    }
+}
 
-<span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">StockTraderRx</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">IObserver</span><span class="o">&lt;</span><span class="kt">decimal</span><span class="o">&gt;</span>
-<span class="p">{</span>
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">Name</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="n">IDisposable</span><span class="w"> </span><span class="n">subscription</span><span class="p">;</span>
+public class StockTraderRx : IObserver&lt;decimal&gt;
+{
+    public string Name { get; }
+    private IDisposable subscription;
 
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="nf">StockTraderRx</span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">StockMarketRx</span><span class="w"> </span><span class="n">market</span><span class="p">)</span>
-<span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
-<span class="w">        </span><span class="c1">// Subscribe to price changes</span>
-<span class="w">        </span><span class="n">subscription</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">market</span><span class="p">.</span><span class="n">PriceChanges</span><span class="p">.</span><span class="n">Subscribe</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
+    public StockTraderRx(string name, StockMarketRx market)
+    {
+        Name = name;
+        // Subscribe to price changes
+        subscription = market.PriceChanges.Subscribe(this);
+    }
 
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">OnCompleted</span><span class="p">()</span>
-<span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$&quot;{Name}: Market closed for the day&quot;</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
+    public void OnCompleted()
+    {
+        Console.WriteLine($&quot;{Name}: Market closed for the day&quot;);
+    }
 
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">OnError</span><span class="p">(</span><span class="n">Exception</span><span class="w"> </span><span class="n">error</span><span class="p">)</span>
-<span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$&quot;{Name}: Error occurred: {error.Message}&quot;</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
+    public void OnError(Exception error)
+    {
+        Console.WriteLine($&quot;{Name}: Error occurred: {error.Message}&quot;);
+    }
 
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">OnNext</span><span class="p">(</span><span class="kt">decimal</span><span class="w"> </span><span class="n">price</span><span class="p">)</span>
-<span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$&quot;{Name} noticed stock price changed to {price:C}&quot;</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
+    public void OnNext(decimal price)
+    {
+        Console.WriteLine($&quot;{Name} noticed stock price changed to {price:C}&quot;);
+    }
 
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Unsubscribe</span><span class="p">()</span>
-<span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="n">subscription</span><span class="o">?.</span><span class="n">Dispose</span><span class="p">();</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
+    public void Unsubscribe()
+    {
+        subscription?.Dispose();
+    }
+}
 
-<span class="c1">// Usage</span>
-<span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">RxExample</span><span class="p">()</span>
-<span class="p">{</span>
-<span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">market</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">StockMarketRx</span><span class="p">();</span>
-<span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">trader1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">StockTraderRx</span><span class="p">(</span><span class="s">&quot;Alice&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">market</span><span class="p">);</span>
-<span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">trader2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">StockTraderRx</span><span class="p">(</span><span class="s">&quot;Bob&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">market</span><span class="p">);</span>
+// Usage
+public static void RxExample()
+{
+    var market = new StockMarketRx();
+    var trader1 = new StockTraderRx(&quot;Alice&quot;, market);
+    var trader2 = new StockTraderRx(&quot;Bob&quot;, market);
 
-<span class="w">    </span><span class="n">market</span><span class="p">.</span><span class="n">CurrentPrice</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">100.00m</span><span class="p">;</span>
-<span class="w">    </span><span class="n">market</span><span class="p">.</span><span class="n">CurrentPrice</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">105.75m</span><span class="p">;</span>
+    market.CurrentPrice = 100.00m;
+    market.CurrentPrice = 105.75m;
 
-<span class="w">    </span><span class="c1">// Unsubscribe one trader</span>
-<span class="w">    </span><span class="n">trader1</span><span class="p">.</span><span class="n">Unsubscribe</span><span class="p">();</span>
+    // Unsubscribe one trader
+    trader1.Unsubscribe();
 
-<span class="w">    </span><span class="c1">// Only trader2 gets this update</span>
-<span class="w">    </span><span class="n">market</span><span class="p">.</span><span class="n">CurrentPrice</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">110.50m</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+    // Only trader2 gets this update
+    market.CurrentPrice = 110.50m;
+}
+</code></pre>
 
 <p>The Rx implementation provides additional benefits:
 - Built-in support for error handling

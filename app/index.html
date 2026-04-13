@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartWOD Clock</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<main class="page">
+    <header class="panel">
+        <p class="back-link"><a href="/index.html">Back to Home</a></p>
+        <h1>SmartWOD Clock</h1>
+        <p class="subtitle">Simple workout timer with EMOM, AMRAP, TC, and FT modes.</p>
+    </header>
+
+    <section class="panel controls-panel">
+        <div class="field">
+            <label for="modeSelect">Mode</label>
+            <select id="modeSelect" aria-label="Workout mode"></select>
+        </div>
+
+        <p id="modeDescription" class="mode-description"></p>
+
+        <div id="modeFields" class="mode-fields"></div>
+
+        <p id="errorMessage" class="error-message" aria-live="polite"></p>
+
+        <div class="actions">
+            <button id="startBtn" type="button">Start</button>
+            <button id="pauseBtn" type="button">Pause</button>
+            <button id="resetBtn" type="button">Reset</button>
+            <label class="sound-toggle">
+                <input id="soundToggle" type="checkbox" checked>
+                Sound
+            </label>
+        </div>
+    </section>
+
+    <section class="panel timer-panel">
+        <p id="statusBadge" class="status-badge">Ready</p>
+        <p id="timerDisplay" class="timer-display" aria-live="polite">00:00</p>
+        <div class="stats-grid">
+            <div>
+                <span class="stat-label">Round</span>
+                <strong id="roundValue">-</strong>
+            </div>
+            <div>
+                <span class="stat-label">Phase</span>
+                <strong id="phaseValue">-</strong>
+            </div>
+            <div>
+                <span class="stat-label">Elapsed</span>
+                <strong id="elapsedValue">00:00</strong>
+            </div>
+            <div>
+                <span class="stat-label">Remaining</span>
+                <strong id="remainingValue">--:--</strong>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script src="./app.js"></script>
+</body>
+</html>

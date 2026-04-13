@@ -14,6 +14,7 @@
             <li><a href="/about.html">About</a></li>
             <li><a href="/posts.html">Posts</a></li>
             <li><a href="/projects.html">Projects</a></li>
+            <li><a href="/app/">WOD Clock</a></li>
         </ul>
     </nav>
 </header>
@@ -27,42 +28,42 @@
 <p>In this example, I will show how to use <code>Protobuf-net</code> to serialize complex data structures in C# and then deserialize them in Python using <code>protobuf</code>.</p>
 <h2 id="data-object-structure">Data Object Structure</h2>
 <p>Below is a diagram representing a complex C# data object (<code>Person</code>) that contains all primitive data types, a nested object (<code>Address</code>), a list of objects (<code>PhoneNumber</code>), and a dictionary. This structure is suitable for Protobuf serialization.</p>
-<div class="codehilite"><pre><span></span><code><span class="p">@</span><span class="n">startuml</span>
-<span class="k">class</span><span class="w"> </span><span class="n">Person</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">Id</span>
-<span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">Name</span>
-<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">IsActive</span>
-<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">Salary</span>
-<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">Height</span>
-<span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="n">Timestamp</span>
-<span class="w">    </span><span class="n">byte</span><span class="w"> </span><span class="n">Age</span>
-<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">Initial</span>
-<span class="w">    </span><span class="n">Address</span><span class="w"> </span><span class="n">Address</span>
-<span class="w">    </span><span class="n">List</span><span class="o">&lt;</span><span class="n">PhoneNumber</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Phones</span>
-<span class="w">    </span><span class="n">Dictionary</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="n">string</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Tags</span>
-<span class="w">    </span><span class="n">DateTime</span><span class="w"> </span><span class="n">BirthDate</span>
-<span class="w">    </span><span class="n">decimal</span><span class="w"> </span><span class="n">Balance</span>
-<span class="w">    </span><span class="kt">short</span><span class="w"> </span><span class="n">Score</span>
-<span class="w">    </span><span class="n">uint</span><span class="w"> </span><span class="n">Points</span>
-<span class="w">    </span><span class="n">ushort</span><span class="w"> </span><span class="n">Level</span>
-<span class="w">    </span><span class="n">sbyte</span><span class="w"> </span><span class="n">Rating</span>
-<span class="p">}</span>
+<pre class="codehilite"><code class="language-uml">@startuml
+class Person {
+    int Id
+    string Name
+    bool IsActive
+    double Salary
+    float Height
+    long Timestamp
+    byte Age
+    char Initial
+    Address Address
+    List&lt;PhoneNumber&gt; Phones
+    Dictionary&lt;string, string&gt; Tags
+    DateTime BirthDate
+    decimal Balance
+    short Score
+    uint Points
+    ushort Level
+    sbyte Rating
+}
 
-<span class="k">class</span><span class="w"> </span><span class="n">Address</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">Street</span>
-<span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">City</span>
-<span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">Zip</span>
-<span class="p">}</span>
+class Address {
+    string Street
+    string City
+    string Zip
+}
 
-<span class="k">class</span><span class="w"> </span><span class="n">PhoneNumber</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">Type</span>
-<span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">Number</span>
-<span class="p">}</span>
+class PhoneNumber {
+    string Type
+    string Number
+}
 
-<span class="n">Person</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="w"> </span><span class="n">Address</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">has</span>
-<span class="n">Person</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="w"> </span><span class="o">--</span><span class="w"> </span><span class="s">&quot;*&quot;</span><span class="w"> </span><span class="n">PhoneNumber</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">phones</span>
-<span class="p">@</span><span class="n">enduml</span>
-</code></pre></div>
+Person &quot;1&quot; -- &quot;1&quot; Address : has
+Person &quot;1&quot; -- &quot;*&quot; PhoneNumber : phones
+@enduml
+</code></pre>
 
 <p><strong>Legend:</strong>
 - <code>Person</code> contains all C# primitive types, a nested <code>Address</code>, a list of <code>PhoneNumber</code>, and a dictionary.
@@ -70,259 +71,259 @@
 - Arrows indicate object references and collections.
 - This structure is ideal for demonstrating Protobuf serialization across languages.</p>
 <p>Below comes the sample code for the <code>Person</code> class and its nested classes as well as its serialization and deserialization methods.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="nn">System</span><span class="p">;</span>
-<span class="k">using</span><span class="w"> </span><span class="nn">System.IO</span><span class="p">;</span>
-<span class="k">using</span><span class="w"> </span><span class="nn">ProtoBuf</span><span class="p">;</span><span class="w"> </span>
-<span class="k">using</span><span class="w"> </span><span class="nn">System.Collections.Generic</span><span class="p">;</span>
+<pre class="codehilite"><code class="language-C#">using System;
+using System.IO;
+using ProtoBuf; 
+using System.Collections.Generic;
 
-<span class="na">[ProtoContract]</span>
-<span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Person</span>
-<span class="p">{</span>
-<span class="w">    </span><span class="na">[ProtoMember(1)]</span>
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">Id</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">    </span><span class="na">[ProtoMember(2)]</span>
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">Name</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">    </span><span class="na">[ProtoMember(3)]</span>
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">IsActive</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">    </span><span class="na">[ProtoMember(4)]</span>
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">Salary</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">    </span><span class="na">[ProtoMember(5)]</span>
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">Height</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">    </span><span class="na">[ProtoMember(6)]</span>
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">Timestamp</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">    </span><span class="na">[ProtoMember(7)]</span>
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">byte</span><span class="w"> </span><span class="n">Age</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">    </span><span class="na">[ProtoMember(8)]</span>
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">Initial</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">    </span><span class="na">[ProtoMember(9)]</span>
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">Address</span><span class="w"> </span><span class="n">Address</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">    </span><span class="na">[ProtoMember(10)]</span>
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">PhoneNumber</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Phones</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">    </span><span class="na">[ProtoMember(11)]</span>
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">Dictionary</span><span class="o">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Tags</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">    </span><span class="na">[ProtoMember(12)]</span>
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">DateTime</span><span class="w"> </span><span class="n">BirthDate</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">    </span><span class="na">[ProtoMember(13)]</span>
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">decimal</span><span class="w"> </span><span class="n">Balance</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">    </span><span class="na">[ProtoMember(14)]</span>
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">short</span><span class="w"> </span><span class="n">Score</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">    </span><span class="na">[ProtoMember(15)]</span>
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">uint</span><span class="w"> </span><span class="n">Points</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">    </span><span class="na">[ProtoMember(16)]</span>
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">ushort</span><span class="w"> </span><span class="n">Level</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">    </span><span class="na">[ProtoMember(17)]</span>
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">sbyte</span><span class="w"> </span><span class="n">Rating</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="p">}</span>
+[ProtoContract]
+public class Person
+{
+    [ProtoMember(1)]
+    public int Id { get; set; }
+    [ProtoMember(2)]
+    public string Name { get; set; }
+    [ProtoMember(3)]
+    public bool IsActive { get; set; }
+    [ProtoMember(4)]
+    public double Salary { get; set; }
+    [ProtoMember(5)]
+    public float Height { get; set; }
+    [ProtoMember(6)]
+    public long Timestamp { get; set; }
+    [ProtoMember(7)]
+    public byte Age { get; set; }
+    [ProtoMember(8)]
+    public char Initial { get; set; }
+    [ProtoMember(9)]
+    public Address Address { get; set; }
+    [ProtoMember(10)]
+    public List&lt;PhoneNumber&gt; Phones { get; set; }
+    [ProtoMember(11)]
+    public Dictionary&lt;string, string&gt; Tags { get; set; }
+    [ProtoMember(12)]
+    public DateTime BirthDate { get; set; }
+    [ProtoMember(13)]
+    public decimal Balance { get; set; }
+    [ProtoMember(14)]
+    public short Score { get; set; }
+    [ProtoMember(15)]
+    public uint Points { get; set; }
+    [ProtoMember(16)]
+    public ushort Level { get; set; }
+    [ProtoMember(17)]
+    public sbyte Rating { get; set; }
+}
 
-<span class="na">[ProtoContract]</span>
-<span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Address</span>
-<span class="p">{</span>
-<span class="w">    </span><span class="na">[ProtoMember(1)]</span>
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">Street</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">    </span><span class="na">[ProtoMember(2)]</span>
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">City</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">    </span><span class="na">[ProtoMember(3)]</span>
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">Zip</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="p">}</span>
+[ProtoContract]
+public class Address
+{
+    [ProtoMember(1)]
+    public string Street { get; set; }
+    [ProtoMember(2)]
+    public string City { get; set; }
+    [ProtoMember(3)]
+    public string Zip { get; set; }
+}
 
-<span class="na">[ProtoContract]</span>
-<span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">PhoneNumber</span>
-<span class="p">{</span>
-<span class="w">    </span><span class="na">[ProtoMember(1)]</span>
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">Type</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">    </span><span class="na">[ProtoMember(2)]</span>
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">Number</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-<span class="p">}</span>
+[ProtoContract]
+public class PhoneNumber
+{
+    [ProtoMember(1)]
+    public string Type { get; set; }
+    [ProtoMember(2)]
+    public string Number { get; set; }
+}
 
-<span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Program</span>
-<span class="p">{</span>
-<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span>
-<span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="c1">// Create a sample Person object</span>
-<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">person</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Person</span>
-<span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="n">Id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-<span class="w">            </span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;John Doe&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="n">IsActive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="p">,</span>
-<span class="w">            </span><span class="n">Salary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">50000.75</span><span class="p">,</span>
-<span class="w">            </span><span class="n">Height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">5.9f</span><span class="p">,</span>
-<span class="w">            </span><span class="n">Timestamp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DateTimeOffset</span><span class="p">.</span><span class="n">UtcNow</span><span class="p">.</span><span class="n">ToUnixTimeSeconds</span><span class="p">(),</span>
-<span class="w">            </span><span class="n">Age</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span>
-<span class="w">            </span><span class="n">Initial</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;J&#39;</span><span class="p">,</span>
-<span class="w">            </span><span class="n">Address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Address</span>
-<span class="w">            </span><span class="p">{</span>
-<span class="w">                </span><span class="n">Street</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;123 Main St&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="n">City</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Anytown&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="n">Zip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;12345&quot;</span>
-<span class="w">            </span><span class="p">},</span>
-<span class="w">            </span><span class="n">Phones</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">PhoneNumber</span><span class="o">&gt;</span>
-<span class="w">            </span><span class="p">{</span>
-<span class="w">                </span><span class="k">new</span><span class="w"> </span><span class="n">PhoneNumber</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Mobile&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">Number</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;123-456-7890&quot;</span><span class="w"> </span><span class="p">},</span>
-<span class="w">                </span><span class="k">new</span><span class="w"> </span><span class="n">PhoneNumber</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Home&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">Number</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;098-765-4321&quot;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">            </span><span class="p">},</span>
-<span class="w">            </span><span class="n">Tags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Dictionary</span><span class="o">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="o">&gt;</span>
-<span class="w">            </span><span class="p">{</span>
-<span class="w">                </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;Occupation&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Engineer&quot;</span><span class="w"> </span><span class="p">},</span>
-<span class="w">                </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;Hobby&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Photography&quot;</span><span class="w"> </span><span class="p">}</span>
-<span class="w">            </span><span class="p">},</span>
-<span class="w">            </span><span class="n">BirthDate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DateTime</span><span class="p">.</span><span class="n">Now</span><span class="p">.</span><span class="n">AddYears</span><span class="p">(</span><span class="o">-</span><span class="mi">30</span><span class="p">),</span>
-<span class="w">            </span><span class="n">Balance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1000.50m</span><span class="p">,</span>
-<span class="w">            </span><span class="n">Score</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">95</span><span class="p">,</span>
-<span class="w">            </span><span class="n">Points</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1000</span><span class="p">,</span>
-<span class="w">            </span><span class="n">Level</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-<span class="w">            </span><span class="n">Rating</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span>
-<span class="w">        </span><span class="p">};</span>
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        // Create a sample Person object
+        var person = new Person
+        {
+            Id = 1,
+            Name = &quot;John Doe&quot;,
+            IsActive = true,
+            Salary = 50000.75,
+            Height = 5.9f,
+            Timestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds(),
+            Age = 30,
+            Initial = 'J',
+            Address = new Address
+            {
+                Street = &quot;123 Main St&quot;,
+                City = &quot;Anytown&quot;,
+                Zip = &quot;12345&quot;
+            },
+            Phones = new List&lt;PhoneNumber&gt;
+            {
+                new PhoneNumber { Type = &quot;Mobile&quot;, Number = &quot;123-456-7890&quot; },
+                new PhoneNumber { Type = &quot;Home&quot;, Number = &quot;098-765-4321&quot; }
+            },
+            Tags = new Dictionary&lt;string, string&gt;
+            {
+                { &quot;Occupation&quot;, &quot;Engineer&quot; },
+                { &quot;Hobby&quot;, &quot;Photography&quot; }
+            },
+            BirthDate = DateTime.Now.AddYears(-30),
+            Balance = 1000.50m,
+            Score = 95,
+            Points = 1000,
+            Level = 1,
+            Rating = -1
+        };
 
-<span class="w">        </span><span class="c1">// Serialize the Person object to a file</span>
-<span class="w">        </span><span class="k">using</span><span class="w"> </span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">fileStream</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">File</span><span class="p">.</span><span class="n">Create</span><span class="p">(</span><span class="s">&quot;person.bin&quot;</span><span class="p">))</span>
-<span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="n">Serializer</span><span class="p">.</span><span class="n">Serialize</span><span class="p">(</span><span class="n">fileStream</span><span class="p">,</span><span class="w"> </span><span class="n">person</span><span class="p">);</span>
-<span class="w">        </span><span class="p">}</span>
+        // Serialize the Person object to a file
+        using (var fileStream = File.Create(&quot;person.bin&quot;))
+        {
+            Serializer.Serialize(fileStream, person);
+        }
 
-<span class="w">        </span><span class="c1">// Serialize using protobuf-net to a byte array and output to stdout</span>
-<span class="w">        </span><span class="kt">byte</span><span class="p">[]</span><span class="w"> </span><span class="n">serializedData</span><span class="p">;</span>
-<span class="w">        </span><span class="k">using</span><span class="w"> </span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">memoryStream</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">MemoryStream</span><span class="p">())</span>
-<span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="n">Serializer</span><span class="p">.</span><span class="n">Serialize</span><span class="p">(</span><span class="n">memoryStream</span><span class="p">,</span><span class="w"> </span><span class="n">person</span><span class="p">);</span>
-<span class="w">            </span><span class="n">serializedData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">memoryStream</span><span class="p">.</span><span class="n">ToArray</span><span class="p">();</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">        </span><span class="k">using</span><span class="w"> </span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">stdoutStream</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Console</span><span class="p">.</span><span class="n">OpenStandardOutput</span><span class="p">())</span>
-<span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="n">stdoutStream</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="n">serializedData</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">serializedData</span><span class="p">.</span><span class="n">Length</span><span class="p">);</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">        </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Serialized data written to stdout.&quot;</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+        // Serialize using protobuf-net to a byte array and output to stdout
+        byte[] serializedData;
+        using (var memoryStream = new MemoryStream())
+        {
+            Serializer.Serialize(memoryStream, person);
+            serializedData = memoryStream.ToArray();
+        }
+        using (var stdoutStream = Console.OpenStandardOutput())
+        {
+            stdoutStream.Write(serializedData, 0, serializedData.Length);
+        }
+        Console.WriteLine(&quot;Serialized data written to stdout.&quot;);
+    }
+}
+</code></pre>
 
 <h2 id="python-deserialization">Python Deserialization</h2>
 <p>To deserialize the Protobuf data in Python, you need to have a proto message as well as the auto-generated Python classes. Below is the proto message definition and the Python code to deserialize the data.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">syntax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;proto3&quot;</span><span class="p">;</span>
-<span class="kd">message</span><span class="w"> </span><span class="nc">Address</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kt">string</span><span class="w"> </span><span class="na">Street</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
-<span class="w">    </span><span class="kt">string</span><span class="w"> </span><span class="na">City</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
-<span class="w">    </span><span class="kt">string</span><span class="w"> </span><span class="na">Zip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
-<span class="p">}</span>
+<pre class="codehilite"><code class="language-proto">syntax = &quot;proto3&quot;;
+message Address {
+    string Street = 1;
+    string City = 2;
+    string Zip = 3;
+}
 
-<span class="kd">message</span><span class="w"> </span><span class="nc">PhoneNumber</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kt">string</span><span class="w"> </span><span class="na">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
-<span class="w">    </span><span class="kt">string</span><span class="w"> </span><span class="na">Number</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
-<span class="p">}</span>
+message PhoneNumber {
+    string Type = 1;
+    string Number = 2;
+}
 
-<span class="kd">message</span><span class="w"> </span><span class="nc">Person</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kt">int32</span><span class="w"> </span><span class="na">Id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
-<span class="w">    </span><span class="kt">string</span><span class="w"> </span><span class="na">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
-<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="na">IsActive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
-<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="na">Salary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
-<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="na">Height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
-<span class="w">    </span><span class="kt">int64</span><span class="w"> </span><span class="na">Timestamp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span>
-<span class="w">    </span><span class="kt">uint32</span><span class="w"> </span><span class="na">Age</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">7</span><span class="p">;</span>
-<span class="w">    </span><span class="kt">string</span><span class="w"> </span><span class="na">Initial</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span>
-<span class="w">    </span><span class="n">Address</span><span class="w"> </span><span class="na">Address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">9</span><span class="p">;</span>
-<span class="w">    </span><span class="k">repeated</span><span class="w"> </span><span class="n">PhoneNumber</span><span class="w"> </span><span class="na">Phones</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
-<span class="w">    </span><span class="n">map</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">string</span><span class="p">&gt;</span><span class="w"> </span><span class="na">Tags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">11</span><span class="p">;</span>
-<span class="w">    </span><span class="kt">int64</span><span class="w"> </span><span class="na">BirthDate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">12</span><span class="p">;</span>
-<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="na">Balance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">13</span><span class="p">;</span>
-<span class="w">    </span><span class="kt">int32</span><span class="w"> </span><span class="na">Score</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">14</span><span class="p">;</span>
-<span class="w">    </span><span class="kt">uint32</span><span class="w"> </span><span class="na">Points</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">15</span><span class="p">;</span>
-<span class="w">    </span><span class="kt">uint32</span><span class="w"> </span><span class="na">Level</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="p">;</span>
-<span class="w">    </span><span class="kt">int32</span><span class="w"> </span><span class="na">Rating</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">17</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+message Person {
+    int32 Id = 1;
+    string Name = 2;
+    bool IsActive = 3;
+    double Salary = 4;
+    float Height = 5;
+    int64 Timestamp = 6;
+    uint32 Age = 7;
+    string Initial = 8;
+    Address Address = 9;
+    repeated PhoneNumber Phones = 10;
+    map&lt;string, string&gt; Tags = 11;
+    int64 BirthDate = 12;
+    double Balance = 13;
+    int32 Score = 14;
+    uint32 Points = 15;
+    uint32 Level = 16;
+    int32 Rating = 17;
+}
+</code></pre>
 
 <p>To generate the Python classes from the proto file, use the following command:</p>
-<div class="codehilite"><pre><span></span><code>protoc<span class="w"> </span>--python_out<span class="o">=</span>.<span class="w"> </span>person.proto
-</code></pre></div>
+<pre class="codehilite"><code class="language-bash">protoc --python_out=. person.proto
+</code></pre>
 
 <p>I have encountered issues with the <code>protoc</code> command on Windows, so I recommend using the following command to specify the include path for the Protobuf library. Make sure to replace <code>%username%</code> with your actual username in the path.</p>
-<div class="codehilite"><pre><span></span><code>protoc<span class="w"> </span>-I<span class="o">=</span><span class="s2">&quot;C:/Users/%username%/AppData/Local/Microsoft/WinGet/Packages/Google.Protobuf_Microsoft.Winget.Source_8wekyb3d8bbwe/include&quot;</span><span class="w"> </span>-I<span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="w"> </span>--python_out<span class="o">=</span>.<span class="w"> </span>person.proto
-</code></pre></div>
+<pre class="codehilite"><code class="language-bash">protoc -I=&quot;C:/Users/%username%/AppData/Local/Microsoft/WinGet/Packages/Google.Protobuf_Microsoft.Winget.Source_8wekyb3d8bbwe/include&quot; -I=&quot;.&quot; --python_out=. person.proto
+</code></pre>
 
 <p>One sample generated Python class is as follows in <code>person_pb2.py</code>:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="c1"># Generated by the protocol buffer compiler.  DO NOT EDIT!</span>
-<span class="c1"># source: test.proto</span>
-<span class="sd">&quot;&quot;&quot;Generated protocol buffer code.&quot;&quot;&quot;</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">google.protobuf.internal</span><span class="w"> </span><span class="kn">import</span> <span class="n">builder</span> <span class="k">as</span> <span class="n">_builder</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">google.protobuf</span><span class="w"> </span><span class="kn">import</span> <span class="n">descriptor</span> <span class="k">as</span> <span class="n">_descriptor</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">google.protobuf</span><span class="w"> </span><span class="kn">import</span> <span class="n">descriptor_pool</span> <span class="k">as</span> <span class="n">_descriptor_pool</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">google.protobuf</span><span class="w"> </span><span class="kn">import</span> <span class="n">symbol_database</span> <span class="k">as</span> <span class="n">_symbol_database</span>
-<span class="c1"># @@protoc_insertion_point(imports)</span>
+<pre class="codehilite"><code class="language-python"># -*- coding: utf-8 -*-
+# Generated by the protocol buffer compiler.  DO NOT EDIT!
+# source: test.proto
+&quot;&quot;&quot;Generated protocol buffer code.&quot;&quot;&quot;
+from google.protobuf.internal import builder as _builder
+from google.protobuf import descriptor as _descriptor
+from google.protobuf import descriptor_pool as _descriptor_pool
+from google.protobuf import symbol_database as _symbol_database
+# @@protoc_insertion_point(imports)
 
-<span class="n">_sym_db</span> <span class="o">=</span> <span class="n">_symbol_database</span><span class="o">.</span><span class="n">Default</span><span class="p">()</span>
+_sym_db = _symbol_database.Default()
 
-<span class="n">DESCRIPTOR</span> <span class="o">=</span> <span class="n">_descriptor_pool</span><span class="o">.</span><span class="n">Default</span><span class="p">()</span><span class="o">.</span><span class="n">AddSerializedFile</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">test.proto</span><span class="se">\&quot;</span><span class="s1">4</span><span class="se">\n\x07\x41\x64\x64</span><span class="s1">ress</span><span class="se">\x12\x0e\n\x06</span><span class="s1">Street</span><span class="se">\x18\x01</span><span class="s1"> </span><span class="se">\x01</span><span class="s1">(</span><span class="se">\t\x12\x0c\n\x04\x43</span><span class="s1">ity</span><span class="se">\x18\x02</span><span class="s1"> </span><span class="se">\x01</span><span class="s1">(</span><span class="se">\t\x12\x0b\n\x03</span><span class="s1">Zip</span><span class="se">\x18\x03</span><span class="s1"> </span><span class="se">\x01</span><span class="s1">(</span><span class="se">\t\&quot;</span><span class="s1">+</span><span class="se">\n\x0b</span><span class="s1">PhoneNumber</span><span class="se">\x12\x0c\n\x04</span><span class="s1">Type</span><span class="se">\x18\x01</span><span class="s1"> </span><span class="se">\x01</span><span class="s1">(</span><span class="se">\t\x12\x0e\n\x06</span><span class="s1">Number</span><span class="se">\x18\x02</span><span class="s1"> </span><span class="se">\x01</span><span class="s1">(</span><span class="se">\t\&quot;\xee\x02\n\x06</span><span class="s1">Person</span><span class="se">\x12\n\n\x02</span><span class="s1">Id</span><span class="se">\x18\x01</span><span class="s1"> </span><span class="se">\x01</span><span class="s1">(</span><span class="se">\x05\x12\x0c\n\x04</span><span class="s1">Name</span><span class="se">\x18\x02</span><span class="s1"> </span><span class="se">\x01</span><span class="s1">(</span><span class="se">\t\x12\x10\n\x08</span><span class="s1">IsActive</span><span class="se">\x18\x03</span><span class="s1"> </span><span class="se">\x01</span><span class="s1">(</span><span class="se">\x08\x12\x0e\n\x06</span><span class="s1">Salary</span><span class="se">\x18\x04</span><span class="s1"> </span><span class="se">\x01</span><span class="s1">(</span><span class="se">\x01\x12\x0e\n\x06</span><span class="s1">Height</span><span class="se">\x18\x05</span><span class="s1"> </span><span class="se">\x01</span><span class="s1">(</span><span class="se">\x02\x12\x11\n\t</span><span class="s1">Timestamp</span><span class="se">\x18\x06</span><span class="s1"> </span><span class="se">\x01</span><span class="s1">(</span><span class="se">\x03\x12\x0b\n\x03\x41</span><span class="s1">ge</span><span class="se">\x18\x07</span><span class="s1"> </span><span class="se">\x01</span><span class="s1">(</span><span class="se">\r\x12\x0f\n\x07</span><span class="s1">Initial</span><span class="se">\x18\x08</span><span class="s1"> </span><span class="se">\x01</span><span class="s1">(</span><span class="se">\t\x12\x19\n\x07\x41\x64\x64</span><span class="s1">ress</span><span class="se">\x18\t</span><span class="s1"> </span><span class="se">\x01</span><span class="s1">(</span><span class="se">\x0b\x32\x08</span><span class="s1">.Address</span><span class="se">\x12\x1c\n\x06</span><span class="s1">Phones</span><span class="se">\x18\n</span><span class="s1"> </span><span class="se">\x03</span><span class="s1">(</span><span class="se">\x0b\x32\x0c</span><span class="s1">.PhoneNumber</span><span class="se">\x12\x1f\n\x04</span><span class="s1">Tags</span><span class="se">\x18\x0b</span><span class="s1"> </span><span class="se">\x03</span><span class="s1">(</span><span class="se">\x0b\x32\x11</span><span class="s1">.Person.TagsEntry</span><span class="se">\x12\x11\n\t</span><span class="s1">BirthDate</span><span class="se">\x18\x0c</span><span class="s1"> </span><span class="se">\x01</span><span class="s1">(</span><span class="se">\x03\x12\x0f\n\x07\x42\x61</span><span class="s1">lance</span><span class="se">\x18\r</span><span class="s1"> </span><span class="se">\x01</span><span class="s1">(</span><span class="se">\x01\x12\r\n\x05</span><span class="s1">Score</span><span class="se">\x18\x0e</span><span class="s1"> </span><span class="se">\x01</span><span class="s1">(</span><span class="se">\x05\x12\x0e\n\x06</span><span class="s1">Points</span><span class="se">\x18\x0f</span><span class="s1"> </span><span class="se">\x01</span><span class="s1">(</span><span class="se">\r\x12\r\n\x05</span><span class="s1">Level</span><span class="se">\x18\x10</span><span class="s1"> </span><span class="se">\x01</span><span class="s1">(</span><span class="se">\r\x12\x0e\n\x06</span><span class="s1">Rating</span><span class="se">\x18\x11</span><span class="s1"> </span><span class="se">\x01</span><span class="s1">(</span><span class="se">\x05\x1a</span><span class="s1">+</span><span class="se">\n\t</span><span class="s1">TagsEntry</span><span class="se">\x12\x0b\n\x03</span><span class="s1">key</span><span class="se">\x18\x01</span><span class="s1"> </span><span class="se">\x01</span><span class="s1">(</span><span class="se">\t\x12\r\n\x05</span><span class="s1">value</span><span class="se">\x18\x02</span><span class="s1"> </span><span class="se">\x01</span><span class="s1">(</span><span class="se">\t</span><span class="s1">:</span><span class="se">\x02\x38\x01\x62\x06</span><span class="s1">proto3&#39;</span><span class="p">)</span>
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\ntest.proto\&quot;4\n\x07\x41\x64\x64ress\x12\x0e\n\x06Street\x18\x01 \x01(\t\x12\x0c\n\x04\x43ity\x18\x02 \x01(\t\x12\x0b\n\x03Zip\x18\x03 \x01(\t\&quot;+\n\x0bPhoneNumber\x12\x0c\n\x04Type\x18\x01 \x01(\t\x12\x0e\n\x06Number\x18\x02 \x01(\t\&quot;\xee\x02\n\x06Person\x12\n\n\x02Id\x18\x01 \x01(\x05\x12\x0c\n\x04Name\x18\x02 \x01(\t\x12\x10\n\x08IsActive\x18\x03 \x01(\x08\x12\x0e\n\x06Salary\x18\x04 \x01(\x01\x12\x0e\n\x06Height\x18\x05 \x01(\x02\x12\x11\n\tTimestamp\x18\x06 \x01(\x03\x12\x0b\n\x03\x41ge\x18\x07 \x01(\r\x12\x0f\n\x07Initial\x18\x08 \x01(\t\x12\x19\n\x07\x41\x64\x64ress\x18\t \x01(\x0b\x32\x08.Address\x12\x1c\n\x06Phones\x18\n \x03(\x0b\x32\x0c.PhoneNumber\x12\x1f\n\x04Tags\x18\x0b \x03(\x0b\x32\x11.Person.TagsEntry\x12\x11\n\tBirthDate\x18\x0c \x01(\x03\x12\x0f\n\x07\x42\x61lance\x18\r \x01(\x01\x12\r\n\x05Score\x18\x0e \x01(\x05\x12\x0e\n\x06Points\x18\x0f \x01(\r\x12\r\n\x05Level\x18\x10 \x01(\r\x12\x0e\n\x06Rating\x18\x11 \x01(\x05\x1a+\n\tTagsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x62\x06proto3')
 
-<span class="n">_builder</span><span class="o">.</span><span class="n">BuildMessageAndEnumDescriptors</span><span class="p">(</span><span class="n">DESCRIPTOR</span><span class="p">,</span> <span class="nb">globals</span><span class="p">())</span>
-<span class="n">_builder</span><span class="o">.</span><span class="n">BuildTopDescriptorsAndMessages</span><span class="p">(</span><span class="n">DESCRIPTOR</span><span class="p">,</span> <span class="s1">&#39;test_pb2&#39;</span><span class="p">,</span> <span class="nb">globals</span><span class="p">())</span>
-<span class="k">if</span> <span class="n">_descriptor</span><span class="o">.</span><span class="n">_USE_C_DESCRIPTORS</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+_builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
+_builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'test_pb2', globals())
+if _descriptor._USE_C_DESCRIPTORS == False:
 
-  <span class="n">DESCRIPTOR</span><span class="o">.</span><span class="n">_options</span> <span class="o">=</span> <span class="kc">None</span>
-  <span class="n">_PERSON_TAGSENTRY</span><span class="o">.</span><span class="n">_options</span> <span class="o">=</span> <span class="kc">None</span>
-  <span class="n">_PERSON_TAGSENTRY</span><span class="o">.</span><span class="n">_serialized_options</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;8</span><span class="se">\001</span><span class="s1">&#39;</span>
-  <span class="n">_ADDRESS</span><span class="o">.</span><span class="n">_serialized_start</span><span class="o">=</span><span class="mi">14</span>
-  <span class="n">_ADDRESS</span><span class="o">.</span><span class="n">_serialized_end</span><span class="o">=</span><span class="mi">66</span>
-  <span class="n">_PHONENUMBER</span><span class="o">.</span><span class="n">_serialized_start</span><span class="o">=</span><span class="mi">68</span>
-  <span class="n">_PHONENUMBER</span><span class="o">.</span><span class="n">_serialized_end</span><span class="o">=</span><span class="mi">111</span>
-  <span class="n">_PERSON</span><span class="o">.</span><span class="n">_serialized_start</span><span class="o">=</span><span class="mi">114</span>
-  <span class="n">_PERSON</span><span class="o">.</span><span class="n">_serialized_end</span><span class="o">=</span><span class="mi">480</span>
-  <span class="n">_PERSON_TAGSENTRY</span><span class="o">.</span><span class="n">_serialized_start</span><span class="o">=</span><span class="mi">437</span>
-  <span class="n">_PERSON_TAGSENTRY</span><span class="o">.</span><span class="n">_serialized_end</span><span class="o">=</span><span class="mi">480</span>
-<span class="c1"># @@protoc_insertion_point(module_scope)</span>
-</code></pre></div>
+  DESCRIPTOR._options = None
+  _PERSON_TAGSENTRY._options = None
+  _PERSON_TAGSENTRY._serialized_options = b'8\001'
+  _ADDRESS._serialized_start=14
+  _ADDRESS._serialized_end=66
+  _PHONENUMBER._serialized_start=68
+  _PHONENUMBER._serialized_end=111
+  _PERSON._serialized_start=114
+  _PERSON._serialized_end=480
+  _PERSON_TAGSENTRY._serialized_start=437
+  _PERSON_TAGSENTRY._serialized_end=480
+# @@protoc_insertion_point(module_scope)
+</code></pre>
 
 <p>Then you can use the following Python code to deserialize the data:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">person_pb2</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">io</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">struct</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<pre class="codehilite"><code class="language-python">import person_pb2
+import sys
+import io
+import os
+import struct
+import datetime
+import time
+import json
 
-<span class="k">def</span><span class="w"> </span><span class="nf">deserialize_person</span><span class="p">(</span><span class="n">serialized_data</span><span class="p">):</span>
-    <span class="n">person</span> <span class="o">=</span> <span class="n">person_pb2</span><span class="o">.</span><span class="n">Person</span><span class="p">()</span>
-    <span class="n">person</span><span class="o">.</span><span class="n">ParseFromString</span><span class="p">(</span><span class="n">serialized_data</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">person</span>
+def deserialize_person(serialized_data):
+    person = person_pb2.Person()
+    person.ParseFromString(serialized_data)
+    return person
 
-<span class="k">def</span><span class="w"> </span><span class="nf">convert_to_dict</span><span class="p">(</span><span class="n">person</span><span class="p">):</span>
-    <span class="n">person_dict</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;Id&quot;</span><span class="p">:</span> <span class="n">person</span><span class="o">.</span><span class="n">Id</span><span class="p">,</span>
-        <span class="s2">&quot;Name&quot;</span><span class="p">:</span> <span class="n">person</span><span class="o">.</span><span class="n">Name</span><span class="p">,</span>
-        <span class="s2">&quot;IsActive&quot;</span><span class="p">:</span> <span class="n">person</span><span class="o">.</span><span class="n">IsActive</span><span class="p">,</span>
-        <span class="s2">&quot;Salary&quot;</span><span class="p">:</span> <span class="n">person</span><span class="o">.</span><span class="n">Salary</span><span class="p">,</span>
-        <span class="s2">&quot;Height&quot;</span><span class="p">:</span> <span class="n">person</span><span class="o">.</span><span class="n">Height</span><span class="p">,</span>
-        <span class="s2">&quot;Timestamp&quot;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">person</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">),</span>
-        <span class="s2">&quot;Age&quot;</span><span class="p">:</span> <span class="n">person</span><span class="o">.</span><span class="n">Age</span><span class="p">,</span>
-        <span class="s2">&quot;Initial&quot;</span><span class="p">:</span> <span class="n">person</span><span class="o">.</span><span class="n">Initial</span><span class="p">,</span>
-        <span class="s2">&quot;Address&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;Street&quot;</span><span class="p">:</span> <span class="n">person</span><span class="o">.</span><span class="n">Address</span><span class="o">.</span><span class="n">Street</span><span class="p">,</span>
-            <span class="s2">&quot;City&quot;</span><span class="p">:</span> <span class="n">person</span><span class="o">.</span><span class="n">Address</span><span class="o">.</span><span class="n">City</span><span class="p">,</span>
-            <span class="s2">&quot;Zip&quot;</span><span class="p">:</span> <span class="n">person</span><span class="o">.</span><span class="n">Address</span><span class="o">.</span><span class="n">Zip</span>
-        <span class="p">},</span>
-        <span class="s2">&quot;Phones&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;Type&quot;</span><span class="p">:</span> <span class="n">phone</span><span class="o">.</span><span class="n">Type</span><span class="p">,</span> <span class="s2">&quot;Number&quot;</span><span class="p">:</span> <span class="n">phone</span><span class="o">.</span><span class="n">Number</span><span class="p">}</span> <span class="k">for</span> <span class="n">phone</span> <span class="ow">in</span> <span class="n">person</span><span class="o">.</span><span class="n">Phones</span><span class="p">],</span>
-        <span class="s2">&quot;Tags&quot;</span><span class="p">:</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">value</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">person</span><span class="o">.</span><span class="n">Tags</span><span class="o">.</span><span class="n">items</span><span class="p">()},</span>
-        <span class="s2">&quot;BirthDate&quot;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">person</span><span class="o">.</span><span class="n">BirthDate</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">),</span>
-        <span class="s2">&quot;Balance&quot;</span><span class="p">:</span> <span class="n">person</span><span class="o">.</span><span class="n">Balance</span><span class="p">,</span>
-        <span class="s2">&quot;Score&quot;</span><span class="p">:</span> <span class="n">person</span><span class="o">.</span><span class="n">Score</span><span class="p">,</span>
-        <span class="s2">&quot;Points&quot;</span><span class="p">:</span> <span class="n">person</span><span class="o">.</span><span class="n">Points</span><span class="p">,</span>
-        <span class="s2">&quot;Level&quot;</span><span class="p">:</span> <span class="n">person</span><span class="o">.</span><span class="n">Level</span><span class="p">,</span>
-        <span class="s2">&quot;Rating&quot;</span><span class="p">:</span> <span class="n">person</span><span class="o">.</span><span class="n">Rating</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">person_dict</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+def convert_to_dict(person):
+    person_dict = {
+        &quot;Id&quot;: person.Id,
+        &quot;Name&quot;: person.Name,
+        &quot;IsActive&quot;: person.IsActive,
+        &quot;Salary&quot;: person.Salary,
+        &quot;Height&quot;: person.Height,
+        &quot;Timestamp&quot;: datetime.datetime.fromtimestamp(person.Timestamp).strftime('%Y-%m-%d %H:%M:%S'),
+        &quot;Age&quot;: person.Age,
+        &quot;Initial&quot;: person.Initial,
+        &quot;Address&quot;: {
+            &quot;Street&quot;: person.Address.Street,
+            &quot;City&quot;: person.Address.City,
+            &quot;Zip&quot;: person.Address.Zip
+        },
+        &quot;Phones&quot;: [{&quot;Type&quot;: phone.Type, &quot;Number&quot;: phone.Number} for phone in person.Phones],
+        &quot;Tags&quot;: {key: value for key, value in person.Tags.items()},
+        &quot;BirthDate&quot;: datetime.datetime.fromtimestamp(person.BirthDate).strftime('%Y-%m-%d %H:%M:%S'),
+        &quot;Balance&quot;: person.Balance,
+        &quot;Score&quot;: person.Score,
+        &quot;Points&quot;: person.Points,
+        &quot;Level&quot;: person.Level,
+        &quot;Rating&quot;: person.Rating
+    }
+    return json.dumps(person_dict, indent=4)
 
-<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
-    <span class="c1"># Read serialized data from stdin</span>
-    <span class="n">serialized_data</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">buffer</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+def main():
+    # Read serialized data from stdin
+    serialized_data = sys.stdin.buffer.read()
 
-    <span class="c1"># Deserialize the data</span>
-    <span class="n">person</span> <span class="o">=</span> <span class="n">deserialize_person</span><span class="p">(</span><span class="n">serialized_data</span><span class="p">)</span>
+    # Deserialize the data
+    person = deserialize_person(serialized_data)
 
-    <span class="c1"># Convert to dictionary and print</span>
-    <span class="n">person_dict</span> <span class="o">=</span> <span class="n">convert_to_dict</span><span class="p">(</span><span class="n">person</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">person_dict</span><span class="p">)</span>
-</code></pre></div>
+    # Convert to dictionary and print
+    person_dict = convert_to_dict(person)
+    print(person_dict)
+</code></pre>
 
 <h2 id="conclusion">Conclusion</h2>
 <p>By following the steps above, you can seamlessly serialize complex C# objects using Protobuf-net and deserialize them in Python with the official protobuf library. This approach ensures efficient, cross-platform data exchange between .NET and Python applications. If you encounter issues with field types or serialization, double-check your <code>.proto</code> definitions and make sure they match your C# class structure. Protobuf is a powerful tool for building robust, language-agnostic APIs and data pipelines.</p>
