@@ -148,11 +148,24 @@ function formatClock(totalSeconds) {
 class AudioCuePlayer {
     constructor() {
         this.enabled = true;
+        this.AudioContextClass = window.AudioContext || window.webkitAudioContext || null;
         this.audioContext = null;
+        this.speechSupported = "speechSynthesis" in window && "SpeechSynthesisUtterance" in window;
+        this.voice = null;
+
+        this.loadPreferredVoice = this.loadPreferredVoice.bind(this);
+
+        if (this.speechSupported) {
+            window.speechSynthesis.addEventListener("voiceschanged", this.loadPreferredVoice);
+            this.loadPreferredVoice();
+        }
     }
 
     setEnabled(isEnabled) {
         this.enabled = Boolean(isEnabled);
+        if (!this.enabled) {
+            this.stopSpeech();
+        }
     }
 
     ensureContext() {
@@ -160,65 +173,158 @@ class AudioCuePlayer {
             return null;
         }
 
+        if (!this.AudioContextClass) {
+            return null;
+        }
+
         if (!this.audioContext) {
-            this.audioContext = new window.AudioContext();
+            this.audioContext = new this.AudioContextClass();
         }
 
         if (this.audioContext.state === "suspended") {
-            this.audioContext.resume();
+            this.audioContext.resume().catch(() => {});
         }
 
         return this.audioContext;
     }
 
-    playTone({ frequency, duration, gain = 0.05 }) {
+    prime() {
+        this.ensureContext();
+        this.loadPreferredVoice();
+    }
+
+    loadPreferredVoice() {
+        if (!this.speechSupported) {
+            return;
+        }
+
+        const voices = window.speechSynthesis.getVoices();
+        if (!voices.length) {
+            return;
+        }
+
+        const matches = [
+            (voice) => voice.lang && voice.lang.toLowerCase().startsWith("en-us"),
+            (voice) => voice.lang && voice.lang.toLowerCase().startsWith("en"),
+            () => true
+        ];
+
+        for (const matcher of matches) {
+            const picked = voices.find(matcher);
+            if (picked) {
+                this.voice = picked;
+                break;
+            }
+        }
+    }
+
+    speak(text, { rate = 1, pitch = 1, volume = 1, interrupt = false } = {}) {
+        if (!this.enabled || !this.speechSupported || !text) {
+            return;
+        }
+
+        const synth = window.speechSynthesis;
+        if (interrupt) {
+            synth.cancel();
+        }
+
+        const utterance = new window.SpeechSynthesisUtterance(text);
+        if (this.voice) {
+            utterance.voice = this.voice;
+            utterance.lang = this.voice.lang;
+        } else {
+            utterance.lang = "en-US";
+        }
+        utterance.rate = rate;
+        utterance.pitch = pitch;
+        utterance.volume = volume;
+        synth.speak(utterance);
+    }
+
+    stopSpeech() {
+        if (this.speechSupported) {
+            window.speechSynthesis.cancel();
+        }
+    }
+
+    playPattern(steps) {
         const ctx = this.ensureContext();
         if (!ctx) {
             return;
         }
 
-        const oscillator = ctx.createOscillator();
-        const volume = ctx.createGain();
+        let cursor = ctx.currentTime + 0.01;
+        for (const step of steps) {
+            const oscillator = ctx.createOscillator();
+            const volume = ctx.createGain();
+            const duration = step.duration ?? 0.08;
+            const gain = step.gain ?? 0.055;
+            const attack = Math.min(0.01, duration / 4);
 
-        oscillator.type = "sine";
-        oscillator.frequency.value = frequency;
-        volume.gain.setValueAtTime(gain, ctx.currentTime);
-        volume.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + duration);
+            oscillator.type = step.type || "triangle";
+            oscillator.frequency.setValueAtTime(step.frequency, cursor);
+            volume.gain.setValueAtTime(0.0001, cursor);
+            volume.gain.exponentialRampToValueAtTime(gain, cursor + attack);
+            volume.gain.exponentialRampToValueAtTime(0.0001, cursor + duration);
 
-        oscillator.connect(volume);
-        volume.connect(ctx.destination);
+            oscillator.connect(volume);
+            volume.connect(ctx.destination);
+            oscillator.start(cursor);
+            oscillator.stop(cursor + duration);
 
-        oscillator.start();
-        oscillator.stop(ctx.currentTime + duration);
+            cursor += duration + (step.gap ?? 0.04);
+        }
     }
 
     playStartCue() {
-        this.playTone({ frequency: 660, duration: 0.12 });
+        this.playPattern([
+            { frequency: 760, duration: 0.08 },
+            { frequency: 920, duration: 0.1, gap: 0.06 }
+        ]);
     }
 
     playIntervalCue() {
-        this.playTone({ frequency: 880, duration: 0.1 });
+        this.playPattern([
+            { frequency: 620, duration: 0.07, gain: 0.045 },
+            { frequency: 720, duration: 0.08, gain: 0.05 }
+        ]);
     }
 
     playHalfwayCue() {
-        this.playTone({ frequency: 700, duration: 0.08, gain: 0.05 });
-        window.setTimeout(() => this.playTone({ frequency: 960, duration: 0.1, gain: 0.05 }), 90);
+        this.playPattern([
+            { frequency: 700, duration: 0.07, gain: 0.045 },
+            { frequency: 840, duration: 0.09, gain: 0.05 }
+        ]);
+        this.speak("Halfway there.", { rate: 1.03, pitch: 1, volume: 1 });
     }
 
     playCountdownCue(step) {
-        const frequencies = {
-            3: 780,
-            2: 860,
-            1: 940,
-            0: 1100
+        const countdownFrequencies = {
+            3: 760,
+            2: 830,
+            1: 910
         };
-        this.playTone({ frequency: frequencies[step] || 900, duration: step === 0 ? 0.15 : 0.08, gain: 0.06 });
+
+        if (step === 0) {
+            this.playPattern([
+                { frequency: 1020, duration: 0.1, gain: 0.06 },
+                { frequency: 1180, duration: 0.14, gain: 0.065 }
+            ]);
+            this.speak("Ready to go.", { rate: 1.08, pitch: 1, volume: 1, interrupt: true });
+            return;
+        }
+
+        const frequency = countdownFrequencies[step] || 760;
+        this.playPattern([{ frequency, duration: 0.08, gain: 0.058 }]);
     }
 
     playFinishCue() {
-        this.playTone({ frequency: 740, duration: 0.1, gain: 0.06 });
-        window.setTimeout(() => this.playTone({ frequency: 880, duration: 0.12, gain: 0.06 }), 120);
-        window.setTimeout(() => this.playTone({ frequency: 1046, duration: 0.16, gain: 0.06 }), 260);
+        this.playPattern([
+            { frequency: 740, duration: 0.08, gain: 0.055 },
+            { frequency: 880, duration: 0.1, gain: 0.06 },
+            { frequency: 1046, duration: 0.14, gain: 0.065 }
+        ]);
+        this.speak("Workout complete.", { rate: 0.98, pitch: 1, volume: 1, interrupt: true });
     }
 }
 
@@ -492,6 +598,7 @@ class SmartWodClockApp {
 
     handleStart() {
         this.clearError();
+        this.audio.prime();
 
         if (this.timer.state === "paused") {
             this.timer.start();
@@ -535,6 +642,7 @@ class SmartWodClockApp {
 
     handleReset({ clearSession }) {
         this.timer.reset();
+        this.audio.stopSpeech();
         this.clearError();
 
         if (clearSession) {
@@ -673,6 +781,7 @@ class SmartWodClockApp {
         }
 
         if (
+            progress.phase === "every" &&
             progress.phaseDurationSeconds > 2 &&
             progress.phaseElapsedSeconds >= Math.ceil(progress.phaseDurationSeconds / 2)
         ) {
