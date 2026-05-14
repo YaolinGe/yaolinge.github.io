@@ -2,8 +2,8 @@
 
 html {
   font: 100%/1.5 sans-serif;
-  background: #fafbfc;
-  color: #222;
+    background: #1a1a1a;
+        color: #e0e0e0;
   padding: 1.5em;
 }
 
@@ -21,7 +21,7 @@ footer {
     text-align: center;
     margin-top: 2em;
     font-size: 0.8em;
-    color: #666;
+        color: #aaa;
 }
 
 
@@ -29,7 +29,8 @@ a { color: #fa6432; text-decoration: none; }
 a:hover, a:focus { text-decoration: underline; }
 
 pre, code {
-  background: #eee;
+    background: #2d2d2d;
+    color: #e0e0e0;
   padding: 0.2em 0.4em;
   border-radius: 3px;
   font-family: monospace, monospace;
@@ -80,14 +81,14 @@ Blog post styles
     font-size: 2.2em;
     font-weight: 700;
     margin-bottom: 0.2em;
-    color: #222;
+        color: #ffffff;
     letter-spacing: -1px;
     line-height: 1.1;
 }
 
 .blog-post .date {
     font-size: 0.95em;
-    color: #888;
+    color: #aaa;
     margin-bottom: 1em;
     font-style: italic;
 }
@@ -95,7 +96,7 @@ Blog post styles
 .blog-post .content {
     font-size: 1.1em;
     line-height: 1.7;
-    color: #222;
+    color: #e0e0e0;
 }
 
 .blog-post p {
@@ -111,8 +112,8 @@ Blog post styles
 }
 
 .blog-post pre {
-    background: #f5f5f7;
-    color: #222;
+    background: #2d2d2d;
+    color: #e0e0e0;
     padding: 1em;
     border-radius: 5px;
     overflow-x: auto;
@@ -121,8 +122,8 @@ Blog post styles
 }
 
 .blog-post code {
-    background: #f0f0f0;
-    color: #c7254e;
+    background: #2d2d2d;
+    color: #ff7f50;
     border-radius: 3px;
     padding: 0.2em 0.4em;
     font-size: 0.97em;

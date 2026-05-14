@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CmakeList</title>
+    <link rel="stylesheet" href="/static/style.css" />
+    
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/posts.html">Posts</a></li>
+            <li><a href="/projects.html">Projects</a></li>
+            <li><a href="/app/">WOD Clock</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    
+<article class="blog-post">
+    <h1>Understanding cmakelist</h1>
+    <div class="date">2026-05-14</div>
+    <div id="content">
+        <h1 id="cmakeliststxt-complete-practical-guide">CMakeLists.txt — Complete Practical Guide</h1>
+<h2 id="1-what-is-cmakeliststxt">1. What is CMakeLists.txt?</h2>
+<p>A <strong>CMakeLists.txt</strong> file is the main configuration file used by the build system generator :contentReference[oaicite:0]{index=0}.</p>
+<p>It describes how a software project should be built in a platform-independent way.</p>
+<p>Instead of writing platform-specific build scripts, you describe the project once, and CMake generates the appropriate build system.</p>
+<hr />
+<h2 id="2-core-idea-important-mental-model">2. Core Idea (Important Mental Model)</h2>
+<p>CMake is not a compiler and not a build tool.</p>
+<p>It is a <strong>build system generator</strong>:</p>
+<p>CMakeLists.txt → CMake → Build System (Make/Ninja/VS) → Compiler → Binary</p>
+<p>So:</p>
+<ul>
+<li>You write CMakeLists.txt  </li>
+<li>CMake generates build files  </li>
+<li>Another tool actually compiles your code  </li>
+</ul>
+<hr />
+<h2 id="3-why-use-cmakeliststxt">3. Why use CMakeLists.txt?</h2>
+<p>Without CMake:
+- You write separate build systems for each platform:
+  - Makefiles (Linux)
+  - Visual Studio projects (Windows)
+  - Xcode projects (macOS)</p>
+<p>With CMake:
+- One configuration works everywhere
+- Easier dependency management
+- Scales well for large projects
+- Widely used in industry (LLVM, Qt, Blender ecosystems, etc.)</p>
+<hr />
+<h2 id="4-when-should-you-use-it">4. When should you use it?</h2>
+<p>Use CMake when:
+- Project has multiple source files
+- You need external libraries
+- You want cross-platform builds
+- You expect project growth or collaboration</p>
+<p>Avoid when:
+- Single-file programs
+- Very small experiments or scripts</p>
+<hr />
+<h2 id="5-where-does-cmakeliststxt-go">5. Where does CMakeLists.txt go?</h2>
+<p>Typical structure:</p>
+<p>MyProject/
+├── CMakeLists.txt        # root build config
+├── src/
+│   ├── CMakeLists.txt    # optional module-level config
+│   ├── main.cpp
+│   └── utils.cpp
+└── include/</p>
+<p>CMake supports hierarchical builds, meaning each folder can define its own build rules.</p>
+<hr />
+<h2 id="6-minimal-working-example">6. Minimal Working Example</h2>
+<p>cmake_minimum_required(VERSION 3.10)</p>
+<p>project(MyApp)</p>
+<p>add_executable(MyApp main.cpp)</p>
+<p>Explanation:
+- cmake_minimum_required → required CMake version
+- project → project name
+- add_executable → build executable from source</p>
+<hr />
+<h2 id="7-slightly-more-realistic-example">7. Slightly More Realistic Example</h2>
+<p>cmake_minimum_required(VERSION 3.15)</p>
+<p>project(HelloApp)</p>
+<p>set(CMAKE_CXX_STANDARD 17)</p>
+<p>include_directories(include)</p>
+<p>add_executable(HelloApp
+    src/main.cpp
+    src/utils.cpp
+)</p>
+<hr />
+<h2 id="8-key-cmake-concepts">8. Key CMake Concepts</h2>
+<h3 id="81-targets-core-concept">8.1 Targets (core concept)</h3>
+<p>Everything in CMake revolves around targets.</p>
+<p>A target can be:
+- Executable
+- Library</p>
+<p>add_executable(app main.cpp)
+add_library(mylib lib.cpp)</p>
+<hr />
+<h3 id="82-linking-libraries">8.2 Linking libraries</h3>
+<p>target_link_libraries(app PRIVATE mylib)</p>
+<p>Meaning:
+- app depends on mylib</p>
+<hr />
+<h3 id="83-variables">8.3 Variables</h3>
+<p>set(MY_VAR "hello")</p>
+<p>Used for configuration values.</p>
+<hr />
+<h3 id="84-subdirectories">8.4 Subdirectories</h3>
+<p>add_subdirectory(src)</p>
+<p>Allows modular project structure.</p>
+<hr />
+<h3 id="85-finding-external-dependencies">8.5 Finding external dependencies</h3>
+<p>find_package(OpenSSL REQUIRED)</p>
+<p>Used to locate installed libraries on the system.</p>
+<hr />
+<h2 id="9-example-multi-folder-project">9. Example: Multi-folder Project</h2>
+<h3 id="project-structure">Project structure</h3>
+<p>MyProject/
+├── CMakeLists.txt
+├── app/
+│   ├── CMakeLists.txt
+│   └── main.cpp
+├── lib/
+│   ├── CMakeLists.txt
+│   ├── math.cpp
+│   └── math.h</p>
+<hr />
+<h3 id="root-cmakeliststxt">Root CMakeLists.txt</h3>
+<p>cmake_minimum_required(VERSION 3.15)</p>
+<p>project(MyProject)</p>
+<p>add_subdirectory(lib)
+add_subdirectory(app)</p>
+<hr />
+<h3 id="libcmakeliststxt">lib/CMakeLists.txt</h3>
+<p>add_library(mathlib math.cpp)</p>
+<p>target_include_directories(mathlib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})</p>
+<hr />
+<h3 id="appcmakeliststxt">app/CMakeLists.txt</h3>
+<p>add_executable(app main.cpp)</p>
+<p>target_link_libraries(app PRIVATE mathlib)</p>
+<hr />
+<h2 id="10-build-workflow">10. Build Workflow</h2>
+<h3 id="step-1-generate-build-files">Step 1: Generate build files</h3>
+<p>cmake -S . -B build</p>
+<h3 id="step-2-build-project">Step 2: Build project</h3>
+<p>cmake --build build</p>
+<hr />
+<h2 id="11-comparison-cmake-vs-makefile">11. Comparison: CMake vs Makefile</h2>
+<p>Makefile (:contentReference[oaicite:1]{index=1})</p>
+<p>A Makefile is a direct build script used by <code>make</code>.</p>
+<p>Example:</p>
+<p>app: main.o utils.o
+    g++ main.o utils.o -o app</p>
+<p>Characteristics:
+- Manual dependency tracking
+- Platform-specific in practice
+- Direct execution model</p>
+<hr />
+<h2 id="12-cmakeliststxt-vs-makefile">12. CMakeLists.txt vs Makefile</h2>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Makefile</th>
+<th>CMake</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Type</td>
+<td>Build script</td>
+<td>Build generator</td>
+</tr>
+<tr>
+<td>Portability</td>
+<td>Low</td>
+<td>High</td>
+</tr>
+<tr>
+<td>Execution</td>
+<td>Direct</td>
+<td>Indirect</td>
+</tr>
+<tr>
+<td>Scaling</td>
+<td>Hard</td>
+<td>Good</td>
+</tr>
+<tr>
+<td>Dependency handling</td>
+<td>Manual</td>
+<td>Built-in</td>
+</tr>
+<tr>
+<td>Ecosystem</td>
+<td>Older</td>
+<td>Modern standard</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="13-related-build-tools">13. Related Build Tools</h2>
+<ul>
+<li>Make → executes Makefiles  </li>
+<li>Ninja → fast build backend often used by CMake  </li>
+<li>MSBuild → Windows build system  </li>
+<li>Autotools → older GNU build system  </li>
+<li>Meson → modern alternative to CMake  </li>
+</ul>
+<hr />
+<h2 id="14-full-build-pipeline">14. Full Build Pipeline</h2>
+<p>CMakeLists.txt
+→ CMake
+→ Makefile / Ninja / Visual Studio Project
+→ Compiler (g++, clang, MSVC)
+→ Executable</p>
+<hr />
+<h2 id="15-key-takeaway">15. Key Takeaway</h2>
+<p>CMake is best understood as:</p>
+<p>A translator between human-readable project descriptions and platform-specific build systems.</p>
+<hr />
+<h2 id="16-when-not-to-use-cmake">16. When NOT to use CMake</h2>
+<p>Avoid CMake when:
+- Project is a single file
+- No external dependencies
+- Quick scripting experiments</p>
+<hr />
+<h2 id="17-summary">17. Summary</h2>
+<ul>
+<li>CMakeLists.txt = build description file  </li>
+<li>CMake = generator tool  </li>
+<li>Make/Ninja/VS = actual build systems  </li>
+<li>Compiler = final execution layer  </li>
+</ul>
+    </div>
+</article>
+
+</main>
+<footer>
+    &copy; 2025 Yao
+</footer>
+<script src="/static/script.js"></script>
+<!-- <script src="/static/analytics.js"></script> -->
+
+</body>
+</html>
