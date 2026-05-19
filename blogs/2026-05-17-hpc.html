@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Amdahl&#39;s Law</title>
+    <link rel="stylesheet" href="/static/style.css" />
+    
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/posts.html">Posts</a></li>
+            <li><a href="/projects.html">Projects</a></li>
+            <li><a href="/app/">WOD Clock</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    
+<article class="blog-post">
+    <h1>Math derivation of Amdahl&#39;s Law</h1>
+    <div class="date">2026-05-17</div>
+    <div id="content">
+        <h2 id="amdahls-law">Amdahl's Law</h2>
+<p>Amdahl's Law describes the maximum speedup achievable when parallelizing a program. It tells us how much faster a program can run when we use multiple processors.</p>
+<h3 id="the-problem">The Problem</h3>
+<p>When we parallelize code, only a portion can truly run in parallel. Some parts must still run sequentially. Amdahl's Law quantifies this limitation.</p>
+<h3 id="the-formula">The Formula</h3>
+<p>Let's define:
+- <strong>S</strong> = overall speedup
+- <strong>p</strong> = fraction of the program that can be parallelized (0 ≤ p ≤ 1)
+- <strong>N</strong> = number of processors</p>
+<pre class="codehilite"><code>S = 1 / ((1 - p) + p/N)
+</code></pre>
+
+<h3 id="breaking-it-down">Breaking It Down</h3>
+<ul>
+<li><strong>(1 - p)</strong> = the sequential portion that cannot be parallelized</li>
+<li><strong>p/N</strong> = the parallelizable portion divided among N processors</li>
+</ul>
+<p>The denominator represents the total time relative to the original execution time.</p>
+<h3 id="example">Example</h3>
+<p>Suppose 90% of your program can be parallelized (p = 0.9) and 10% must run sequentially (1 - p = 0.1).</p>
+<p><strong>With 4 processors:</strong></p>
+<pre class="codehilite"><code>S = 1 / (0.1 + 0.9/4)
+S = 1 / (0.1 + 0.225)
+S = 1 / 0.325
+S ≈ 3.08x speedup
+</code></pre>
+
+<p>Even with 4 processors, you only get ~3x faster, not 4x!</p>
+<h3 id="key-insight">Key Insight</h3>
+<p>Adding more processors shows diminishing returns. As N approaches infinity:</p>
+<pre class="codehilite"><code>S_max = 1 / (1 - p)
+</code></pre>
+
+<p>With 90% parallelizable code, the theoretical maximum speedup is only <strong>10x</strong>, no matter how many processors you add.</p>
+    </div>
+</article>
+
+</main>
+<footer>
+    &copy; 2025 Yao
+</footer>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EHMQDJCGE7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-EHMQDJCGE7');
+</script>
+
+<script src="/static/script.js"></script>
+<!-- <script src="/static/analytics.js"></script> -->
+
+</body>
+</html>
