@@ -13,17 +13,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Computer Systems A Programmer&#39;s Perspective</title>
-    <link rel="stylesheet" href="/static/style.css" />
+    <link rel="stylesheet" href="../static/style.css" />
     
 </head>
 <body>
 <header>
     <nav>
         <ul>
-            <li><a href="/about.html">About</a></li>
-            <li><a href="/posts.html">Posts</a></li>
-            <li><a href="/projects.html">Projects</a></li>
-            <li><a href="/app/">WOD Clock</a></li>
+            <li><a href="../about.html">About</a></li>
+            <li><a href="../posts.html">Posts</a></li>
+            <li><a href="../projects.html">Projects</a></li>
+            <li><a href="../app/">WOD Clock</a></li>
         </ul>
     </nav>
 </header>
@@ -33,6 +33,7 @@
     <h1>Notes for CSSAPP</h1>
     <div class="date">2025-07-26</div>
     <div id="content">
+        
         <p>In C#, <code>bool</code> uses 1 byte (not 1 bit) due to memory alignment. To store multiple flags efficiently, use bit masking:</p>
 <pre class="codehilite"><code class="language-csharp">byte flags = 0b_0000_1010; // 8 flags in 1 byte
 bool flag2 = (flags &amp; (1 &lt;&lt; 1)) != 0; // check 2nd flag
@@ -54,7 +55,7 @@ bool flagN = (flags &amp; (1 &lt;&lt; N)) != 0; // check N-th flag, 0 &lt;= N &l
     &copy; 2025 Yao
 </footer>
 
-<script src="/static/script.js"></script>
+<script src="../static/script.js"></script>
 <!-- <script src="/static/analytics.js"></script> -->
 
 </body>
