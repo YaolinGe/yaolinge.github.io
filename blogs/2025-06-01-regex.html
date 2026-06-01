@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EHMQDJCGE7"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-EHMQDJCGE7');
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Regex expression reference</title>
+    <link rel="stylesheet" href="../static/style.css" />
+    
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a href="../about.html">About</a></li>
+            <li><a href="../posts.html">Posts</a></li>
+            <li><a href="../projects.html">Projects</a></li>
+            <li><a href="../app/">WOD Clock</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    
+<article class="blog-post">
+    <h1>Cheatsheet for regex expression</h1>
+    <div class="date">2026-06-01</div>
+    <div id="content">
+        
+        <h1 id="the-ultimate-regex-cheatsheet">📑 正则表达式终极速查表 (The Ultimate Regex Cheatsheet)</h1>
+<h3 id="1-the-basics">1. 基础元字符 (The Basics)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">字符</th>
+<th style="text-align: left;">含义</th>
+<th style="text-align: left;">举例</th>
+<th style="text-align: left;">匹配结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong><code>.</code></strong></td>
+<td style="text-align: left;">任意字符（除了换行符）</td>
+<td style="text-align: left;"><code>a.c</code></td>
+<td style="text-align: left;"><code>abc</code>, <code>a!c</code>, <code>a 1c</code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong><code>\d</code></strong></td>
+<td style="text-align: left;">任意数字 (Digit)</td>
+<td style="text-align: left;"><code>\d{3}</code></td>
+<td style="text-align: left;"><code>123</code>, <code>904</code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong><code>\D</code></strong></td>
+<td style="text-align: left;">非数字</td>
+<td style="text-align: left;"><code>\D</code></td>
+<td style="text-align: left;"><code>A</code>, <code>!</code>, <code>空格</code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong><code>\w</code></strong></td>
+<td style="text-align: left;">单词字符 (字母/数字/下划线)</td>
+<td style="text-align: left;"><code>\w+</code></td>
+<td style="text-align: left;"><code>hello</code>, <code>code_123</code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong><code>\W</code></strong></td>
+<td style="text-align: left;">非单词字符</td>
+<td style="text-align: left;"><code>\W</code></td>
+<td style="text-align: left;"><code>!</code>, <code>@</code>, <code></code>, <code>\n</code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong><code>\s</code></strong></td>
+<td style="text-align: left;">空白字符 (空格/Tab/换行)</td>
+<td style="text-align: left;"><code>\s</code></td>
+<td style="text-align: left;"><code></code>, <code>\t</code>, <code>\n</code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong><code>\S</code></strong></td>
+<td style="text-align: left;">非空白字符</td>
+<td style="text-align: left;"><code>\S</code></td>
+<td style="text-align: left;"><code>A</code>, <code>9</code>, <code>*</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="2-character-classes">2. 集合与区间 (Character Classes)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">字符</th>
+<th style="text-align: left;">含义</th>
+<th style="text-align: left;">举例</th>
+<th style="text-align: left;">匹配结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong><code>[abc]</code></strong></td>
+<td style="text-align: left;">字符集，匹配其中任意<strong>一个</strong></td>
+<td style="text-align: left;"><code>[b-d]at</code></td>
+<td style="text-align: left;"><code>bat</code>, <code>cat</code>, <code>dat</code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong><code>[^abc]</code></strong></td>
+<td style="text-align: left;">取反集，匹配<strong>除了</strong>它们以外的</td>
+<td style="text-align: left;"><code>[^0-9]</code></td>
+<td style="text-align: left;">任何非数字字符</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong><code>\|</code></strong></td>
+<td style="text-align: left;">逻辑“或者” (OR)</td>
+<td style="text-align: left;"><code>cat\|dog</code></td>
+<td style="text-align: left;"><code>cat</code> 或者 <code>dog</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="3-quantifiers-personality">3. 量词与匹配性格 (Quantifiers &amp; Personality)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">量词</th>
+<th style="text-align: center;">贪婪模式 (Greedy)</th>
+<th style="text-align: center;">懒惰模式 (Lazy / <code>?</code>)</th>
+<th style="text-align: left;">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong><code>*</code></strong></td>
+<td style="text-align: center;"><code>*</code></td>
+<td style="text-align: center;"><code>*?</code></td>
+<td style="text-align: left;">重复 <strong>0 次或多次</strong></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong><code>+</code></strong></td>
+<td style="text-align: center;"><code>+</code></td>
+<td style="text-align: center;"><code>+?</code></td>
+<td style="text-align: left;">重复 <strong>1 次或多次</strong></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong><code>?</code></strong></td>
+<td style="text-align: center;"><code>?</code></td>
+<td style="text-align: center;"><code>??</code></td>
+<td style="text-align: left;">重复 <strong>0 次或 1 次</strong> (可选)</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong><code>{n}</code></strong></td>
+<td style="text-align: center;"><code>{n}</code></td>
+<td style="text-align: center;">-</td>
+<td style="text-align: left;">必须精准重复 <strong>$n$ 次</strong></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong><code>{n,}</code></strong></td>
+<td style="text-align: center;"><code>{n,}</code></td>
+<td style="text-align: center;"><code>{n,}?</code></td>
+<td style="text-align: left;">至少重复 <strong>$n$ 次</strong></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong><code>{n,m}</code></strong></td>
+<td style="text-align: center;"><code>{n,m}</code></td>
+<td style="text-align: center;"><code>{n,m}?</code></td>
+<td style="text-align: left;">重复 <strong>$n$ 到 $m$ 次</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="4-anchors-">4. 边界锚点 (Anchors - 零宽断言)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">字符</th>
+<th style="text-align: left;">含义</th>
+<th style="text-align: left;">举例</th>
+<th style="text-align: left;">匹配结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong><code>^</code></strong></td>
+<td style="text-align: left;">字符串的<strong>绝对开头</strong> (M模式下为行首)</td>
+<td style="text-align: left;"><code>^Apple</code></td>
+<td style="text-align: left;">必须以 <code>Apple</code> 开头的文本</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong><code>$</code></strong></td>
+<td style="text-align: left;">字符串的<strong>绝对结尾</strong> (M模式下为行尾)</td>
+<td style="text-align: left;"><code>End$</code></td>
+<td style="text-align: left;">必须以 <code>End</code> 结尾的文本</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong><code>\b</code></strong></td>
+<td style="text-align: left;">单词边界 (Word Boundary)</td>
+<td style="text-align: left;"><code>\bcat\b</code></td>
+<td style="text-align: left;">只能是独立的单词 <code>cat</code> (不匹配 <code>cattle</code>)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="5-groups-lookarounds">5. 分组与预查高级特性 (Groups &amp; Lookarounds)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">语法</th>
+<th style="text-align: left;">类型</th>
+<th style="text-align: left;">底层大白话含义</th>
+<th style="text-align: left;">经典应用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><code>(...)</code></strong></td>
+<td style="text-align: left;"><strong>捕获组</strong></td>
+<td style="text-align: left;">打包成整体，并<strong>存入内存口袋</strong></td>
+<td style="text-align: left;">日期格式化重排，重复单词检测</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>\1</code>, <code>\2</code></strong></td>
+<td style="text-align: left;"><strong>反向引用</strong></td>
+<td style="text-align: left;">后面那个位置，必须和前面口袋里装的<strong>一模一样</strong></td>
+<td style="text-align: left;">匹配 <code>&lt;h1&gt;&lt;/h1&gt;</code> 或叠字 <code>AA</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>(?:...)</code></strong></td>
+<td style="text-align: left;"><strong>非捕获组</strong></td>
+<td style="text-align: left;">仅仅为了打包或限定 <code>\|</code> 的范围，<strong>不存入内存</strong></td>
+<td style="text-align: left;"><code>(?:http\|https)://</code> 纯逻辑分流</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>(?=...)</code></strong></td>
+<td style="text-align: left;"><strong>正向肯定预查</strong></td>
+<td style="text-align: left;">往右看，后面<strong>必须是</strong>……（不吃掉字符）</td>
+<td style="text-align: left;">密码强度检查，不含单位的纯数字提取</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>(?!...)</code></strong></td>
+<td style="text-align: left;"><strong>正向否定预查</strong></td>
+<td style="text-align: left;">往右看，后面<strong>绝对不能是</strong>……（不吃掉字符）</td>
+<td style="text-align: left;">限制某些敏感词不能出现在特定位置</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="6-flags">6. 全局标志 (Flags)</h3>
+<p>在正则外部使用（如 <code>/pattern/flags</code>）：
+* <strong><code>g</code> (Global)</strong>: 全局搜索，捞出所有匹配项，而不是找到第一个就躺平。
+* <strong><code>i</code> (Ignore Case)</strong>: 忽略大小写。
+* <strong><code>m</code> (Multiline)</strong>: 多行模式，让 <code>^</code> 和 <code>$</code> 作用于每一行的开头和结尾。
+* <strong><code>s</code> (DotAll)</strong>: 让点号 <code>.</code> 突破封印，可以匹配换行符 <code>\n</code>。</p>
+<hr />
+<h2 id="_1">🚀 推荐学习资源</h2>
+<h3 id="1-regex101">1. 殿堂级可视化调试工具：<a href="https://regex101.com/">Regex101</a></h3>
+<ul>
+<li><strong>功能</strong>：包含实时拆解（Explanation）与状态机匹配步骤（Regex Debugger），可一步步看正则引擎的指针如何移动与回溯。</li>
+<li><strong>推荐引擎</strong>：支持 Python, JavaScript, PCRE, Golang 等。</li>
+</ul>
+<h3 id="2-regexone">2. 闯关式保姆级教程：<a href="https://regexone.com/">RegexOne</a></h3>
+<ul>
+<li><strong>功能</strong>：互动式学习，左边为文字解释，右边提供实际练习题（如提取电话、清洗日志），适合巩固基础。</li>
+</ul>
+<h3 id="3-regex-golf">3. 游戏化进阶：<a href="https://regex.alf.nu/">Regex Golf</a></h3>
+<ul>
+<li><strong>功能</strong>：提供两组单词，通过编写最短、最优雅的正则对两组单词进行完美分流，适合进阶挑战。</li>
+</ul>
+<h3 id="4">4. 推荐书籍</h3>
+<ul>
+<li><strong>《正则表达式必知必会》（Regular Expressions Cookbook）</strong>：作者 Ben Forta。结构清晰，由“问题-解决方案-底层原理”的实际案例组成，适合作为工具书查阅。</li>
+</ul>
+    </div>
+</article>
+
+</main>
+<footer>
+    &copy; 2025 Yao
+</footer>
+
+<script src="../static/script.js"></script>
+<!-- <script src="/static/analytics.js"></script> -->
+
+</body>
+</html>
