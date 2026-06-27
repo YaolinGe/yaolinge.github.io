@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EHMQDJCGE7"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-EHMQDJCGE7');
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Notes for reading DDIA</title>
+    <link rel="stylesheet" href="../static/style.css" />
+    
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a href="../about.html">About</a></li>
+            <li><a href="../posts.html">Posts</a></li>
+            <li><a href="../projects.html">Projects</a></li>
+            <li><a href="../app/">WOD Clock</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    
+<article class="blog-post">
+    <h1>DDIA stands for Design data intensive applications</h1>
+    <div class="date">2026-06-14</div>
+    <div id="content">
+        
+        <h1 id="ch3-storage-and-retrieval">Ch3 Storage and Retrieval</h1>
+<p>Two engines: 
+- log-structured storage engine
+    - basically appending in a log and keep indexes in a hash map
+    - pros: 
+        - appending &amp; segment merging are sequential write, faster than random write
+    - cons: 
+        - hash table has to be in memory
+        - range queries difficult, k1234-4455
+    - SSTables &amp; LSM-Trees
+        - SST(sorted string table), sparse in-memory index table, memtable before saving on disk as SSTable,
+        - one can use red-black trees / AVL trees to maintain the order
+        - log-structured merge-tree
+        - very painful to search as it has to go through, memtable, segment maybe disk, can be mitigated using bloom filter
+        - advantages: sequential -&gt; reduce write amplification, compaction makes storage smaller</p>
+<ul>
+<li>
+<p>page-oritented storage engines (e.g., B-tree)</p>
+<ul>
+<li>balanced trees</li>
+</ul>
+</li>
+<li>
+<p>Transcation processing / analytics</p>
+<ul>
+<li>OLTP (online transcation processing)</li>
+<li>OLAP (online analytic processing)</li>
+</ul>
+</li>
+<li>
+<p>Datawarehousing</p>
+<ul>
+<li>ETL (extract, transform, load)</li>
+<li>Star and snowflake: schemas for analytics</li>
+</ul>
+</li>
+<li>
+<p>Column-oriented storage</p>
+<ul>
+<li>faster to query</li>
+</ul>
+</li>
+</ul>
+<h1 id="ch4-encoding-and-evolution">Ch4, Encoding and Evolution</h1>
+<ul>
+<li>backward: newer code can read data written by older code</li>
+<li>forward: older code can read data written by newer code</li>
+</ul>
+<hr />
+<h1 id="part-ii-distributed-data">Part II, distributed data</h1>
+<hr />
+<h1 id="replication">Replication</h1>
+<h3 id="goal">Goal</h3>
+<ul>
+<li>reduce latency (close to the user)</li>
+<li>increase availability (some cluster may fail)</li>
+<li>increase read throughput</li>
+</ul>
+<h3 id="_1"></h3>
+    </div>
+</article>
+
+</main>
+<footer>
+    &copy; 2025 Yao
+</footer>
+
+<script src="../static/script.js"></script>
+<!-- <script src="/static/analytics.js"></script> -->
+
+</body>
+</html>
