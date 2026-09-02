@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+# Never commit a real ledger to this public repository.
+ledger.csv
+*.csv.tmp
+*.csv.lock

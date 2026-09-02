@@ -1,0 +1,34 @@
+# Raspberry Pi / any systemd box:
+#   sudo cp deploy/money-portal.service /etc/systemd/system/
+#   sudo systemctl daemon-reload && sudo systemctl enable --now money-portal
+# Edit User, paths and the token first.
+[Unit]
+Description=Money portal (self-hosted CSV money tracker)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi/yaolinge.github.io/tools/money-portal
+Environment=MONEY_LEDGER=/home/pi/money/ledger.csv
+Environment=MONEY_HOST=0.0.0.0
+Environment=MONEY_PORT=8787
+Environment=MONEY_CURRENCY=NOK
+Environment=MONEY_TOKEN=change-me
+Environment=MONEY_GIT_SYNC=1
+# Set MONEY_GIT_PUSH=1 only once the remote can be pushed to without a prompt
+# (deploy key or a credential helper), otherwise every write waits on git.
+ExecStart=/usr/bin/python3 server.py
+Restart=on-failure
+RestartSec=5
+
+# The service only ever needs its own directory and the ledger.
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=read-only
+ReadWritePaths=/home/pi/money
+
+[Install]
+WantedBy=multi-user.target
