@@ -1,11 +1,14 @@
 name: Deploy to Azure Static Web Apps
 
+# The production branch is still called gh-pages for historical reasons; the
+# site is served from yaolinge.com by Azure, not by GitHub Pages. main is listed
+# too so renaming the branch does not silently stop deployments.
 on:
   push:
-    branches: [gh-pages]
+    branches: [gh-pages, main]
   pull_request:
     types: [opened, synchronize, reopened, closed]
-    branches: [gh-pages]
+    branches: [gh-pages, main]
 
 permissions:
   contents: read

@@ -1,8 +1,9 @@
 # The admin area
 
 `/admin/` is a signed-in page with two jobs: recording shared expenses, and
-writing blog posts. It runs on Azure Static Web Apps, and the data lives in
-Azure Table Storage.
+writing blog posts. The whole site runs on Azure Static Web Apps at
+**yaolinge.com** - GitHub Pages is not used - and the data lives in Azure Table
+Storage.
 
 ```
 browser -> Static Web Apps (static files + sign-in)
@@ -66,17 +67,76 @@ Put that last value in the repository as the `AZURE_STATIC_WEB_APPS_API_TOKEN`
 secret (Settings, Secrets and variables, Actions), then push. The Standard
 plan is what allows custom roles; the Free plan does not.
 
-### 3. Your domain
+### 3. yaolinge.com
+
+The site is served from `yaolinge.com`, not GitHub Pages. Two names to set up:
+`www.yaolinge.com` is a plain subdomain and easy; the apex `yaolinge.com`
+cannot be a CNAME, because DNS does not allow one at the root of a zone.
+
+First find the name Azure gave the app - everything below points at it:
+
+```bash
+az staticwebapp show --name yaolinge --resource-group money \
+  --query defaultHostname -o tsv
+# something like calm-sand-0a1b2c3d4.6.azurestaticapps.net
+```
+
+**www.yaolinge.com** - validated by the CNAME itself:
 
 ```bash
 az staticwebapp hostname set --name yaolinge --resource-group money \
-  --hostname yaolinge.github.io
+  --hostname www.yaolinge.com
 ```
 
-Azure prints the DNS record to add. Until DNS moves, the site is also live on
-the `*.azurestaticapps.net` name Azure gives you.
+At your registrar: a `CNAME` record, host `www`, value the default hostname
+above (no `https://`).
 
-### 4. Give yourself the owner role
+**yaolinge.com** - validated by a TXT record, then pointed with ALIAS:
+
+```bash
+az staticwebapp hostname set --name yaolinge --resource-group money \
+  --hostname yaolinge.com --validation-method dns-txt-token
+
+az staticwebapp hostname show --name yaolinge --resource-group money \
+  --hostname yaolinge.com --query validationToken -o tsv
+```
+
+At your registrar, two records on the root:
+
+| Type | Host | Value |
+|------|------|-------|
+| `TXT` | `@` | the validation token printed above |
+| `ALIAS` (or `ANAME`, or CNAME flattening) | `@` | the default hostname, no `https://` |
+
+If your registrar has none of ALIAS, ANAME or CNAME flattening, you have two
+fallbacks. Either forward the apex to `www` at the registrar, or use an `A`
+record pointing at the app's `stableInboundIP` (portal, Overview, JSON View).
+The `A` record works, but it pins the site to one region and gives up the
+global distribution, so prefer ALIAS where you can get it.
+
+Apex DNS changes can take up to 72 hours to propagate. Certificates are issued
+and renewed by Azure automatically once validation passes. Until DNS moves, the
+site is live on the `*.azurestaticapps.net` name.
+
+### 4. Turn GitHub Pages off
+
+Nothing here depends on Pages any more, and leaving it on means the same
+content is served from two places.
+
+Repository **Settings**, **Pages**, set the source to **None**. There is no
+`CNAME` file in the repo and there should not be one - that file is a Pages
+mechanism and Azure ignores it.
+
+Two consequences worth knowing:
+
+* Links to `yaolinge.github.io` will stop working rather than redirecting.
+  If you would rather keep them alive for a while, leave Pages on with a branch
+  that contains only a redirect stub, and turn it off later.
+* The repository is still *named* `yaolinge.github.io`. That is only a name now;
+  rename it if you like, and update the clone path in the money repo's README if
+  you do.
+
+### 5. Give yourself the owner role
 
 Azure portal, your Static Web App, **Role management**, **Invite**:
 
@@ -86,7 +146,7 @@ Azure portal, your Static Web App, **Role management**, **Invite**:
 
 Open the invite link while signed in as that user. Then `/admin/` works.
 
-### 5. Invite your girlfriend
+### 6. Invite your girlfriend
 
 Same screen, her GitHub username, role `money` only. She gets the money page
 and nothing else - no blog, no import, no delete of posts. Send her the invite
