@@ -1,0 +1,23 @@
+{
+  "name": "yaolinge-api",
+  "version": "1.0.0",
+  "description": "Azure Functions API behind the admin area: money tracking and blog posts.",
+  "private": true,
+  "type": "module",
+  "main": "src/index.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "func start",
+    "test": "node --test",
+    "dev": "node ../scripts/dev-server.mjs"
+  },
+  "dependencies": {
+    "@azure/data-tables": "^13.3.1",
+    "@azure/functions": "^4.7.2"
+  },
+  "devDependencies": {
+    "azurite": "^3.35.0"
+  }
+}

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Admin</title>
+    <link rel="stylesheet" href="../static/style.css" />
+    <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../posts.html">Posts</a></li>
+            <li><a href="#" id="tabMoneyLink">Money</a></li>
+            <li><a href="#" id="tabBlogLink">Write</a></li>
+            <li><a href="/logout">Sign out</a></li>
+        </ul>
+    </nav>
+    <p class="whoami" id="whoami">checking who you are...</p>
+</header>
+
+<main class="admin">
+    <p id="banner" class="banner" hidden></p>
+
+    <!-- ---------------------------------------------------------------- Money -->
+    <section id="moneyPanel" class="panel">
+        <h1 class="balance" id="balanceSentence">loading...</h1>
+        <div class="people" id="people"></div>
+
+        <div id="duplicates" class="notice" hidden></div>
+
+        <form id="expenseForm" autocomplete="off">
+            <div class="field">
+                <label for="amount">Amount (kr)</label>
+                <input id="amount" name="amount" type="text" inputmode="decimal"
+                       placeholder="0.00" required />
+            </div>
+
+            <div class="field">
+                <span class="label">Paid by</span>
+                <div class="toggle" id="payerToggle" role="radiogroup" aria-label="Paid by"></div>
+            </div>
+
+            <div class="field">
+                <span class="label">Whose expense</span>
+                <div class="toggle" id="typeToggle" role="radiogroup" aria-label="Whose expense"></div>
+                <p class="hint" id="typeHint"></p>
+            </div>
+
+            <div class="field">
+                <label for="category">Category</label>
+                <div class="chips" id="categoryChips"></div>
+                <input id="category" name="category" type="text" list="categoryList"
+                       placeholder="grocery" required />
+                <datalist id="categoryList"></datalist>
+            </div>
+
+            <div class="two-up">
+                <div class="field">
+                    <label for="date">Date</label>
+                    <input id="date" name="date" type="date" required />
+                </div>
+                <div class="field">
+                    <label for="description">Description</label>
+                    <input id="description" name="description" type="text" placeholder="what was it for" />
+                </div>
+            </div>
+
+            <div class="actions">
+                <button type="submit" id="addExpense">Add row</button>
+                <a class="secondary" id="exportYao" href="/api/expenses/export?payer=y">yao.csv</a>
+                <a class="secondary" id="exportVollum" href="/api/expenses/export?payer=v">vollum.csv</a>
+            </div>
+            <p class="message" id="expenseMessage" aria-live="polite"></p>
+        </form>
+
+        <h2>Spending by category</h2>
+        <div class="bars" id="categoryBars"></div>
+
+        <h2>Rows</h2>
+        <div class="two-up">
+            <div class="field">
+                <label for="monthFilter">Month</label>
+                <select id="monthFilter"></select>
+            </div>
+            <div class="field">
+                <label for="searchInput">Search</label>
+                <input id="searchInput" type="search" placeholder="description or category" />
+            </div>
+        </div>
+        <ul class="rows" id="expenseList"></ul>
+        <p class="hint" id="noRows" hidden>Nothing matches.</p>
+    </section>
+
+    <!-- ----------------------------------------------------------------- Blog -->
+    <section id="blogPanel" class="panel" hidden>
+        <div class="two-up">
+            <div class="field">
+                <label for="postTitle">Title</label>
+                <input id="postTitle" type="text" placeholder="What it is about" />
+            </div>
+            <div class="field">
+                <label for="postDate">Date</label>
+                <input id="postDate" type="date" />
+            </div>
+        </div>
+        <div class="two-up">
+            <div class="field">
+                <label for="postSlug">URL name</label>
+                <input id="postSlug" type="text" placeholder="auto from the title" />
+            </div>
+            <div class="field">
+                <label for="postStatus">Status</label>
+                <select id="postStatus">
+                    <option value="draft">Draft</option>
+                    <option value="published">Published</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="field">
+            <label for="postBody">Markdown</label>
+            <textarea id="postBody" rows="18" spellcheck="true"
+                      placeholder="# Heading&#10;&#10;Write here. **bold**, `code`, - lists, | tables |."></textarea>
+        </div>
+
+        <div class="actions">
+            <button type="button" id="savePost">Save</button>
+            <button type="button" class="secondary" id="newPost">New post</button>
+            <button type="button" class="secondary" id="togglePreview">Preview</button>
+            <button type="button" class="danger" id="deletePost" hidden>Delete</button>
+        </div>
+        <p class="message" id="postMessage" aria-live="polite"></p>
+
+        <article class="blog-post preview" id="postPreview" hidden></article>
+
+        <h2>Your posts</h2>
+        <ul class="rows" id="postList"></ul>
+    </section>
+</main>
+
+<footer>
+    &copy; 2025 Yao
+</footer>
+<script src="admin.js"></script>
+</body>
+</html>

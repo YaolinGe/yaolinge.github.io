@@ -1,0 +1,186 @@
+/* Admin-only styles. The base look comes from ../static/style.css; this file
+   only adds the pieces the public site does not have: forms, toggles, bars. */
+
+/* The base stylesheet gives .panel and .blog-post an explicit display, and an
+   author rule beats the browser's own [hidden] rule - so say it here, once. */
+[hidden] { display: none !important; }
+
+main.admin {
+    max-width: min(70ch, 92vw);
+}
+
+.whoami {
+    text-align: center;
+    color: #aaa;
+    font-size: 0.85em;
+    margin-top: 0.75em;
+}
+
+.panel { display: flex; flex-direction: column; gap: 1.2em; }
+
+h1.balance {
+    font-size: 1.8em;
+    margin: 0;
+    line-height: 1.2;
+    color: #ffffff;
+}
+
+h2 { font-size: 1.1em; margin: 0.6em 0 0; color: #ffffff; }
+
+.people { display: flex; gap: 1em; flex-wrap: wrap; }
+
+.person {
+    flex: 1 1 12em;
+    border: 1px solid #333;
+    border-left: 3px solid #fa6432;
+    border-radius: 5px;
+    padding: 0.7em 0.9em;
+    font-size: 0.9em;
+}
+
+.person[data-person="v"] { border-left-color: #64b5f6; }
+.person b { display: block; color: #fff; margin-bottom: 0.25em; }
+.person span { display: block; color: #aaa; }
+.person var { font-style: normal; color: #e0e0e0; }
+
+.banner, .notice {
+    border: 1px solid #fa6432;
+    border-radius: 5px;
+    padding: 0.75em 1em;
+    color: #fa6432;
+    font-size: 0.9em;
+}
+
+.notice ul { margin: 0.4em 0 0 1em; padding: 0; }
+
+form { display: flex; flex-direction: column; gap: 1em; }
+
+.field { display: flex; flex-direction: column; gap: 0.35em; }
+.field label, .field .label { font-weight: 600; font-size: 0.9em; }
+.hint { color: #aaa; font-size: 0.85em; margin: 0; }
+
+.two-up { display: flex; gap: 1em; flex-wrap: wrap; }
+.two-up > .field { flex: 1 1 12em; }
+
+input, select, textarea, button {
+    font: inherit;
+    color: #e0e0e0;
+    background: #222;
+    border: 1px solid #333;
+    border-radius: 5px;
+    padding: 0.55em 0.7em;
+    width: 100%;
+}
+
+textarea { font-family: monospace, monospace; line-height: 1.5; resize: vertical; }
+input:focus, select:focus, textarea:focus { outline: 2px solid #fa6432; outline-offset: 1px; }
+
+#amount { font-size: 1.8em; padding: 0.3em 0.5em; }
+
+.toggle { display: flex; gap: 0.5em; flex-wrap: wrap; }
+
+.toggle button {
+    flex: 1 1 8em;
+    background: #222;
+    color: #aaa;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.toggle button[aria-checked="true"] { color: #fff; border-color: #fa6432; background: #2d2018; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 0.4em; }
+
+.chips button {
+    width: auto;
+    background: #222;
+    color: #aaa;
+    border-radius: 999px;
+    padding: 0.25em 0.8em;
+    font-size: 0.85em;
+    cursor: pointer;
+}
+
+.chips button[aria-pressed="true"] { color: #fff; border-color: #fa6432; }
+
+.actions { display: flex; gap: 0.6em; flex-wrap: wrap; align-items: center; }
+
+.actions button, .actions .secondary {
+    width: auto;
+    cursor: pointer;
+    background: #fa6432;
+    color: #1a1a1a;
+    font-weight: 700;
+    border-color: #fa6432;
+    text-decoration: none;
+    padding: 0.55em 1.1em;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.actions .secondary, .actions button.secondary {
+    background: transparent;
+    color: #aaa;
+    border: 1px solid #333;
+    font-weight: 500;
+}
+
+.actions button.danger { background: transparent; color: #fa6432; border: 1px solid #fa6432; }
+.actions button:disabled { opacity: 0.6; cursor: progress; }
+
+.message { min-height: 1.3em; margin: 0; font-size: 0.9em; color: #aaa; }
+.message.error { color: #fa6432; }
+.message.ok { color: #7cd992; }
+
+.bars { display: flex; flex-direction: column; gap: 0.4em; }
+
+.bar {
+    display: grid;
+    grid-template-columns: 7em 1fr auto;
+    align-items: center;
+    gap: 0.7em;
+    font-size: 0.88em;
+}
+
+.bar-track { background: #222; border-radius: 999px; height: 0.5em; overflow: hidden; }
+.bar-fill { background: #fa6432; height: 100%; }
+
+.rows { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.4em; }
+
+.row {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    gap: 0.7em;
+    border: 1px solid #333;
+    border-left: 3px solid #fa6432;
+    border-radius: 5px;
+    padding: 0.55em 0.75em;
+    font-size: 0.9em;
+}
+
+.row[data-payer="v"] { border-left-color: #64b5f6; }
+.row[data-status="draft"] { border-left-color: #666; }
+.row-main { min-width: 0; }
+.row-title { font-weight: 600; overflow-wrap: anywhere; }
+.row-meta { color: #aaa; font-size: 0.85em; }
+.row-amount { white-space: nowrap; font-weight: 700; }
+
+.row button, .row a.edit {
+    width: auto;
+    background: transparent;
+    color: #aaa;
+    border: 1px solid #333;
+    padding: 0.25em 0.6em;
+    font-size: 0.85em;
+    cursor: pointer;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.preview { border: 1px dashed #333; border-radius: 5px; }
+
+@media (max-width: 700px) {
+    main.admin { max-width: 94vw; }
+    .two-up { flex-direction: column; }
+}

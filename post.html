@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EHMQDJCGE7"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-EHMQDJCGE7');
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Post</title>
+    <link rel="stylesheet" href="static/style.css" />
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a href="about.html">About</a></li>
+            <li><a href="posts.html">Posts</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="app/">WOD Clock</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+<article class="blog-post">
+    <h1 id="postTitle">Loading...</h1>
+    <div class="date" id="postDate"></div>
+    <div id="content"></div>
+</article>
+</main>
+<footer>
+    &copy; 2025 Yao
+</footer>
+
+<script>
+/* Posts live in the database and were rendered to HTML when they were saved,
+   so this page only has to fetch and place them. */
+(async function () {
+    const slug = new URLSearchParams(location.search).get("slug") || "";
+    const title = document.getElementById("postTitle");
+    const date = document.getElementById("postDate");
+    const content = document.getElementById("content");
+
+    if (!/^[a-z0-9][a-z0-9-]{0,79}$/.test(slug)) {
+        title.textContent = "Not found";
+        content.textContent = "That link does not point at a post.";
+        return;
+    }
+    try {
+        const response = await fetch(`/api/posts/${encodeURIComponent(slug)}`);
+        const payload = await response.json();
+        if (!response.ok) throw new Error(payload.error || `error ${response.status}`);
+        document.title = payload.post.title;
+        title.textContent = payload.post.title;
+        date.textContent = payload.post.date;
+        content.innerHTML = payload.post.html;
+    } catch (error) {
+        title.textContent = "Not found";
+        content.textContent = error.message;
+    }
+})();
+</script>
+<script src="static/script.js"></script>
+</body>
+</html>

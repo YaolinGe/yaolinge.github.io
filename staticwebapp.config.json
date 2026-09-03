@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json.schemastore.org/staticwebapp.config.json",
+  "trailingSlash": "auto",
+  "routes": [
+    { "route": "/admin", "redirect": "/admin/", "statusCode": 301 },
+    { "route": "/admin/*", "allowedRoles": ["money", "owner"] },
+
+    { "route": "/api/me", "allowedRoles": ["anonymous"] },
+    { "route": "/api/posts", "methods": ["GET"], "allowedRoles": ["anonymous"] },
+    { "route": "/api/posts/*", "methods": ["GET"], "allowedRoles": ["anonymous"] },
+    { "route": "/api/posts", "methods": ["POST"], "allowedRoles": ["owner"] },
+    { "route": "/api/posts/*", "methods": ["DELETE"], "allowedRoles": ["owner"] },
+    { "route": "/api/expenses/import", "allowedRoles": ["owner"] },
+    { "route": "/api/expenses/*", "allowedRoles": ["money", "owner"] },
+    { "route": "/api/expenses", "allowedRoles": ["money", "owner"] },
+
+    { "route": "/login", "rewrite": "/.auth/login/github" },
+    { "route": "/logout", "rewrite": "/.auth/logout" },
+    { "route": "/.auth/login/twitter", "statusCode": 404 }
+  ],
+  "responseOverrides": {
+    "401": { "statusCode": 302, "redirect": "/.auth/login/github?post_login_redirect_uri=/admin/" },
+    "403": { "rewrite": "/403.html" },
+    "404": { "rewrite": "/404.html" }
+  },
+  "globalHeaders": {
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "strict-origin-when-cross-origin",
+    "X-Frame-Options": "SAMEORIGIN"
+  },
+  "mimeTypes": {
+    ".json": "application/json",
+    ".md": "text/markdown"
+  },
+  "navigationFallback": {
+    "rewrite": "/404.html",
+    "exclude": ["/assets/*", "/static/*", "/blogs/*", "/api/*", "/*.{css,js,png,jpg,jpeg,svg,ico,pdf,webp,mp4}"]
+  }
+}

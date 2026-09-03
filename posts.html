@@ -29,7 +29,7 @@
 </header>
 <main>
     
-<ul class="blog-list">
+<ul class="blog-list" id="postList">
     
     <li>
         <a href="blogs/2026-06-14-design-data-intensive-applications.html">
@@ -289,6 +289,38 @@
 <footer>
     &copy; 2025 Yao
 </footer>
+
+<script>
+/* The list comes from the database. The markup above is the same list as it
+   was when this file was last deployed: it renders with no JavaScript, and is
+   replaced by the live one as soon as it arrives. */
+(async function () {
+    const list = document.getElementById("postList");
+    if (!list) return;
+    try {
+        const response = await fetch("/api/posts");
+        if (!response.ok) return;
+        const { posts } = await response.json();
+        if (!Array.isArray(posts) || posts.length === 0) return;
+        list.textContent = "";
+        for (const post of posts) {
+            const item = document.createElement("li");
+            const link = document.createElement("a");
+            link.href = post.legacyPath || `post.html?slug=${encodeURIComponent(post.slug)}`;
+            const strong = document.createElement("strong");
+            strong.textContent = post.title;
+            link.append(strong);
+            const date = document.createElement("span");
+            date.className = "date";
+            date.textContent = post.date;
+            item.append(link, "\u2003|\u2003", date);
+            list.append(item);
+        }
+    } catch {
+        /* leave the static list in place */
+    }
+})();
+</script>
 
 <script src="static/script.js"></script>
 <!-- <script src="/static/analytics.js"></script> -->
